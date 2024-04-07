@@ -1,0 +1,33 @@
+"use client";
+import { cn, containerVariants } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { ReactNode } from "react";
+
+type PageTransitionContainerProps = {
+  children: ReactNode;
+  margin?: "right" | "none" | "both";
+};
+
+export const PageTransitionContainer = ({
+  children,
+  margin = "both",
+}: PageTransitionContainerProps) => {
+  return (
+    <motion.div
+      className={cn(
+        "flex flex-col items-center justify-center gap-8 mx-auto sm:gap-2 sm:flex-row h-[calc(100vh-6rem)]",
+        containerVariants(),
+        {
+          "lg:mr-0 lg:ml-[calc((100vw-1024px)/2)] lg:max-w-[calc(1024px+((100vw-1024px)/2))]":
+            margin === "right",
+          "max-w-full lg:mx-0 lg:max-w-full": margin === "none",
+        }
+      )}
+      initial={{ y: "-200vh" }}
+      animate={{ y: "0%" }}
+      transition={{ duration: 1 }}
+    >
+      {children}
+    </motion.div>
+  );
+};
