@@ -10,7 +10,8 @@ export const linkVariants = cva("", {
   variants: {
     variant: {
       default: "",
-      active: "bg-slate-900 text-slate-50 dark:bg-slate-50 dark:text-slate-900",
+      active:
+        "bg-slate-900 text-slate-50 dark:bg-slate-50 dark:text-slate-900 hover:bg-slate-900/80 transition-all duration-75 ease-in-out",
     },
   },
   defaultVariants: {

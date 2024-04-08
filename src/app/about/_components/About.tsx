@@ -2,7 +2,9 @@
 import Brain from "@/app/about/_components/Brain";
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
 import { ScrollSvg } from "@/components/ScrollSvg";
+import { cn, linkVariants } from "@/lib/utils";
 import { motion, useInView, useScroll } from "framer-motion";
+import Link from "next/link";
 import { useRef } from "react";
 
 type AboutProps = {};
@@ -10,9 +12,7 @@ type AboutProps = {};
 const Signature = () => {
   return (
     <svg
-      className="stroke-foreground"
-      width="303"
-      height="156"
+      className="stroke-foreground w-[200px] h-[130px]"
       viewBox="0 0 303 156"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -39,6 +39,7 @@ const skills = [
   "Tailwind",
   "React",
   "Next.js",
+  "SQL",
 ];
 
 const JobTimeline = ({
@@ -48,18 +49,32 @@ const JobTimeline = ({
   jobCompany,
 }: {
   jobTitle: string;
-  jobDescription: string;
+  jobDescription: string[];
   jobDate: string;
   jobCompany: string;
 }) => {
   return (
     <div className="flex justify-between gap-4 even:flex-row-reverse">
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col gap-2">
         <div className="bg-primary text-primary-foreground p-3 font-semibold rounded-b-lg rounded-s-lg">
           {jobTitle}
         </div>
-        <div className="p-3 text-sm italic">{jobDescription}</div>
-        <div className="p-3 text-red-400 text-sm font-semibold">{jobDate}</div>
+
+        <div className="flex flex-col gap-2 relative text-sm italic pl-2">
+          {jobDescription.map((item, index) => (
+            <div
+              key={index}
+              className={cn("flex justify-center gap-2", {
+                "hidden lg:flex": index > 2,
+              })}
+            >
+              <div className="relative top-[3px] h-3 w-3 bg-foreground shrink-0"></div>
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-red-400 text-sm font-semibold">{jobDate}</div>
 
         <div className="p-1 rounded bg-primary text-primary-foreground text-sm font-semibold w-fit">
           {jobCompany}
@@ -79,23 +94,18 @@ const JobTimeline = ({
 };
 
 const Biography = () => {
+  const content =
+    "Hello and welcome! I'm Jonathan Pradas, a self-taught full-stack web developer and certified public accountant with a passion for crafting efficient solutions and leveraging technology to drive business success.";
+  const subcontent =
+    "I am deeply passionate about leveraging technology to solve complex problems and optimize business operations. Whether it's designing intuitive user interfaces, optimizing database performance, or developing custom macros, I thrive on the challenge of turning ideas into reality and delivering tangible results that exceed expectations.";
   return (
     <div className="flex flex-col gap-12 justify-center min-h-[calc(100vh-6rem)]">
-      <h1>biography</h1>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa
-        reprehenderit, sit esse voluptates magni eius perferendis asperiores
-        consequuntur quibusdam? Molestiae voluptatibus eum, amet animi
-        repudiandae aliquam? Eaque, iste. Neque, quae!
-      </p>
-      <span className="italic">
-        reprehenderit, sit esse voluptates magni eius perferendis asperiores
-      </span>
-      <div>
-        <Signature />
-      </div>
-      <div>
+      <h1>About me</h1>
+      <p>{content}</p>
+      <span className="italic">{subcontent}</span>
+      <div className="flex justify-between">
         <ScrollSvg elementID="skills-section" />
+        {/* <Signature /> */}
       </div>
     </div>
   );
@@ -143,6 +153,39 @@ const Skills = () => {
   );
 };
 
+type Experience = {
+  jobCompany: string;
+  jobDate: string;
+  jobDescription: string[];
+  jobTitle: string;
+};
+
+const experienceList: Experience[] = [
+  {
+    jobCompany: "Freelancer.ph",
+    jobDate: "2016 - Present",
+    jobDescription: [
+      "Develop and maintain responsive web applications using JavaScript, HTML, and CSS.",
+      "Design and implement efficient database solutions using MySQL and PostgreSQL.",
+      "Collaborate with clients to understand their financial management needs and challenges.",
+      "Develop custom solutions using MS Access, MS Excel, and VBA to automate financial processes and improve reporting accuracy.",
+      "Provide ongoing support and maintenance for existing web applications and financial systems.",
+    ],
+    jobTitle: "Freelancer",
+  },
+  {
+    jobCompany: "Vibram Manufacturing Corporation",
+    jobDate: "2016 - Present",
+    jobDescription: [
+      "Design, develop, and implement robust financial systems and processes to streamline accounting operations.",
+      "Collaborate with cross-functional teams to understand business requirements and translate them into functional financial system specifications.",
+      "Evaluate existing financial systems and identify areas for improvement, automation, and optimization.",
+      "Customize and configure accounting software to align with organizational workflows and reporting requirements.",
+    ],
+    jobTitle: "Accounting Officer",
+  },
+];
+
 const Experience = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
@@ -154,7 +197,7 @@ const Experience = () => {
   };
   return (
     <div
-      className="flex min-h-[calc(100vh-6rem)] items-center"
+      className="flex"
       id="experience-section"
     >
       <div
@@ -166,24 +209,66 @@ const Experience = () => {
           className="flex flex-col "
           {...enterAnimationProps}
         >
-          <JobTimeline
-            jobCompany="apple"
-            jobDate="2024 - Present"
-            jobDescription="Some job description"
-            jobTitle="Senior Javascript Enginer"
-          />
-          <JobTimeline
-            jobCompany="freelancer"
-            jobDate="2024 - Present"
-            jobDescription="Some job description"
-            jobTitle="Senior React Engineer"
-          />
-          <JobTimeline
-            jobCompany="olj"
-            jobDate="2024 - Present"
-            jobDescription="Some job description"
-            jobTitle="Freelancer"
-          />
+          {experienceList.map((experience) => {
+            return (
+              <JobTimeline
+                key={experience.jobCompany}
+                jobCompany={experience.jobCompany}
+                jobDate={experience.jobDate}
+                jobDescription={experience.jobDescription}
+                jobTitle={experience.jobTitle}
+              />
+            );
+          })}
+        </motion.div>
+        <div>
+          <ScrollSvg elementID="last-section" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const LastSection = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "100px" });
+
+  const enterAnimationProps = {
+    initial: { x: "-300px" },
+    animate: inView ? { x: 0 } : {},
+    transition: { delay: 0.2 },
+  };
+  return (
+    <div
+      className="flex min-h-[calc(100vh-6rem)] w-full items-center justify-center"
+      id="last-section"
+    >
+      <div
+        ref={ref}
+        className="flex flex-row gap-8 items-center"
+      >
+        <motion.div
+          className="flex flex-col gap-8 items-center"
+          {...enterAnimationProps}
+        >
+          <Link
+            href="/portfolio"
+            className={cn(
+              "px-4 py-2 rounded-sm text-3xl",
+              linkVariants({ variant: "active" })
+            )}
+          >
+            View My Works
+          </Link>
+          <div className="text-2xl">OR</div>
+          <Link
+            href="/contact"
+            className={cn(
+              "px-4 py-2 font-semibold rounded-sm border border-border text-3xl "
+            )}
+          >
+            Contact Me
+          </Link>
         </motion.div>
       </div>
     </div>
@@ -210,6 +295,8 @@ export const About = ({}: AboutProps) => {
           <Skills />
           {/* Experience */}
           <Experience />
+          {/* Last Section */}
+          <LastSection />
         </div>
         {/* SVG */}
         <div className="hidden sm:flex w-1/3 lg:w-1/2 sticky top-0">

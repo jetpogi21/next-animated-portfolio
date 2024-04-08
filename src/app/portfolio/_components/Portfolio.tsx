@@ -140,7 +140,7 @@ export const Portfolio = ({}: PortfolioProps) => {
             <ScrollSvg elementID="scrollable" />
           </div>
 
-          <div className="flex min-h-[calc(100vh-6rem)]  sticky top-0 overflow-x-hidden">
+          <div className="flex min-h-[calc(100vh-6rem)]  sticky top-0 overflow-hidden">
             <motion.div
               id="scrollable"
               className="flex"
