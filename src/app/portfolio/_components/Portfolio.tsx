@@ -13,6 +13,7 @@ import Image from "next/image";
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { ScrollSvg } from "@/components/ScrollSvg";
 
 type PortfolioProps = {};
 
@@ -87,19 +88,19 @@ const LastSlide = () => {
           <motion.svg
             animate={{ rotate: 360 }}
             transition={{ duration: 8, ease: "linear", repeat: Infinity }}
-            viewBox="0 0 300 300"
-            className="w-64 h-64 md:w-[500px] md:h-[500px] "
+            viewBox="0 0 500 500" // Adjusted viewBox size
+            className="w-[600px] h-[600px]" // Adjusted className dimensions
           >
             <defs>
               <path
                 id="circlePath"
-                d="M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 "
+                d="M 250, 250 m -100, 0 a 100,100 0 0,1 200,0 a 100,100 0 0,1 -200,0 " // Adjusted path to match the new viewBox size
               />
             </defs>
-            <text fill="#000">
+            <text className="fill-foreground">
               <textPath
                 xlinkHref="#circlePath"
-                className="text-xl stroke-foreground"
+                className="text-3xl font-semibold"
               >
                 Front-end Developer and UI Designer
               </textPath>
@@ -107,7 +108,7 @@ const LastSlide = () => {
           </motion.svg>
           <Link
             href="/contact"
-            className="w-32 h-32 md:w-28 md:h-28 absolute top-0 left-0 right-0 bottom-0 m-auto bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-semibold"
+            className="w-48 h-48 md:w-48 md:h-48 absolute top-0 left-0 right-0 bottom-0 m-auto bg-primary text-primary-foreground rounded-full flex items-center justify-center text-4xl text-center font-semibold"
           >
             Hire Me
           </Link>
@@ -134,12 +135,14 @@ export const Portfolio = ({}: PortfolioProps) => {
           className="flex h-full flex-col scrollbar-thin overflow-y-auto scrollbar-thumb-white scrollbar-track-transparent"
           ref={containerRef}
         >
-          <div className="flex min-h-[calc(100vh-6rem)] items-center justify-center">
-            <h1>My Works</h1>
+          <div className="flex flex-col min-h-[calc(100vh-6rem)] items-center justify-center gap-16">
+            <h1 className="text-8xl text-center">My Works</h1>
+            <ScrollSvg elementID="scrollable" />
           </div>
 
           <div className="flex min-h-[calc(100vh-6rem)]  sticky top-0 overflow-x-hidden">
             <motion.div
+              id="scrollable"
               className="flex"
               style={{ x }}
             >
@@ -157,7 +160,7 @@ export const Portfolio = ({}: PortfolioProps) => {
                       )}
                     >
                       <h1>{item.name}</h1>
-                      <div className="relative h-full max-h-[500px] w-full">
+                      <div className="relative h-full max-h-[400px] w-full">
                         <Image
                           src={"/placeholder.jpg"}
                           alt="placeholder.jpg"
@@ -182,6 +185,7 @@ export const Portfolio = ({}: PortfolioProps) => {
           {Array.from({ length: portfolioItems.length }).map((_, index) => {
             return (
               <div
+                id={`scroll-div-${index}`}
                 key={index}
                 className="min-h-[calc(100vh)]"
               ></div>

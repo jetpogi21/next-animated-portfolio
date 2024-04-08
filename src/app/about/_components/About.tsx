@@ -1,10 +1,8 @@
 "use client";
 import Brain from "@/app/about/_components/Brain";
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
-import { cn, containerVariants, linkVariants } from "@/lib/utils";
+import { ScrollSvg } from "@/components/ScrollSvg";
 import { motion, useInView, useScroll } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 
 type AboutProps = {};
@@ -12,7 +10,7 @@ type AboutProps = {};
 const Signature = () => {
   return (
     <svg
-      className="dark:stroke-slate-50"
+      className="stroke-foreground"
       width="303"
       height="156"
       viewBox="0 0 303 156"
@@ -25,37 +23,6 @@ const Signature = () => {
         strokeLinecap="round"
       />
     </svg>
-  );
-};
-
-const ScrollSvg = () => {
-  return (
-    <motion.svg
-      initial={{ opacity: 0.2, y: 0 }}
-      animate={{ opacity: 1, y: "10px" }}
-      transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      width={50}
-      height={50}
-    >
-      <path
-        d="M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z"
-        stroke="#000000"
-        strokeWidth="1"
-      ></path>
-      <path
-        d="M12 6V14"
-        stroke="#000000"
-        strokeWidth="1"
-      ></path>
-      <path
-        d="M15 11L12 14L9 11"
-        stroke="#000000"
-        strokeWidth="1"
-      ></path>
-    </motion.svg>
   );
 };
 
@@ -128,7 +95,7 @@ const Biography = () => {
         <Signature />
       </div>
       <div>
-        <ScrollSvg />
+        <ScrollSvg elementID="skills-section" />
       </div>
     </div>
   );
@@ -144,7 +111,10 @@ const Skills = () => {
     transition: { delay: 0.2 },
   };
   return (
-    <div className="flex min-h-[calc(100vh-6rem)] items-center">
+    <div
+      className="flex min-h-[calc(100vh-6rem)] items-center"
+      id="skills-section"
+    >
       <div
         ref={ref}
         className="flex flex-col gap-8"
@@ -166,7 +136,7 @@ const Skills = () => {
           })}
         </motion.div>
         <div>
-          <ScrollSvg />
+          <ScrollSvg elementID="experience-section" />
         </div>
       </div>
     </div>
@@ -183,7 +153,10 @@ const Experience = () => {
     transition: { delay: 0.2 },
   };
   return (
-    <div className="flex min-h-[calc(100vh-6rem)] items-center">
+    <div
+      className="flex min-h-[calc(100vh-6rem)] items-center"
+      id="experience-section"
+    >
       <div
         ref={ref}
         className="flex flex-col gap-8 w-full"
@@ -223,14 +196,14 @@ export const About = ({}: AboutProps) => {
   const { scrollYProgress } = useScroll({ container: containerRef });
 
   return (
-    <PageTransitionContainer removeRightMargin={true}>
+    <PageTransitionContainer margin="right">
       {/* Main container */}
       <div
         className="flex overflow-y-scroll h-full gap-10 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-slate-400 scrollbar-track-transparent scrollbar-thin"
         ref={containerRef}
       >
         {/* Text container */}
-        <div className="w-full sm:w-2/3 flex flex-col">
+        <div className="w-full sm:w-2/3 flex flex-col pr-8 sm:pr-0">
           {/* Biography */}
           <Biography />
           {/* Skill */}

@@ -1,7 +1,9 @@
+import { Contact } from "@/app/contact/_components/Contact";
+
 type ContactPageProps = {};
 
 export const ContactPage = ({}: ContactPageProps) => {
-  return <div>ContactPage</div>;
+  return <Contact />;
 };
 
 export default ContactPage;

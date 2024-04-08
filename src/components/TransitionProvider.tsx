@@ -22,7 +22,7 @@ export const TransitionProvider = ({ children }: TransitionProviderProps) => {
         />
 
         <motion.div
-          className="m-auto h-fit w-fit fixed flex items-center justify-center text-3xl z-30 text-white inset-0 capitalize cursor-default"
+          className="m-auto h-fit w-fit fixed flex items-center justify-center text-8xl z-30 text-white inset-0 capitalize cursor-default"
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
@@ -45,7 +45,7 @@ export const TransitionProvider = ({ children }: TransitionProviderProps) => {
         <div className="h-[--header-h]">
           <Navbar />
         </div>
-        <div>{children}</div>
+        <div className="overflow-y-hidden">{children}</div>
       </div>
     </AnimatePresence>
   );

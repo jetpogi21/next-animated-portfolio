@@ -28,7 +28,7 @@ export const Home = ({}: HomeProps) => {
           development together. Feel free to explore, ask questions, or chat!
           Happy browsing! 🚀
         </p>
-        <div className="flex gap-4">
+        <div className="flex gap-4 pb-16 lg:pb-0">
           <Link
             href="/portfolio"
             className={cn(
@@ -41,7 +41,7 @@ export const Home = ({}: HomeProps) => {
           <Link
             href="/contact"
             className={cn(
-              "px-4 py-2 font-semibold rounded-sm border border-slate-50"
+              "px-4 py-2 font-semibold rounded-sm border border-border"
             )}
           >
             Contact Me

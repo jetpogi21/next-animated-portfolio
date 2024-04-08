@@ -110,6 +110,7 @@ export const ResponsiveMenuButton = ({
             open: { d: "M 3 16.5 L 17 2.5" },
           }}
           animate={open ? "open" : "closed"}
+          className="stroke-foreground"
         />
         <Path
           d="M 2 9.423 L 20 9.423"
@@ -119,6 +120,7 @@ export const ResponsiveMenuButton = ({
           }}
           transition={{ duration: 0.1 }}
           animate={open ? "open" : "closed"}
+          className="stroke-foreground"
         />
         <Path
           initial="closed"
@@ -127,6 +129,7 @@ export const ResponsiveMenuButton = ({
             open: { d: "M 3 2.5 L 17 16.346" },
           }}
           animate={open ? "open" : "closed"}
+          className="stroke-foreground"
         />
       </svg>
     </button>

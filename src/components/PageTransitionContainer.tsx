@@ -18,7 +18,7 @@ export const PageTransitionContainer = ({
         "flex flex-col items-center justify-center gap-8 mx-auto sm:gap-2 sm:flex-row h-[calc(100vh-6rem)]",
         containerVariants(),
         {
-          "lg:mr-0 lg:ml-[calc((100vw-1024px)/2)] lg:max-w-[calc(1024px+((100vw-1024px)/2))]":
+          "mr-0 max-w-[95%] lg:ml-[calc((100vw-1024px)/2)] lg:max-w-[calc(1024px+((100vw-1024px)/2))]":
             margin === "right",
           "max-w-full lg:mx-0 lg:max-w-full": margin === "none",
         }
