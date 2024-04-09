@@ -23,12 +23,17 @@ const links = [
 ];
 
 const socials = [
-  { src: "/dribbble.png", title: "dribble" },
-  { src: "/facebook.png", title: "facebook" },
-  { src: "/github.png", title: "github" },
-  { src: "/instagram.png", title: "instagram" },
-  { src: "/linkedin.png", title: "linkedin" },
-  { src: "/pinterest.png", title: "pinterest" },
+  {
+    src: "/freelancer-icon.png",
+    title: "freelancer",
+    url: "https://www.freelancer.com/u/jonathanpradas",
+  },
+  {
+    src: "/facebook.png",
+    title: "facebook",
+    url: "https://www.facebook.com/jetpogi21",
+  },
+  { src: "/github.png", title: "github", url: "https://github.com/jetpogi21" },
 ];
 
 const Logo = () => {
@@ -190,6 +195,33 @@ const FullScreenMenu = ({ open }: { open: boolean }) => {
   );
 };
 
+const Socials = () => {
+  return (
+    <>
+      {socials.map((social) => {
+        return (
+          <a
+            href={social.url}
+            key={social.title}
+            target="_blank"
+          >
+            <div className="relative w-8 h-8">
+              <Image
+                src={social.src}
+                alt={social.title}
+                fill
+                className={cn("object-contain", {
+                  "dark:invert": social.title === "github",
+                })}
+              />
+            </div>
+          </a>
+        );
+      })}
+    </>
+  );
+};
+
 const HeaderMenu = () => {
   const pathName = usePathname();
   return (
@@ -213,25 +245,7 @@ const HeaderMenu = () => {
         })}
       </div>
       <div className="gap-4 pr-8 lg:flex md:hidden">
-        {socials.map((social) => {
-          return (
-            <Link
-              href="/"
-              key={social.title}
-            >
-              <div className="relative w-8 h-8">
-                <Image
-                  src={social.src}
-                  alt={social.title}
-                  fill
-                  className={cn("object-contain", {
-                    "dark:invert": social.title === "github",
-                  })}
-                />
-              </div>
-            </Link>
-          );
-        })}
+        <Socials />
       </div>
     </div>
   );
@@ -259,8 +273,12 @@ export const Navbar = () => {
           />
         </div>
         <Logo />
+
         <div className="flex-1 hidden md:block">
           <HeaderMenu />
+        </div>
+        <div className="flex gap-4 ml-auto mr-2 lg:hidden">
+          <Socials />
         </div>
       </div>
       <ModeToggle />

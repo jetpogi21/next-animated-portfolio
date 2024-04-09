@@ -2,18 +2,10 @@
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/Carousel";
-import * as React from "react";
-import Image from "next/image";
-import { buttonVariants } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
+import { cn, containerVariants } from "@/lib/utils";
 import Link from "next/link";
 import { ScrollSvg } from "@/components/ScrollSvg";
+import { LightboxDemo } from "@/app/portfolio/_components/LightboxDemo";
 
 type PortfolioProps = {};
 
@@ -21,59 +13,91 @@ type PortfolioType = {
   name: string;
   description: string;
   url: string;
+  images: StaticImageData[];
+  technologies: string[];
 };
 
+import bb1 from "/public/Backpack Battles/image-1.png";
+import bb2 from "/public/Backpack Battles/image-2.png";
+import bb3 from "/public/Backpack Battles/image-3.png";
+import bb4 from "/public/Backpack Battles/image-4.png";
+
+import md1 from "/public/Marvel Duel/image-1.png";
+import md2 from "/public/Marvel Duel/image-2.png";
+import md3 from "/public/Marvel Duel/image-3.png";
+
+import sd1 from "/public/Sales Database Web/image-1.png";
+import sd2 from "/public/Sales Database Web/image-2.png";
+import sd3 from "/public/Sales Database Web/image-3.png";
+import sd4 from "/public/Sales Database Web/image-4.png";
+
+import s1 from "/public/Sales Database/image-1.png";
+import s2 from "/public/Sales Database/image-2.png";
+import s3 from "/public/Sales Database/image-3.png";
+
+import { StaticImageData } from "next/image";
+
+//local file link: C:\Users\User\Desktop\Upwork Files\Portfolio
 const portfolioItems: PortfolioType[] = [
   {
-    name: "Project Alpha",
-    description: "A web application for managing tasks and deadlines.",
+    name: "Backpack Battle Item Database",
+    description:
+      "A web application for viewing available backpack battle items.",
+    images: [bb1, bb2, bb3, bb4],
+    technologies: [
+      "Next.js",
+      "React",
+      "Javascript",
+      "HTML",
+      "CSS",
+      "Tailwind",
+      "PostgreSQL",
+      "Supabase",
+    ],
     url: "/",
   },
   {
-    name: "Project Beta",
-    description: "A mobile app for tracking personal finances.",
+    name: "Marvel Duel Card Database",
+    description: "A web application for viewing available marvel duel cards.",
+    images: [md1, md2, md3],
+    technologies: [
+      "Next.js",
+      "React",
+      "Javascript",
+      "HTML",
+      "CSS",
+      "Tailwind",
+      "PostgreSQL",
+      "Supabase",
+    ],
     url: "/",
   },
   {
-    name: "Project Gamma",
-    description: "An e-commerce platform with advanced search features.",
+    name: "Sales Database",
+    description:
+      "A web application for viewing sales analytics. It also allows for creation, retrieval, update and deletion of various sales data.",
+    images: [sd1, sd2, sd3, sd4],
+    technologies: [
+      "Next.js",
+      "React",
+      "Javascript",
+      "HTML",
+      "CSS",
+      "Tailwind",
+      "PostgreSQL",
+      "Supabase",
+    ],
     url: "/",
   },
   {
-    name: "Project Delta",
-    description: "A social media platform focused on local communities.",
+    name: "MS Access-based Sales Database",
+    description:
+      "A desktop application made with MS Access that tracks various Sales data important to the business.",
+    images: [s1, s2, s3],
+    technologies: ["MS Access", "VBA", "Excel"],
     url: "/",
   },
 ];
-
-const CarouselDemo = () => {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [current, setCurrent] = React.useState(0);
-  const [count, setCount] = React.useState(0);
-
-  React.useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
-
-  return (
-    <Carousel setApi={setApi}>
-      <CarouselContent>
-        <CarouselItem>...</CarouselItem>
-        <CarouselItem>...</CarouselItem>
-        <CarouselItem>...</CarouselItem>
-      </CarouselContent>
-    </Carousel>
-  );
-};
 
 const LastSlide = () => {
   return (
@@ -100,9 +124,9 @@ const LastSlide = () => {
             <text className="fill-foreground">
               <textPath
                 xlinkHref="#circlePath"
-                className="text-3xl font-semibold"
+                className="text-2xl font-semibold"
               >
-                Front-end Developer and UI Designer
+                Do you need a Full-stack Web and VBA Developer?
               </textPath>
             </text>
           </motion.svg>
@@ -131,6 +155,7 @@ export const Portfolio = ({}: PortfolioProps) => {
         className="h-full w-screen relative"
         /* style={{ height: pageHeight }} */
       >
+        {/* <LightboxDemo /> */}
         <div
           className="flex h-full flex-col scrollbar-thin overflow-y-auto scrollbar-thumb-white scrollbar-track-transparent"
           ref={containerRef}
@@ -156,25 +181,33 @@ export const Portfolio = ({}: PortfolioProps) => {
                   >
                     <div
                       className={cn(
-                        "flex w-full p-20 h-full justify-center flex-col gap-4 items-center"
+                        "flex w-full p-5 h-full justify-center flex-col gap-8 items-center cursor-pointer",
+                        containerVariants()
                       )}
                     >
-                      <h1>{item.name}</h1>
-                      <div className="relative h-full max-h-[400px] w-full">
-                        <Image
-                          src={"/placeholder.jpg"}
-                          alt="placeholder.jpg"
-                          className="object-contain"
-                          fill
-                        />
+                      <h1 className="font-semibold text-5xl text-center">
+                        {item.name}
+                      </h1>
+                      <div className="h-[400px] w-full flex items-center justify-center overflow-hidden rounded-lg">
+                        <LightboxDemo slides={item.images} />
+                        {/* <div
+                          className="rounded-lg peer cursor-pointer absolute inset-0 h-full w-full opacity-50 z-20 bg-slate-900 hover:opacity-0 transition-opacity duration-75" // Added hover effect
+                        ></div>
+                        <h1 className="absolute z-10 text-7xl peer-hover:scale-105 duration-75 text-center text-slate-900 bg-slate-50">
+                          {item.name}
+                        </h1>
+                        <div className="relative h-full max-h-[400px] w-full">
+                          <div className="object-cover relative w-full h-full ">
+                            <Image
+                              className="object-contain"
+                              src="/Backpack Battles/image-1.png"
+                              alt=""
+                              fill
+                            />
+                          </div>
+                        </div> */}
                       </div>
                       <p>{item.description}</p>
-                      <Link
-                        className={buttonVariants()}
-                        href={item.url}
-                      >
-                        View Demo
-                      </Link>
                     </div>
                   </div>
                 );

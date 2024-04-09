@@ -8,7 +8,7 @@ type HomeProps = {};
 export const Home = ({}: HomeProps) => {
   const heading = "Data-driven Solutions Expert";
   const description =
-    "Welcome to Data-Driven Solutions by JET.dev, where financial expertise meets technical innovation. As a certified public accountant and self-taught full-stack developer, I specialize in crafting dynamic, data-driven solutions that empower businesses to thrive in today's digital landscape. With mastery in MS Office and Javascript,HTML and CSS, I transform raw data into actionable insights, driving strategic decision-making and maximizing efficiency. Let's unlock your data's potential together for unparalleled success.";
+    "Welcome to JET.dev, where financial expertise meets technical innovation.\nAs a certified public accountant and self-taught full-stack developer, I specialize in crafting dynamic, data-driven solutions that empower businesses to thrive in today's digital landscape.\nWith mastery in MS Office and Javascript,HTML and CSS, I transform raw data into actionable insights, driving strategic decision-making and maximizing efficiency.\nLet's unlock your data's potential together for unparalleled success.";
   return (
     <PageTransitionContainer>
       <div className="h-full justify-around md:h-auto flex flex-col md:flex-row gap-8 md:gap-0">
@@ -22,7 +22,7 @@ export const Home = ({}: HomeProps) => {
         </div>
         <div className="flex flex-col w-full gap-8 lg:gap-8 lg:w-1/2 md:justify-around">
           <h1 className="text-4xl font-extrabold md:text-5xl">{heading}</h1>
-          <p>{description}</p>
+          <p className="whitespace-pre-wrap">{description}</p>
           <div className="flex gap-4 pb-16 md:pb-0">
             <Link
               href="/portfolio"
