@@ -2,7 +2,7 @@ import { About } from "@/app/about/_components/About";
 
 type AboutPageProps = {};
 
-export const AboutPage = ({}: AboutPageProps) => {
+export const AboutPage = () => {
   return <About />;
 };
 

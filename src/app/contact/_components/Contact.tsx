@@ -155,7 +155,7 @@ const ContactForm = () => {
   );
 };
 
-export const Contact = ({}: ContactProps) => {
+export const Contact = () => {
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({ container: containerRef });

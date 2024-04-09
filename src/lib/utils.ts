@@ -32,3 +32,5 @@ export const containerVariants = cva(
     },
   }
 );
+
+export const mainHeight = cva("h-[calc(100vh-var(--header-h))]");

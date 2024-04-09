@@ -153,14 +153,14 @@ const Skills = () => {
   );
 };
 
-type Experience = {
+type ExperienceType = {
   jobCompany: string;
   jobDate: string;
   jobDescription: string[];
   jobTitle: string;
 };
 
-const experienceList: Experience[] = [
+const experienceList: ExperienceType[] = [
   {
     jobCompany: "Freelancer.ph",
     jobDate: "2016 - Present",
@@ -171,11 +171,11 @@ const experienceList: Experience[] = [
       "Develop custom solutions using MS Access, MS Excel, and VBA to automate financial processes and improve reporting accuracy.",
       "Provide ongoing support and maintenance for existing web applications and financial systems.",
     ],
-    jobTitle: "Freelancer",
+    jobTitle: "Freelance Full-stack developer",
   },
   {
     jobCompany: "Vibram Manufacturing Corporation",
-    jobDate: "2016 - Present",
+    jobDate: "2014 - Present",
     jobDescription: [
       "Design, develop, and implement robust financial systems and processes to streamline accounting operations.",
       "Collaborate with cross-functional teams to understand business requirements and translate them into functional financial system specifications.",
@@ -275,7 +275,7 @@ const LastSection = () => {
   );
 };
 
-export const About = ({}: AboutProps) => {
+export const About = () => {
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({ container: containerRef });

@@ -94,7 +94,7 @@ export const ResponsiveMenuButton = ({
   onToggleOpen,
   open,
 }: {
-  onToggleOpen: VoidFunction;
+  onToggleOpen: () => void;
   open: boolean;
 }) => {
   const svgDimension = 34;

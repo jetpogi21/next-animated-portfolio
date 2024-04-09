@@ -2,7 +2,7 @@ import { Portfolio } from "@/app/portfolio/_components/Portfolio";
 
 type PortfolioPageProps = {};
 
-export const PortfolioPage = ({}: PortfolioPageProps) => {
+export const PortfolioPage = () => {
   return <Portfolio />;
 };
 

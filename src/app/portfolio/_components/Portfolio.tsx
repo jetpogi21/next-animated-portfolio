@@ -142,7 +142,7 @@ const LastSlide = () => {
   );
 };
 
-export const Portfolio = ({}: PortfolioProps) => {
+export const Portfolio = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ container: containerRef });
   /* const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75.3%"]); */

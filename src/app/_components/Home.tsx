@@ -5,13 +5,13 @@ import Link from "next/link";
 
 type HomeProps = {};
 
-export const Home = ({}: HomeProps) => {
+export const Home = () => {
   const heading = "Data-driven Solutions Expert";
   const description =
     "Welcome to JET.dev, where financial expertise meets technical innovation.\nAs a certified public accountant and self-taught full-stack developer, I specialize in crafting dynamic, data-driven solutions that empower businesses to thrive in today's digital landscape.\nWith mastery in MS Office and Javascript,HTML and CSS, I transform raw data into actionable insights, driving strategic decision-making and maximizing efficiency.\nLet's unlock your data's potential together for unparalleled success.";
   return (
     <PageTransitionContainer>
-      <div className="h-full justify-around md:h-auto flex flex-col md:flex-row gap-8 md:gap-0">
+      <div className="h-full justify-around md:h-auto flex flex-col md:flex-row gap-8">
         <div className="relative w-full h-1/2 md:h-[500px] lg:w-1/2">
           <Image
             className="z-0 object-contain"
