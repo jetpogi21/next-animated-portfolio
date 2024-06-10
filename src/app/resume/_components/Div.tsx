@@ -29,8 +29,8 @@ export const Div = ({
     <View
       debug={debugContext || debug}
       style={{
-        ...style,
         padding: "0 3px",
+        ...style,
         fontFamily,
       }}
       wrap={wrap}

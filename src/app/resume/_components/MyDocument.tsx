@@ -1,24 +1,37 @@
 import { Div } from "@/app/resume/_components/Div";
 import { Column, Row } from "@/app/resume/_components/Flex";
-import { Mail, Phone, House } from "@/app/resume/_components/_icons/Icons";
+import {
+  Mail,
+  Phone,
+  House,
+  StarBullet,
+  Diamond,
+  Briefcase,
+  Circle,
+} from "@/app/resume/_components/_icons/Icons";
+import { resumeInfoProjectWorkflowAnalyst as resumeInfo } from "@/app/resume/_lib/resume-info";
 import { PDFDocumentProvider } from "@/app/resume/_providers/PDFDocumentProvider";
-import { Font, Document, Page, Image } from "@react-pdf/renderer";
-import { Component, ReactNode } from "react";
+import { Font, Document, Page, Image, View } from "@react-pdf/renderer";
+import { relative } from "path";
+import { ComponentProps, ReactNode } from "react";
 
-Font.register({
+/* Font.register({
   family: "Roboto",
   src: "https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Mu4mxP.ttf",
-});
+}); */
 
 Font.register({
   family: "Montserrat",
   src: "http://fonts.gstatic.com/s/montserrat/v10/zhcz-_WihjSQC0oHJ9TCYC3USBnSvpkopQaUR-2r7iU.ttf",
 });
 
+Font.registerHyphenationCallback((word) => [word]);
+
 const padding = 20;
 const footerHeight = 15;
 const fontSize = 12;
 const fontFamily = "Montserrat";
+const color = "#685D5D";
 
 export const MyDocument = () => {
   const sideRatio = 30;
@@ -27,23 +40,32 @@ export const MyDocument = () => {
     <PDFDocumentProvider
       fontFamily={fontFamily}
       fontSize={fontSize}
-      debug={true}
+      debug={false}
     >
-      <Document>
+      <Document title={`${resumeInfo.name} - Resume`}>
         <Page
           size="A4"
           style={{
             fontSize,
             fontFamily,
-            color: "#101010",
+            color,
           }}
         >
-          <Row>
+          <Row style={{ height: "100vh" }}>
             <Column
               style={{
                 width: `${sideRatio}%`,
+                height: "90%",
+                borderRight: `2px solid #E5E5E5`,
+                alignSelf: "center",
               }}
             >
+              <Row style={{ position: "absolute", right: -11.5, top: -3 }}>
+                <Diamond />
+              </Row>
+              <Row style={{ position: "absolute", right: -11.5, bottom: -6 }}>
+                <Diamond />
+              </Row>
               {/* Image */}
               <Column
                 style={{
@@ -76,15 +98,15 @@ export const MyDocument = () => {
               >
                 <ContactRow
                   Icon={<Phone />}
-                  text="+63 929 893 5715"
+                  text={resumeInfo.phoneNumber}
                 />
                 <ContactRow
                   Icon={<Mail />}
-                  text="jet_pradas@yahoo.com"
+                  text={resumeInfo.emailAddress}
                 />
                 <ContactRow
                   Icon={<House />}
-                  text="Valenzuela, Philippines"
+                  text={resumeInfo.location}
                 />
               </Column>
               {/* Summary of Qualifications */}
@@ -92,14 +114,113 @@ export const MyDocument = () => {
                 style={{
                   gap: 10,
                   justifyContent: "center",
-                  marginTop: 10,
+                  marginTop: 5,
                   paddingHorizontal: 10,
                 }}
               >
-                <Header>{`SUMMARY OF\nQUALIFICATIONS`}</Header>
+                <Header
+                  style={{
+                    borderBottom: `1px solid ${color}`,
+                    paddingBottom: 5,
+                  }}
+                >{`SUMMARY OF\nQUALIFICATIONS`}</Header>
+                {resumeInfo.summary.map((item) => (
+                  <QualificationsRow text={item} />
+                ))}
+              </Column>
+              <Column
+                style={{
+                  gap: 10,
+                  justifyContent: "center",
+                  marginTop: 5,
+                  paddingHorizontal: 10,
+                }}
+              >
+                <Header
+                  style={{
+                    borderBottom: `1px solid ${color}`,
+                    paddingBottom: 5,
+                  }}
+                >{`EDUCATION`}</Header>
+                <Column
+                  style={{
+                    fontSize: 9,
+                    textAlign: "center",
+                    gap: 4,
+                    color: "black",
+                  }}
+                >
+                  <Div>{resumeInfo.education.school}</Div>
+                  <Div style={{ color }}>{resumeInfo.education.degree}</Div>
+                  <Div style={{ color }}>{resumeInfo.education.year}</Div>
+                  <Div style={{ color }}>{resumeInfo.education.summary[0]}</Div>
+                  <Column
+                    gap={5}
+                    style={{ marginTop: 7, textAlign: "left" }}
+                  >
+                    <BulletedList text={resumeInfo.education.summary[1]} />
+                    <BulletedList text={resumeInfo.education.summary[2]} />
+                    <BulletedList text={resumeInfo.education.summary[3]} />
+                  </Column>
+                </Column>
               </Column>
             </Column>
-            <Div style={{ width: `${100 - sideRatio}%` }}>Main</Div>
+            {/* Main */}
+            <Column
+              style={{
+                width: `${100 - sideRatio}%`,
+                paddingHorizontal: 20,
+                paddingRight: 50,
+                marginTop: 40,
+              }}
+            >
+              {/* Name & Title */}
+              <Column
+                gap={5}
+                style={{ fontSize: 14 }}
+              >
+                <Div
+                  style={{
+                    color: "black",
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                  }}
+                >{`${resumeInfo.name}, ${resumeInfo.title}`}</Div>
+                <Div style={{ fontSize: 11 }}>
+                  {resumeInfo.mainRole
+                    .map((item) => item.toUpperCase())
+                    .join(" | ")}
+                </Div>
+              </Column>
+              {/* WorkExperiences */}
+              <Column style={{ marginTop: 5 }}>
+                <Header style={{ textAlign: "left", marginVertical: 3 }}>
+                  WORK EXPERIENCE
+                </Header>
+                {resumeInfo.workExperiences.map((item) => {
+                  return <WorkExperience workExperience={item} />;
+                })}
+              </Column>
+              {/* Skills Competencies */}
+              <Column
+                gap={10}
+                style={{ marginTop: 5 }}
+              >
+                <Header style={{ textAlign: "left", marginVertical: 3 }}>
+                  Skills / Competencies
+                </Header>
+                <Row style={{ flexWrap: "wrap", fontSize: 9, gap: 2 }}>
+                  {resumeInfo.skills.map((item) => {
+                    return (
+                      <BulletedList
+                        style={{ flexBasis: "45%" }}
+                        text={item}
+                      />
+                    );
+                  })}
+                </Row>
+              </Column>
+            </Column>
           </Row>
         </Page>
       </Document>
@@ -116,23 +237,147 @@ const ContactRow = (props: ContactRowProps) => {
   return (
     <Row style={{ gap: 10, paddingHorizontal: 10, alignItems: "center" }}>
       {props.Icon}
-      <Div style={{ width: "90%", fontSize: 9, color: "#685D5D" }}>
-        {props.text}
-      </Div>
+      <Div style={{ width: "90%", fontSize: 9 }}>{props.text}</Div>
     </Row>
   );
 };
 
 type HeaderProps = {
   children: string;
+  style?: ComponentProps<typeof View>["style"];
 };
 
 const Header = (props: HeaderProps) => {
+  const style = props.style || {};
+  //@ts-ignore
+  const leftAligned = style.textAlign === "left";
+
   return (
-    <Div
-      style={{ textTransform: "uppercase", fontSize: 12, textAlign: "center" }}
+    <Row
+      style={{
+        textTransform: "uppercase",
+        fontSize: 12,
+        textAlign: "center",
+        color: "black",
+        position: "relative",
+        alignItems: "center",
+        ...style,
+      }}
     >
-      {props.children}
-    </Div>
+      <Div
+        style={{
+          zIndex: 1,
+          backgroundColor: "white",
+          width: leftAligned ? "auto" : "100%",
+        }}
+      >
+        {props.children}
+      </Div>
+      {!!leftAligned && (
+        <Div
+          style={{
+            height: 1,
+            borderBottom: `1px solid ${color}`,
+            width: "100%",
+            position: "absolute",
+            zIndex: 2,
+          }}
+        >
+          {""}
+        </Div>
+      )}
+    </Row>
+  );
+};
+
+const WorkExperience = (props: {
+  workExperience: (typeof resumeInfo)["workExperiences"][number];
+}) => {
+  return (
+    <Row style={{ gap: 10, marginBottom: 7, position: "relative" }}>
+      {props.workExperience.icon ? (
+        <Image
+          style={{
+            height: 24,
+            width: 26,
+            position: "relative",
+            top: 8,
+            left: 5,
+          }}
+          src={props.workExperience.icon}
+        />
+      ) : (
+        <Briefcase />
+      )}
+
+      <Column
+        style={{
+          fontSize: 11,
+          color: "black",
+        }}
+      >
+        <Div>{props.workExperience.companyName}</Div>
+        <Div
+          style={{
+            fontSize: 9,
+          }}
+        >
+          {props.workExperience.period}
+        </Div>
+        <Div
+          style={{
+            fontSize: 9,
+            color,
+          }}
+        >
+          {props.workExperience.position}
+        </Div>
+        <Column style={{ marginTop: 5, gap: 5 }}>
+          {props.workExperience.responsibilities.map((item) => {
+            return <BulletedList text={item} />;
+          })}
+        </Column>
+      </Column>
+    </Row>
+  );
+};
+
+const QualificationsRow = (props: { text: string }) => {
+  return (
+    <Row style={{ gap: 10 }}>
+      <StarBullet />
+      <Div
+        style={{
+          width: "90%",
+          fontSize: 9,
+        }}
+      >
+        {props.text}
+      </Div>
+    </Row>
+  );
+};
+
+const BulletedList = (props: {
+  text: string;
+  style?: ComponentProps<typeof View>["style"];
+}) => {
+  const style = props.style || {};
+  return (
+    <Row style={{ position: "relative" }}>
+      <Circle />
+      <Div
+        style={{
+          fontSize: 9,
+          flexBasis: `85%`,
+          marginLeft: 9,
+          flexShrink: 0,
+          color,
+          ...style,
+        }}
+      >
+        {props.text}
+      </Div>
+    </Row>
   );
 };
