@@ -260,6 +260,15 @@ const LastSection = () => {
           >
             View My Works
           </Link>
+          <Link
+            href="/resume"
+            className={cn(
+              "px-4 py-2 rounded-sm text-3xl",
+              linkVariants({ variant: "active" })
+            )}
+          >
+            View My Resume
+          </Link>
           <div className="text-2xl">OR</div>
           <Link
             href="/contact"

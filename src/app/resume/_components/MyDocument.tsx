@@ -8,10 +8,11 @@ import {
   Diamond,
   Briefcase,
   Circle,
+  Website,
 } from "@/app/resume/_components/_icons/Icons";
 import { resumeInfoProjectWorkflowAnalyst as resumeInfo } from "@/app/resume/_lib/resume-info";
 import { PDFDocumentProvider } from "@/app/resume/_providers/PDFDocumentProvider";
-import { Font, Document, Page, Image, View } from "@react-pdf/renderer";
+import { Font, Document, Page, Image, View, Link } from "@react-pdf/renderer";
 import { relative } from "path";
 import { ComponentProps, ReactNode } from "react";
 
@@ -92,7 +93,7 @@ export const MyDocument = () => {
                   backgroundColor: "#e5e5e5",
                   paddingVertical: 10,
                   paddingHorizontal: 10,
-                  gap: 10,
+                  gap: 2,
                   justifyContent: "center",
                 }}
               >
@@ -107,6 +108,11 @@ export const MyDocument = () => {
                 <ContactRow
                   Icon={<House />}
                   text={resumeInfo.location}
+                />
+                <ContactRow
+                  Icon={<Website />}
+                  link={resumeInfo.website}
+                  text={resumeInfo.website.substring(8)}
                 />
               </Column>
               {/* Summary of Qualifications */}
@@ -231,13 +237,32 @@ export const MyDocument = () => {
 type ContactRowProps = {
   Icon: ReactNode;
   text: string;
+  link?: string;
 };
 
 const ContactRow = (props: ContactRowProps) => {
   return (
-    <Row style={{ gap: 10, paddingHorizontal: 10, alignItems: "center" }}>
+    <Row
+      style={{
+        gap: 10,
+        paddingHorizontal: 10,
+        alignItems: "center",
+        position: "relative",
+      }}
+    >
       {props.Icon}
-      <Div style={{ width: "90%", fontSize: 9 }}>{props.text}</Div>
+      <Div style={{ width: "90%", fontSize: 9 }}>
+        {props.link ? (
+          <Link
+            src={props.link}
+            style={{ textDecoration: "none" }}
+          >
+            {props.text}
+          </Link>
+        ) : (
+          props.text
+        )}
+      </Div>
     </Row>
   );
 };

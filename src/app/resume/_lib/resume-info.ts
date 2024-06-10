@@ -1,16 +1,20 @@
 export const resumeInfo = {
   name: "Jonathan Pradas",
   title: "CPA",
-  mainRole: ["accountant", "web developer", "solutions expert"],
+  mainRole: [
+    "software developer",
+    "full-stack developer",
+    "programming specialist",
+  ],
   phoneNumber: "+639760064276",
   emailAddress: "jet_pradas@yahoo.com",
   location: "Valenzuela, Philippines",
-
+  website: "https://jet-dev-puce.vercel.app",
   summary: [
-    "10 years of experience in end-to-end payroll, inventory and sales-related functions.",
-    "Skilled in maintaining precise records, prioritizing and scheduling tasks.",
-    "Detail-oriented and fast-learner and can finish jobs with minimum supervision.",
-    "Self-taught programmer, utilizing different programming language to accomplish different tasks efficiently without compromising quality.",
+    "Specializes in full-stack web development with a strong foundation in both front-end and back-end technologies.",
+    "Proven track record of delivering scalable and maintainable web applications using modern tech stacks.",
+    "Passionate about leveraging programming skills to create intuitive and efficient software solutions.",
+    "Certified Public Accountant with a keen interest in applying financial knowledge to software development projects.",
   ],
   education: {
     school: "University of the East - Caloocan",
@@ -24,14 +28,14 @@ export const resumeInfo = {
     ],
   },
   skills: [
-    "Proficiency in Programming (VBA, Python, HTML, CSS, Javascript)",
-    "Proficiency in Microsoft Office (MS Excel, MS Access)",
-    "Experience with Spreadsheets and Databases",
-    "Excellent Attention to Detail",
-    "Continuous Improvement Mindset",
-    "Ability to Work Under Pressure",
-    "Strong Analytical Skills",
-    "Problem-Solving and Result-Oriented Mindset",
+    "Proficiency in Programming (JavaScript, Python, HTML, CSS, SQL)",
+    "Full Stack Development (MEAN/MERN stack, Django)",
+    "Database Management (MySQL, PostgreSQL, MongoDB)",
+    "Version Control/Git",
+    "API Integration and Development",
+    "Web Security Best Practices",
+    "Testing and Debugging Techniques",
+    "Continuous Integration/Continuous Deployment (CI/CD)",
   ],
 
   workExperiences: [
@@ -74,7 +78,7 @@ export const resumeInfoProjectWorkflowAnalyst = {
   phoneNumber: "+639760064276",
   emailAddress: "jet_pradas@yahoo.com",
   location: "Valenzuela, Philippines",
-  website: "https://jet-dev-puce.vercel.app/",
+  website: "https://jet-dev-puce.vercel.app",
   freelancer: "https://www.freelancer.com/u/jonathanpradas",
   summary: [
     "Comprehensive experience spanning over 10 years in payroll, inventory and sales-related functions.",

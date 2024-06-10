@@ -19,6 +19,7 @@ const links = [
   { url: "/", title: "home" },
   { url: "/about", title: "about" },
   { url: "/portfolio", title: "portfolio" },
+  { url: "/resume", title: "resume" },
   { url: "/contact", title: "contact" },
 ];
 
