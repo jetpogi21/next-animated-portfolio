@@ -56,7 +56,7 @@ export const MyDocument = () => {
             <Column
               style={{
                 width: `${sideRatio}%`,
-                height: "90%",
+                height: "95%",
                 borderRight: `2px solid #E5E5E5`,
                 alignSelf: "center",
               }}
@@ -93,7 +93,7 @@ export const MyDocument = () => {
                   backgroundColor: "#e5e5e5",
                   paddingVertical: 10,
                   paddingHorizontal: 10,
-                  gap: 2,
+                  gap: 4,
                   justifyContent: "center",
                 }}
               >
@@ -114,6 +114,21 @@ export const MyDocument = () => {
                   link={resumeInfo.website}
                   text={resumeInfo.website.substring(8)}
                 />
+                <ContactRow
+                  Icon={
+                    <Image
+                      style={{
+                        height: 16,
+                        width: 16,
+                        position: "relative",
+                        left: 1,
+                      }}
+                      src="/linkedin.png"
+                    />
+                  }
+                  link={resumeInfo.linkedin}
+                  text={resumeInfo.linkedin.substring(8)}
+                />
               </Column>
               {/* Summary of Qualifications */}
               <Column
@@ -131,7 +146,10 @@ export const MyDocument = () => {
                   }}
                 >{`SUMMARY OF\nQUALIFICATIONS`}</Header>
                 {resumeInfo.summary.map((item) => (
-                  <QualificationsRow text={item} />
+                  <QualificationsRow
+                    text={item}
+                    key={item.substring(10)}
+                  />
                 ))}
               </Column>
               <Column
@@ -204,7 +222,12 @@ export const MyDocument = () => {
                   WORK EXPERIENCE
                 </Header>
                 {resumeInfo.workExperiences.map((item) => {
-                  return <WorkExperience workExperience={item} />;
+                  return (
+                    <WorkExperience
+                      workExperience={item}
+                      key={item.companyName}
+                    />
+                  );
                 })}
               </Column>
               {/* Skills Competencies */}
@@ -219,6 +242,7 @@ export const MyDocument = () => {
                   {resumeInfo.skills.map((item) => {
                     return (
                       <BulletedList
+                        key={item}
                         style={{ flexBasis: "45%" }}
                         text={item}
                       />
@@ -359,7 +383,12 @@ const WorkExperience = (props: {
         </Div>
         <Column style={{ marginTop: 5, gap: 5 }}>
           {props.workExperience.responsibilities.map((item) => {
-            return <BulletedList text={item} />;
+            return (
+              <BulletedList
+                text={item}
+                key={item}
+              />
+            );
           })}
         </Column>
       </Column>

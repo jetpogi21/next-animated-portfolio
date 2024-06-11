@@ -6,9 +6,9 @@ import ReactPDF, {
   View,
   Image,
 } from "@react-pdf/renderer";
-import { ComponentProps } from "react";
+import { ComponentProps, ReactNode } from "react";
 type DivProps = {
-  children: typeof Image | string | React.ReactNode;
+  children: typeof Image | string | ReactNode;
   style?: ComponentProps<typeof View>["style"];
   textStyle?: ComponentProps<typeof View>["style"];
   bold?: boolean;

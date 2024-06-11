@@ -1,8 +1,6 @@
 import { Resume } from "@/app/resume/_components/Resume";
 
-type ResumePageProps = {};
-
-export const ResumePage = ({}: ResumePageProps) => {
+export const ResumePage = () => {
   return <Resume />;
 };
 

@@ -1,9 +1,8 @@
+"use client";
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
 import { cn, linkVariants } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-
-type HomeProps = {};
 
 export const Home = () => {
   const heading = "Data-driven Solutions Expert";

@@ -75,11 +75,12 @@ export const resumeInfoProjectWorkflowAnalyst = {
   name: "Jonathan Pradas",
   title: "CPA",
   mainRole: ["accountant", "operations analyst", "solutions expert"],
-  phoneNumber: "+639760064276",
+  phoneNumber: "0929 893 5715",
   emailAddress: "jet_pradas@yahoo.com",
   location: "Valenzuela, Philippines",
   website: "https://jet-dev-puce.vercel.app",
   freelancer: "https://www.freelancer.com/u/jonathanpradas",
+  linkedin: "https://linkedin.com/in/jet-dev/",
   summary: [
     "Comprehensive experience spanning over 10 years in payroll, inventory and sales-related functions.",
     "Proficient in maintaining accurate records, task prioritization, scheduling, and managing business process flows within accounting systems.",

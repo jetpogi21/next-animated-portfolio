@@ -1,11 +1,9 @@
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
 import Image from "next/image";
 
-type ResumeHTMLProps = {};
-
-export const ResumeHTML = ({}: ResumeHTMLProps) => {
+export const ResumeHTML = () => {
   return (
-    <PageTransitionContainer disableAnimation={true}>
+    <PageTransitionContainer disableAnimation={false}>
       <div className="flex w-full min-h-full bg-white text-slate-950 p-4">
         {/* Side */}
         <div className="w-2/5 flex flex-col">

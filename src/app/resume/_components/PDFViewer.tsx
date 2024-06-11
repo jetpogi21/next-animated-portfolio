@@ -1,9 +1,15 @@
 "use client";
 import { MyDocument } from "@/app/resume/_components/MyDocument";
-import { PDFViewer as PDFViewerNative } from "@react-pdf/renderer";
-type PDFViewerProps = {};
+import dynamic from "next/dynamic";
 
-export const PDFViewer = ({}: PDFViewerProps) => {
+export const PDFViewer = () => {
+  const PDFViewerNative = dynamic(
+    () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+    {
+      ssr: false,
+      loading: () => <p>Loading...</p>,
+    }
+  );
   return (
     <PDFViewerNative
       height={"100%"}

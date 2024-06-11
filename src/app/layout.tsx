@@ -36,7 +36,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <TransitionProvider disableAnimation={true}>
+          <TransitionProvider disableAnimation={false}>
             {children}
           </TransitionProvider>
         </ThemeProvider>

@@ -1,7 +1,6 @@
+"use client";
 import { PDFViewer } from "@/app/resume/_components/PDFViewer";
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
-
-type ResumeProps = {};
 
 /* export const Resume = ({}: ResumeProps) => {
   return (
@@ -14,9 +13,9 @@ type ResumeProps = {};
   );
 };
  */
-export const Resume = ({}: ResumeProps) => {
+export const Resume = () => {
   return (
-    <PageTransitionContainer disableAnimation={true}>
+    <PageTransitionContainer disableAnimation={false}>
       {/* Main container */}
       <div className="flex w-full h-full justify-center gap-2 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-slate-400 scrollbar-track-transparent scrollbar-thin pb-8">
         <PDFViewer />

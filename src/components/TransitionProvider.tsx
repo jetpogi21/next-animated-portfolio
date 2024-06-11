@@ -16,26 +16,6 @@ export const TransitionProvider = ({
 }: TransitionProviderProps) => {
   const pathName = usePathname();
 
-  // Define default properties for when animation is disabled
-  const defaultMotionProps = {
-    initial: {},
-    animate: {},
-    exit: {},
-    transition: {},
-  };
-
-  // Define animated properties
-  const animatedMotionProps = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { delay: 0, duration: 0.5 } },
-    exit: { opacity: 0, transition: { duration: 0.5 } },
-  };
-
-  // Conditionally apply animation properties based on disableAnimation
-  const motionProps = disableAnimation
-    ? defaultMotionProps
-    : animatedMotionProps;
-
   return (
     <AnimatePresence mode="wait">
       <div
@@ -49,7 +29,11 @@ export const TransitionProvider = ({
               hidden: disableAnimation,
             }
           )}
-          {...motionProps}
+          animate={disableAnimation ? {} : { height: "0vh" }}
+          exit={disableAnimation ? {} : { height: "140vh" }}
+          transition={
+            disableAnimation ? {} : { duration: 0.5, ease: "easeOut" }
+          }
         />
 
         <motion.div
@@ -59,7 +43,19 @@ export const TransitionProvider = ({
               hidden: disableAnimation,
             }
           )}
-          {...motionProps}
+          initial={disableAnimation ? {} : { opacity: 0 }}
+          animate={
+            disableAnimation
+              ? {}
+              : {
+                  opacity: 1,
+                  zIndex: 30,
+                  transition: { delay: 0, duration: 0.5 },
+                  transitionEnd: {
+                    display: "none",
+                  },
+                }
+          }
         >
           {pathName.substring(1) || "Home"}
         </motion.div>
@@ -71,7 +67,12 @@ export const TransitionProvider = ({
               hidden: disableAnimation,
             }
           )}
-          {...motionProps}
+          initial={disableAnimation ? {} : { height: "140vh" }}
+          animate={
+            disableAnimation
+              ? {}
+              : { height: "0vh", transition: { delay: 0.5, duration: 0.5 } }
+          }
         />
         <div className="h-[--header-h]">
           <Navbar />
