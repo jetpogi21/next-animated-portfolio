@@ -10,10 +10,9 @@ import {
   Circle,
   Website,
 } from "@/app/resume/_components/_icons/Icons";
-import { resumeInfoProjectWorkflowAnalyst as resumeInfo } from "@/app/resume/_lib/resume-info";
+import { ResumeInfo } from "@/app/resume/_lib/resume-info";
 import { PDFDocumentProvider } from "@/app/resume/_providers/PDFDocumentProvider";
 import { Font, Document, Page, Image, View, Link } from "@react-pdf/renderer";
-import { relative } from "path";
 import { ComponentProps, ReactNode } from "react";
 
 /* Font.register({
@@ -28,14 +27,14 @@ Font.register({
 
 Font.registerHyphenationCallback((word) => [word]);
 
-const padding = 20;
-const footerHeight = 15;
 const fontSize = 12;
 const fontFamily = "Montserrat";
 const color = "#685D5D";
 
-export const MyDocument = () => {
+export const MyDocument = (props: { values: ResumeInfo }) => {
   const sideRatio = 30;
+
+  const resumeInfo = props.values;
 
   return (
     <PDFDocumentProvider
@@ -75,7 +74,7 @@ export const MyDocument = () => {
                   alignItems: "center",
                 }}
               >
-                {/* @ts-ignore */}
+                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                 <Image
                   style={{
                     height: 125,
@@ -116,6 +115,7 @@ export const MyDocument = () => {
                 />
                 <ContactRow
                   Icon={
+                    //eslint-disable-next-line jsx-a11y/alt-text
                     <Image
                       style={{
                         height: 16,
@@ -340,11 +340,12 @@ const Header = (props: HeaderProps) => {
 };
 
 const WorkExperience = (props: {
-  workExperience: (typeof resumeInfo)["workExperiences"][number];
+  workExperience: ResumeInfo["workExperiences"][number];
 }) => {
   return (
     <Row style={{ gap: 10, marginBottom: 7, position: "relative" }}>
       {props.workExperience.icon ? (
+        //eslint-disable-next-line jsx-a11y/alt-text
         <Image
           style={{
             height: 24,
