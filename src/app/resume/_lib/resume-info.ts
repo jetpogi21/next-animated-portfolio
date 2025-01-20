@@ -29,6 +29,6 @@ export type ResumeInfo = {
 };
 
 export const resumeInfos = {
-  basic: basicResumeInfo,
-  workflowAnalyst: workflowAnalystResumeInfo,
+  Basic: basicResumeInfo,
+  "Workflow Analyst": workflowAnalystResumeInfo,
 };
