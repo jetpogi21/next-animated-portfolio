@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 type ResumeSelectorProps = {
   resumeInfos: typeof resumeInfos;
   selectedResume: keyof typeof resumeInfos;
@@ -22,7 +23,10 @@ export const ResumeSelector = (props: ResumeSelectorProps) => {
         setSelectedResume(value as keyof typeof resumeInfos)
       }
     >
-      <SelectTrigger className="w-48">
+      <SelectTrigger
+        className="w-full"
+        data-testid="resume-selector"
+      >
         <SelectValue placeholder="Select a resume" />
       </SelectTrigger>
       <SelectContent>
@@ -30,6 +34,7 @@ export const ResumeSelector = (props: ResumeSelectorProps) => {
           <SelectItem
             key={key}
             value={key}
+            data-testid={`resume-option-${key}`}
           >
             {key}
           </SelectItem>

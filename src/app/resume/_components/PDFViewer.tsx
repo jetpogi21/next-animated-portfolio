@@ -25,21 +25,25 @@ export const PDFViewer = () => {
 
   return (
     <div className="flex gap-4 w-full h-full">
-      <div className="flex flex-col gap-4 w-1/3">
-        <ResumeSelector
-          resumeInfos={resumeInfos}
-          selectedResume={selectedResume}
-          setSelectedResume={setSelectedResume}
-        />
-        <ResumeForm
-          resumeInfo={resumeInfos[selectedResume]}
-          onSave={(updatedInfo: ResumeInfo) => {
-            setResumeInfos((prev) => ({
-              ...prev,
-              [selectedResume]: updatedInfo,
-            }));
-          }}
-        />
+      <div className="flex flex-col w-1/3 h-full">
+        <div className="flex flex-col gap-4 h-full">
+          <ResumeSelector
+            resumeInfos={resumeInfos}
+            selectedResume={selectedResume}
+            setSelectedResume={setSelectedResume}
+          />
+          <div className="relative flex-1 px-4">
+            <ResumeForm
+              resumeInfo={resumeInfos[selectedResume]}
+              onSave={(updatedInfo: ResumeInfo) => {
+                setResumeInfos((prev) => ({
+                  ...prev,
+                  [selectedResume]: updatedInfo,
+                }));
+              }}
+            />
+          </div>
+        </div>
       </div>
       <PDFViewerNative
         height={"100%"}
