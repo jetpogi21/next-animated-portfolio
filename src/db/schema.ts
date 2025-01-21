@@ -5,7 +5,7 @@ export const portfolioSchema = pgSchema("portfolio");
 
 export const resumeInfos = portfolioSchema.table("resume_infos", {
   id: uuid("id").primaryKey().defaultRandom(),
-  title: varchar("title", { length: 100 }).notNull(),
+  title: varchar("title", { length: 100 }).notNull().unique(),
   info: jsonb("info").$type<ResumeInfo>().notNull(),
 });
 

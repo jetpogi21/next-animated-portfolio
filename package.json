@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "combine-files": "npx tsx scripts/combineFiles.ts"
+    "combine-files": "npx tsx scripts/combineFiles.ts",
+    "seed-resume": "npx tsx scripts/seed-resume.ts",
+    "generate": "npx drizzle-kit generate",
+    "migrate": "npx drizzle-kit migrate"
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
@@ -20,6 +23,7 @@
     "@react-pdf/renderer": "3.4.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.4",
     "embla-carousel-react": "^8.0.1",
     "formik": "^2.4.6",

@@ -1,5 +1,5 @@
 "use client";
-import { resumeInfos } from "@/app/resume/_lib/resume-info";
+import { SelectResumeInfo } from "@/db/schema";
 import {
   Select,
   SelectContent,
@@ -9,19 +9,17 @@ import {
 } from "@/components/ui/select";
 
 type ResumeSelectorProps = {
-  resumeInfos: typeof resumeInfos;
-  selectedResume: keyof typeof resumeInfos;
-  setSelectedResume: (resume: keyof typeof resumeInfos) => void;
+  resumeInfos: SelectResumeInfo[];
+  selectedResume: string;
+  setSelectedResume: (id: string) => void;
 };
 
 export const ResumeSelector = (props: ResumeSelectorProps) => {
-  const { selectedResume, setSelectedResume } = props;
+  const { resumeInfos, selectedResume, setSelectedResume } = props;
   return (
     <Select
       value={selectedResume}
-      onValueChange={(value) =>
-        setSelectedResume(value as keyof typeof resumeInfos)
-      }
+      onValueChange={setSelectedResume}
     >
       <SelectTrigger
         className="w-full"
@@ -30,13 +28,13 @@ export const ResumeSelector = (props: ResumeSelectorProps) => {
         <SelectValue placeholder="Select a resume" />
       </SelectTrigger>
       <SelectContent>
-        {Object.keys(resumeInfos).map((key) => (
+        {resumeInfos.map((info) => (
           <SelectItem
-            key={key}
-            value={key}
-            data-testid={`resume-option-${key}`}
+            key={info.id}
+            value={info.id}
+            data-testid={`resume-option-${info.title}`}
           >
-            {key}
+            {info.title}
           </SelectItem>
         ))}
       </SelectContent>

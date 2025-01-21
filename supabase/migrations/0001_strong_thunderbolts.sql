@@ -1,0 +1,1 @@
+ALTER TABLE "portfolio"."resume_infos" ADD CONSTRAINT "resume_infos_title_unique" UNIQUE("title");
