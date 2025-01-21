@@ -29,3 +29,27 @@ export const PUT = async (
     );
   }
 };
+
+export const DELETE = async (
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) => {
+  try {
+    const [deletedResume] = await db
+      .delete(resumeInfos)
+      .where(eq(resumeInfos.id, params.id))
+      .returning();
+
+    if (!deletedResume) {
+      return NextResponse.json({ error: "Resume not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(deletedResume);
+  } catch (error) {
+    console.error("Error deleting resume:", error);
+    return NextResponse.json(
+      { error: "Failed to delete resume" },
+      { status: 500 }
+    );
+  }
+};
