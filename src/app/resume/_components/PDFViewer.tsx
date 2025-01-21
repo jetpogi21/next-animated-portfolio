@@ -1,15 +1,13 @@
 "use client";
 import { MyDocument } from "@/app/resume/_components/MyDocument";
-import { resumeInfos } from "@/app/resume/_lib/resume-info";
+import { ResumeForm } from "@/app/resume/_components/ResumeForm";
+import { ResumeSelector } from "@/app/resume/_components/ResumeSelector";
+import {
+  resumeInfos as initialResumeInfos,
+  ResumeInfo,
+} from "@/app/resume/_lib/resume-info";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 const PDFViewerNative = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
@@ -21,30 +19,28 @@ const PDFViewerNative = dynamic(
 
 export const PDFViewer = () => {
   const [selectedResume, setSelectedResume] =
-    useState<keyof typeof resumeInfos>("Basic");
+    useState<keyof typeof initialResumeInfos>("Basic");
+  const [resumeInfos, setResumeInfos] =
+    useState<typeof initialResumeInfos>(initialResumeInfos);
 
   return (
-    <div className="flex flex-col gap-4 w-full h-full">
-      <Select
-        value={selectedResume}
-        onValueChange={(value) =>
-          setSelectedResume(value as keyof typeof resumeInfos)
-        }
-      >
-        <SelectTrigger className="w-48">
-          <SelectValue placeholder="Select a resume" />
-        </SelectTrigger>
-        <SelectContent>
-          {Object.keys(resumeInfos).map((key) => (
-            <SelectItem
-              key={key}
-              value={key}
-            >
-              {key}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+    <div className="flex gap-4 w-full h-full">
+      <div className="flex flex-col gap-4 w-1/3">
+        <ResumeSelector
+          resumeInfos={resumeInfos}
+          selectedResume={selectedResume}
+          setSelectedResume={setSelectedResume}
+        />
+        <ResumeForm
+          resumeInfo={resumeInfos[selectedResume]}
+          onSave={(updatedInfo: ResumeInfo) => {
+            setResumeInfos((prev) => ({
+              ...prev,
+              [selectedResume]: updatedInfo,
+            }));
+          }}
+        />
+      </div>
       <PDFViewerNative
         height={"100%"}
         width={"100%"}
