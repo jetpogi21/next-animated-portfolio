@@ -3,6 +3,7 @@ import { resumeService } from "../_lib/resume-service";
 import { ResumeInfo } from "../_lib/resume-info";
 import { SelectResumeInfo } from "@/db/schema";
 import { toast } from "sonner";
+import { useResumeStore } from "../_store/resume-store";
 
 export const resumeKeys = {
   all: ["resumes"] as const,
@@ -69,12 +70,27 @@ export const useCreateResume = () => {
 
 export const useCloneResume = () => {
   const createResume = useCreateResume();
+  const { setSelectedResumeId } = useResumeStore();
+  const { data: resumes = [] } = useResumes();
 
   const cloneResume = async (resume: SelectResumeInfo) => {
-    return createResume.mutate({
+    const newTitle = `Copy of ${resume.title}`;
+
+    // Check if a resume with the same title already exists
+    const existingResume = resumes.find((r) => r.title === newTitle);
+    if (existingResume) {
+      toast.warning("Warning", {
+        description: `A resume with the name "${newTitle}" already exists.`,
+      });
+      return;
+    }
+
+    const result = await createResume.mutateAsync({
       info: resume.info,
-      title: `Copy of ${resume.title}`,
+      title: newTitle,
     });
+    setSelectedResumeId(result.id);
+    return result;
   };
 
   return {
