@@ -7,10 +7,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Trash2 } from "lucide-react";
+import { Trash2, Copy } from "lucide-react";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { Button } from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
+import { useResumeStore } from "@/app/resume/_store/resume-store";
 
 type ResumeSelectorProps = {
   resumeInfos: SelectResumeInfo[];
@@ -21,6 +22,7 @@ type ResumeSelectorProps = {
 export const ResumeSelector = (props: ResumeSelectorProps) => {
   const { resumeInfos, selectedResume, setSelectedResume } = props;
   const router = useRouter();
+  const { cloneSelectedResume } = useResumeStore();
 
   const handleDelete = async () => {
     try {
@@ -47,8 +49,13 @@ export const ResumeSelector = (props: ResumeSelectorProps) => {
     }
   };
 
+  const handleClone = async () => {
+    await cloneSelectedResume();
+    router.refresh();
+  };
+
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex gap-2 items-center">
       <Select
         value={selectedResume}
         onValueChange={setSelectedResume}
@@ -72,16 +79,27 @@ export const ResumeSelector = (props: ResumeSelectorProps) => {
         </SelectContent>
       </Select>
 
+      <Button
+        variant="ghost"
+        size="icon"
+        className="w-10 h-10"
+        disabled={!selectedResume}
+        onClick={handleClone}
+        data-testid="clone-resume-button"
+      >
+        <Copy className="w-4 h-4" />
+      </Button>
+
       <ConfirmDialog
         trigger={
           <Button
             variant="ghost"
             size="icon"
-            className="h-10 w-10"
+            className="w-10 h-10"
             disabled={!selectedResume}
             data-testid="delete-resume-button"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="w-4 h-4" />
           </Button>
         }
         title="Delete Resume"
