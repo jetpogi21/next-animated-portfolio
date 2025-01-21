@@ -1,2 +1,4 @@
 The type of ResumeInfo is in the `resume-info.ts`. Always consider this type when creating components, codes or solutions that are related to resume.
+Since we're using drizzle, always consult the schema.ts file to have an understanding of the different tables and columns.
 You must search for ResumeInfo and understand the type.
+We use zustand for global state management and tanstack query for asynchronous state management.

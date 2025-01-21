@@ -2,52 +2,87 @@
 import { MyDocument } from "@/app/resume/_components/MyDocument";
 import { ResumeForm } from "@/app/resume/_components/ResumeForm";
 import { ResumeSelector } from "@/app/resume/_components/ResumeSelector";
-import { ResumeInfo } from "@/app/resume/_lib/resume-info";
+import { useResumeStore } from "@/app/resume/_store/resume-store";
 import { SelectResumeInfo } from "@/db/schema";
 import { PDFViewer as ReactPDFViewer } from "@react-pdf/renderer";
-import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Loader2 } from "lucide-react";
 
 type PDFViewerProps = {
   initialResumeInfos: SelectResumeInfo[];
 };
 
 export const PDFViewer = ({ initialResumeInfos }: PDFViewerProps) => {
-  const [selectedResumeInfo, setSelectedResumeInfo] = useState<
-    SelectResumeInfo | undefined
-  >(initialResumeInfos[0]);
+  const {
+    resumeInfos,
+    selectedResumeInfo,
+    isLoading,
+    error,
+    setResumeInfos,
+    setSelectedResumeInfo,
+    updateResumeInfo,
+  } = useResumeStore();
 
-  const handleSave = (updatedInfo: ResumeInfo) => {
-    if (!selectedResumeInfo) return;
-    // TODO: Save to database
-  };
+  useEffect(() => {
+    setResumeInfos(initialResumeInfos);
+  }, [initialResumeInfos, setResumeInfos]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Error", {
+        description: error,
+      });
+    }
+  }, [error]);
 
   return (
     <div className="flex gap-4 w-full h-full">
       <div className="flex flex-col gap-4 w-1/3 h-full">
         <ResumeSelector
-          resumeInfos={initialResumeInfos}
+          resumeInfos={resumeInfos}
           selectedResume={selectedResumeInfo?.id ?? ""}
-          setSelectedResume={(id) => {
-            const selected = initialResumeInfos.find((info) => info.id === id);
-            setSelectedResumeInfo(selected);
-          }}
+          setSelectedResume={setSelectedResumeInfo}
         />
         <ScrollArea className="flex-1">
           {selectedResumeInfo && (
             <ResumeForm
               resumeInfo={selectedResumeInfo.info}
-              onSave={handleSave}
+              onSave={updateResumeInfo}
+              isLoading={isLoading}
             />
           )}
         </ScrollArea>
+        {selectedResumeInfo && (
+          <Button
+            type="submit"
+            form="resume-form"
+            className="w-full"
+            data-testid="save-button"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+            ) : null}
+            {isLoading ? "Saving..." : "Save Changes"}
+          </Button>
+        )}
       </div>
-      <ReactPDFViewer
-        height={"100%"}
-        width={"100%"}
-      >
-        <MyDocument values={selectedResumeInfo?.info ?? ({} as ResumeInfo)} />
-      </ReactPDFViewer>
+      {selectedResumeInfo ? (
+        <ReactPDFViewer
+          height={"100%"}
+          width={"100%"}
+        >
+          <MyDocument values={selectedResumeInfo.info} />
+        </ReactPDFViewer>
+      ) : (
+        <Card className="flex flex-1 justify-center items-center text-muted-foreground">
+          Select a resume to view and edit
+        </Card>
+      )}
     </div>
   );
 };
