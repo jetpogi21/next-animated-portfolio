@@ -11,7 +11,7 @@ import { SelectResumeInfo } from "@/db/schema";
 type PersonalInfoSectionProps = {
   formik: FormikProps<ResumeInfo>;
   selectedResumeInfo: SelectResumeInfo | null;
-  onResumeNameChange: (title: string) => Promise<void>;
+  onResumeNameChange: (title: string) => void;
 };
 
 export const PersonalInfoSection = ({
@@ -21,11 +21,9 @@ export const PersonalInfoSection = ({
 }: PersonalInfoSectionProps) => {
   const { values, handleChange, setFieldValue } = formik;
 
-  const handleResumeNameChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleResumeNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!selectedResumeInfo) return;
-    await onResumeNameChange(e.target.value);
+    onResumeNameChange(e.target.value);
   };
 
   return (

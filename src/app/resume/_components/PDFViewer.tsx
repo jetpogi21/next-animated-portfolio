@@ -12,32 +12,54 @@ import { useResumes, useUpdateResume } from "../_hooks/use-resume";
 
 export const PDFViewer = () => {
   const { data: resumeInfos } = useResumes();
-  const { selectedResumeId } = useResumeStore();
+  const { selectedResumeId, getTempValue, setTempValue, clearAllTempChanges } =
+    useResumeStore();
   const { mutate: updateResume, isPending: isUpdating } = useUpdateResume();
 
   const selectedResumeInfo = resumeInfos?.find(
     (r) => r.id === selectedResumeId
   );
 
+  // Get the temporary or actual values
+  const getEffectiveValue = (field: string, defaultValue: any) =>
+    selectedResumeId
+      ? getTempValue(selectedResumeId, field) ?? defaultValue
+      : defaultValue;
+
+  const effectiveResumeInfo = selectedResumeInfo && {
+    ...selectedResumeInfo,
+    title: getEffectiveValue("title", selectedResumeInfo.title),
+    // Add more fields here as needed
+  };
+
+  const handleSave = async (info: any) => {
+    if (!selectedResumeId) return;
+
+    const tempTitle = getTempValue(selectedResumeId, "title");
+    await updateResume({
+      id: selectedResumeId,
+      data: {
+        info,
+        ...(tempTitle && { title: tempTitle }),
+      },
+    });
+    clearAllTempChanges();
+  };
+
   return (
     <div className="flex gap-4 w-full h-full">
       <div className="flex flex-col gap-4 w-1/3 h-full">
         <ResumeSelector />
         <ScrollArea className="flex-1">
-          {selectedResumeInfo && (
+          {effectiveResumeInfo && (
             <ResumeForm
-              resumeInfo={selectedResumeInfo.info}
-              onSave={(info) =>
-                updateResume({ id: selectedResumeId!, data: { info } })
-              }
+              resumeInfo={effectiveResumeInfo.info}
+              onSave={handleSave}
               isLoading={isUpdating}
-              selectedResumeInfo={selectedResumeInfo}
-              onResumeNameChange={async (title) => {
+              selectedResumeInfo={effectiveResumeInfo}
+              onResumeNameChange={(title) => {
                 if (!selectedResumeId) return;
-                await updateResume({
-                  id: selectedResumeId,
-                  data: { title, info: selectedResumeInfo.info },
-                });
+                setTempValue(selectedResumeId, "title", title);
               }}
             />
           )}
@@ -57,12 +79,12 @@ export const PDFViewer = () => {
           </Button>
         )}
       </div>
-      {selectedResumeInfo ? (
+      {effectiveResumeInfo ? (
         <ReactPDFViewer
           height={"100%"}
           width={"100%"}
         >
-          <MyDocument values={selectedResumeInfo.info} />
+          <MyDocument values={effectiveResumeInfo.info} />
         </ReactPDFViewer>
       ) : (
         <Card className="flex flex-1 justify-center items-center text-muted-foreground">

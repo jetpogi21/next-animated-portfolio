@@ -15,7 +15,7 @@ type ResumeFormProps = {
   onSave: (updatedInfo: ResumeInfo) => void;
   isLoading?: boolean;
   selectedResumeInfo: SelectResumeInfo | null;
-  onResumeNameChange: (title: string) => Promise<void>;
+  onResumeNameChange: (title: string) => void;
 };
 
 export const ResumeForm = ({
