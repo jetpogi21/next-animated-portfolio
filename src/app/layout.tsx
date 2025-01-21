@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { TransitionProvider } from "@/components/TransitionProvider";
 import { Toaster } from "sonner";
 import type { Metadata } from "next";
+import { Providers } from "./providers";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,21 +32,23 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TransitionProvider disableAnimation={false}>
-            {children}
-            <Toaster
-              position="bottom-right"
-              theme="system"
-              closeButton
-            />
-          </TransitionProvider>
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TransitionProvider disableAnimation={false}>
+              {children}
+              <Toaster
+                position="bottom-right"
+                theme="system"
+                closeButton
+              />
+            </TransitionProvider>
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

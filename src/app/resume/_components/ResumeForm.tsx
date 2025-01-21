@@ -8,17 +8,22 @@ import { SummarySection } from "./sections/SummarySection";
 import { EducationSection } from "./sections/EducationSection";
 import { SkillsSection } from "./sections/SkillsSection";
 import { WorkExperienceSection } from "./sections/WorkExperienceSection";
+import { SelectResumeInfo } from "@/db/schema";
 
 type ResumeFormProps = {
   resumeInfo: ResumeInfo;
   onSave: (updatedInfo: ResumeInfo) => void;
   isLoading?: boolean;
+  selectedResumeInfo: SelectResumeInfo | null;
+  onResumeNameChange: (title: string) => Promise<void>;
 };
 
 export const ResumeForm = ({
   resumeInfo,
   onSave,
   isLoading,
+  selectedResumeInfo,
+  onResumeNameChange,
 }: ResumeFormProps) => {
   return (
     <Formik
@@ -33,7 +38,11 @@ export const ResumeForm = ({
           id="resume-form"
           className="space-y-4"
         >
-          <PersonalInfoSection formik={formik} />
+          <PersonalInfoSection
+            formik={formik}
+            selectedResumeInfo={selectedResumeInfo}
+            onResumeNameChange={onResumeNameChange}
+          />
           <ContactInfoSection formik={formik} />
           <SummarySection formik={formik} />
           <EducationSection formik={formik} />

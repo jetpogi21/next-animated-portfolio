@@ -1,27 +1,34 @@
-import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { resumeInfos } from "@/db/schema";
-import { ResumeInfo } from "@/app/resume/_lib/resume-info";
+import { desc } from "drizzle-orm";
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  try {
+    const allResumes = await db
+      .select()
+      .from(resumeInfos)
+      .orderBy(desc(resumeInfos.id));
+
+    return NextResponse.json(allResumes);
+  } catch (error) {
+    console.error("Error fetching resumes:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch resumes" },
+      { status: 500 }
+    );
+  }
+}
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { info, title } = body;
+    const { info, title } = await request.json();
 
-    // Validate required fields
-    if (!info || !title) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
-
-    // Insert new resume
     const [newResume] = await db
       .insert(resumeInfos)
       .values({
+        info,
         title,
-        info: info as ResumeInfo,
       })
       .returning();
 

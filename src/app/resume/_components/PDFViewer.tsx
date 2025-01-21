@@ -3,56 +3,42 @@ import { MyDocument } from "@/app/resume/_components/MyDocument";
 import { ResumeForm } from "@/app/resume/_components/ResumeForm";
 import { ResumeSelector } from "@/app/resume/_components/ResumeSelector";
 import { useResumeStore } from "@/app/resume/_store/resume-store";
-import { SelectResumeInfo } from "@/db/schema";
 import { PDFViewer as ReactPDFViewer } from "@react-pdf/renderer";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useEffect } from "react";
-import { toast } from "sonner";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Loader2 } from "lucide-react";
+import { useResumes, useUpdateResume } from "../_hooks/use-resume";
 
-type PDFViewerProps = {
-  initialResumeInfos: SelectResumeInfo[];
-};
+export const PDFViewer = () => {
+  const { data: resumeInfos } = useResumes();
+  const { selectedResumeId } = useResumeStore();
+  const { mutate: updateResume, isPending: isUpdating } = useUpdateResume();
 
-export const PDFViewer = ({ initialResumeInfos }: PDFViewerProps) => {
-  const {
-    resumeInfos,
-    selectedResumeInfo,
-    isLoading,
-    error,
-    setResumeInfos,
-    setSelectedResumeInfo,
-    updateResumeInfo,
-  } = useResumeStore();
-
-  useEffect(() => {
-    setResumeInfos(initialResumeInfos);
-  }, [initialResumeInfos, setResumeInfos]);
-
-  useEffect(() => {
-    if (error) {
-      toast.error("Error", {
-        description: error,
-      });
-    }
-  }, [error]);
+  const selectedResumeInfo = resumeInfos?.find(
+    (r) => r.id === selectedResumeId
+  );
 
   return (
     <div className="flex gap-4 w-full h-full">
       <div className="flex flex-col gap-4 w-1/3 h-full">
-        <ResumeSelector
-          resumeInfos={resumeInfos}
-          selectedResume={selectedResumeInfo?.id ?? ""}
-          setSelectedResume={setSelectedResumeInfo}
-        />
+        <ResumeSelector />
         <ScrollArea className="flex-1">
           {selectedResumeInfo && (
             <ResumeForm
               resumeInfo={selectedResumeInfo.info}
-              onSave={updateResumeInfo}
-              isLoading={isLoading}
+              onSave={(info) =>
+                updateResume({ id: selectedResumeId!, data: { info } })
+              }
+              isLoading={isUpdating}
+              selectedResumeInfo={selectedResumeInfo}
+              onResumeNameChange={async (title) => {
+                if (!selectedResumeId) return;
+                await updateResume({
+                  id: selectedResumeId,
+                  data: { title, info: selectedResumeInfo.info },
+                });
+              }}
             />
           )}
         </ScrollArea>
@@ -62,12 +48,12 @@ export const PDFViewer = ({ initialResumeInfos }: PDFViewerProps) => {
             form="resume-form"
             className="w-full"
             data-testid="save-button"
-            disabled={isLoading}
+            disabled={isUpdating}
           >
-            {isLoading ? (
+            {isUpdating ? (
               <Loader2 className="mr-2 w-4 h-4 animate-spin" />
             ) : null}
-            {isLoading ? "Saving..." : "Save Changes"}
+            {isUpdating ? "Saving..." : "Save Changes"}
           </Button>
         )}
       </div>

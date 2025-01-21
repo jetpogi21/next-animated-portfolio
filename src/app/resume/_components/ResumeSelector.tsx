@@ -1,5 +1,4 @@
 "use client";
-import { SelectResumeInfo } from "@/db/schema";
 import {
   Select,
   SelectContent,
@@ -7,58 +6,57 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Trash2, Copy } from "lucide-react";
+import { Trash2, Copy, Loader2 } from "lucide-react";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { Button } from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
 import { useResumeStore } from "@/app/resume/_store/resume-store";
+import {
+  useCloneResume,
+  useResumes,
+  useDeleteResume,
+} from "../_hooks/use-resume";
 
-type ResumeSelectorProps = {
-  resumeInfos: SelectResumeInfo[];
-  selectedResume: string;
-  setSelectedResume: (id: string) => void;
-};
+export const ResumeSelector = () => {
+  const { data: resumeInfos, isLoading: isLoadingResumes } = useResumes();
+  const { selectedResumeId, setSelectedResumeId } = useResumeStore();
+  const { cloneResume, isLoading: isCloning } = useCloneResume();
+  const { mutate: deleteResume, isPending: isDeleting } = useDeleteResume();
 
-export const ResumeSelector = (props: ResumeSelectorProps) => {
-  const { resumeInfos, selectedResume, setSelectedResume } = props;
-  const router = useRouter();
-  const { cloneSelectedResume } = useResumeStore();
+  // Set initial selected resume
+  if (!selectedResumeId && resumeInfos?.length && !isLoadingResumes) {
+    setSelectedResumeId(resumeInfos[0].id);
+  }
 
-  const handleDelete = async () => {
-    try {
-      const response = await fetch(`/api/resume/${selectedResume}`, {
-        method: "DELETE",
-      });
+  const handleClone = async () => {
+    if (!selectedResumeId || !resumeInfos) return;
+    const resumeToClone = resumeInfos.find((r) => r.id === selectedResumeId);
+    if (!resumeToClone) return;
+    await cloneResume(resumeToClone);
+  };
 
-      if (!response.ok) {
-        throw new Error("Failed to delete resume");
-      }
-
-      // Set selected resume to another one if available
-      const remainingResumes = resumeInfos.filter(
-        (info) => info.id !== selectedResume
-      );
-      if (remainingResumes.length > 0) {
-        setSelectedResume(remainingResumes[0].id);
-      }
-
-      router.refresh();
-    } catch (error) {
-      console.error("Error deleting resume:", error);
-      alert("Failed to delete resume. Please try again.");
+  const handleDelete = (id: string) => {
+    deleteResume(id);
+    // Set selected resume to another one if available
+    const remainingResumes = resumeInfos?.filter((info) => info.id !== id);
+    if (remainingResumes?.length) {
+      setSelectedResumeId(remainingResumes[0].id);
     }
   };
 
-  const handleClone = async () => {
-    await cloneSelectedResume();
-    router.refresh();
-  };
+  if (isLoadingResumes) {
+    return (
+      <div className="flex gap-2 items-center">
+        <Loader2 className="w-4 h-4 animate-spin" />
+        Loading resumes...
+      </div>
+    );
+  }
 
   return (
     <div className="flex gap-2 items-center">
       <Select
-        value={selectedResume}
-        onValueChange={setSelectedResume}
+        value={selectedResumeId}
+        onValueChange={setSelectedResumeId}
       >
         <SelectTrigger
           className="w-full"
@@ -67,7 +65,7 @@ export const ResumeSelector = (props: ResumeSelectorProps) => {
           <SelectValue placeholder="Select a resume" />
         </SelectTrigger>
         <SelectContent>
-          {resumeInfos.map((info) => (
+          {resumeInfos?.map((info) => (
             <SelectItem
               key={info.id}
               value={info.id}
@@ -83,11 +81,15 @@ export const ResumeSelector = (props: ResumeSelectorProps) => {
         variant="ghost"
         size="icon"
         className="w-10 h-10"
-        disabled={!selectedResume}
+        disabled={!selectedResumeId || isCloning}
         onClick={handleClone}
         data-testid="clone-resume-button"
       >
-        <Copy className="w-4 h-4" />
+        {isCloning ? (
+          <Loader2 className="w-4 h-4 animate-spin" />
+        ) : (
+          <Copy className="w-4 h-4" />
+        )}
       </Button>
 
       <ConfirmDialog
@@ -96,15 +98,19 @@ export const ResumeSelector = (props: ResumeSelectorProps) => {
             variant="ghost"
             size="icon"
             className="w-10 h-10"
-            disabled={!selectedResume}
+            disabled={!selectedResumeId || isDeleting}
             data-testid="delete-resume-button"
           >
-            <Trash2 className="w-4 h-4" />
+            {isDeleting ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Trash2 className="w-4 h-4" />
+            )}
           </Button>
         }
         title="Delete Resume"
         description="Are you sure you want to delete this resume? This action cannot be undone."
-        onConfirm={handleDelete}
+        onConfirm={() => selectedResumeId && handleDelete(selectedResumeId)}
         confirmText="Delete"
       />
     </div>

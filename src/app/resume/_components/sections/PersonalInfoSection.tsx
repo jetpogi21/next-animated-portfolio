@@ -6,26 +6,26 @@ import { Label } from "@/components/ui/Label";
 import { PillInput } from "../PillInput";
 import { FormikProps } from "formik";
 import { ResumeInfo } from "../../_lib/resume-info";
-import { useResumeStore } from "../../_store/resume-store";
+import { SelectResumeInfo } from "@/db/schema";
 
 type PersonalInfoSectionProps = {
   formik: FormikProps<ResumeInfo>;
+  selectedResumeInfo: SelectResumeInfo | null;
+  onResumeNameChange: (title: string) => Promise<void>;
 };
 
-export const PersonalInfoSection = ({ formik }: PersonalInfoSectionProps) => {
+export const PersonalInfoSection = ({
+  formik,
+  selectedResumeInfo,
+  onResumeNameChange,
+}: PersonalInfoSectionProps) => {
   const { values, handleChange, setFieldValue } = formik;
-  const { selectedResumeInfo, updateResumeInfo } = useResumeStore();
 
   const handleResumeNameChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (!selectedResumeInfo) return;
-
-    const updatedInfo = {
-      ...values,
-      resumeTitle: e.target.value, // This won't be used in the ResumeInfo type but helps track the value
-    };
-    await updateResumeInfo(updatedInfo);
+    await onResumeNameChange(e.target.value);
   };
 
   return (
