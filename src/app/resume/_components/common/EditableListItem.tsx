@@ -29,7 +29,7 @@ export const EditableListItem = ({
   onRemove,
 }: EditableListItemProps) => {
   return (
-    <Card className="relative group">
+    <Card className="relative group hover:bg-accent transition-colors">
       <div className="absolute top-0 right-0 left-0 h-10 opacity-0 transition-opacity bg-muted/50 group-hover:opacity-100">
         <div className="flex absolute right-2 top-1/2 gap-2 -translate-y-1/2">
           <Dialog>
@@ -67,9 +67,28 @@ export const EditableListItem = ({
           </Button>
         </div>
       </div>
-      <CardContent className="p-4 pt-10">
-        <p className="text-sm">{item}</p>
-      </CardContent>
+      <Dialog>
+        <DialogTrigger asChild>
+          <CardContent
+            className="p-4 pt-10 cursor-pointer"
+            data-testid={`card-content-${testIdPrefix}-${index}`}
+          >
+            <p className="text-sm">{item}</p>
+          </CardContent>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{dialogTitle}</DialogTitle>
+          </DialogHeader>
+          <div className="pt-4 space-y-4">
+            <Textarea
+              value={item}
+              onChange={(e) => onEdit(e.target.value, index)}
+              data-testid={`${testIdPrefix}-input-${index}`}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };

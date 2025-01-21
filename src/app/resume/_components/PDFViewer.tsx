@@ -8,6 +8,7 @@ import {
 } from "@/app/resume/_lib/resume-info";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const PDFViewerNative = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
@@ -25,25 +26,23 @@ export const PDFViewer = () => {
 
   return (
     <div className="flex gap-4 w-full h-full">
-      <div className="flex flex-col w-1/3 h-full">
-        <div className="flex flex-col gap-4 h-full">
-          <ResumeSelector
-            resumeInfos={resumeInfos}
-            selectedResume={selectedResume}
-            setSelectedResume={setSelectedResume}
+      <div className="flex flex-col gap-4 w-1/3 h-full">
+        <ResumeSelector
+          resumeInfos={resumeInfos}
+          selectedResume={selectedResume}
+          setSelectedResume={setSelectedResume}
+        />
+        <ScrollArea className="flex-1">
+          <ResumeForm
+            resumeInfo={resumeInfos[selectedResume]}
+            onSave={(updatedInfo: ResumeInfo) => {
+              setResumeInfos((prev) => ({
+                ...prev,
+                [selectedResume]: updatedInfo,
+              }));
+            }}
           />
-          <div className="relative flex-1 px-4">
-            <ResumeForm
-              resumeInfo={resumeInfos[selectedResume]}
-              onSave={(updatedInfo: ResumeInfo) => {
-                setResumeInfos((prev) => ({
-                  ...prev,
-                  [selectedResume]: updatedInfo,
-                }));
-              }}
-            />
-          </div>
-        </div>
+        </ScrollArea>
       </div>
       <PDFViewerNative
         height={"100%"}
