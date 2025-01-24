@@ -10,6 +10,7 @@ type FilePathsConfig = {
 
 // File paths mapped to keys for easy reference
 const FILE_PATHS: FilePathsConfig = {
+  schema: path.join("..", "notepads", "prompts", "schema-specific.md"),
   guide: path.join("..", "notepads", "coding-guide.md"),
   script: [
     path.join("..", "notepads", "prompts", "scripts", "writing-script.md"),

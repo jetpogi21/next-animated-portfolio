@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { FileIcon, Loader2 } from "lucide-react";
 import { useResumes, useUpdateResume } from "../_hooks/use-resume";
 import { AboutMe } from "./AboutMe";
+import { ResumeTabs } from "@/app/resume/_components/ResumeTabs";
 
 export const PDFViewer = () => {
   const { data: resumeInfos } = useResumes();
@@ -85,18 +86,7 @@ export const PDFViewer = () => {
             </Button>
           )}
         </div>
-        {effectiveResumeInfo ? (
-          <ReactPDFViewer
-            height={"100%"}
-            width={"100%"}
-          >
-            <MyDocument values={effectiveResumeInfo.info} />
-          </ReactPDFViewer>
-        ) : (
-          <Card className="flex flex-1 justify-center items-center text-muted-foreground">
-            Select a resume to view and edit
-          </Card>
-        )}
+        <ResumeTabs effectiveResumeInfo={effectiveResumeInfo} />
       </div>
     </div>
   );
