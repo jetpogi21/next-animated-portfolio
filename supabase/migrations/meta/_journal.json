@@ -22,6 +22,13 @@
       "when": 1737471129440,
       "tag": "0002_productive_thunderbolt_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1737759136264,
+      "tag": "0003_bitter_roulette",
+      "breakpoints": true
     }
   ]
 }
