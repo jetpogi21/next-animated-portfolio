@@ -23,7 +23,7 @@ export const JobApplications = () => {
   }
 
   return (
-    <Card className="w-full">
+    <Card className="w-full h-full">
       <CardHeader className="flex flex-row justify-between items-center">
         <CardTitle>Job Applications</CardTitle>
         <Button

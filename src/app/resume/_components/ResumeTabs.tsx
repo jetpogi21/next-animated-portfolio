@@ -15,7 +15,7 @@ export const ResumeTabs = ({
   return (
     <Tabs
       defaultValue="resume"
-      className="flex flex-col w-full"
+      className="flex flex-col gap-4 w-full [&_div]:mt-0"
     >
       <TabsList className="justify-start w-min">
         <TabsTrigger value="resume">Resume</TabsTrigger>
