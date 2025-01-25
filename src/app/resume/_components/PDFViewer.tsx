@@ -7,8 +7,12 @@ import { PDFViewer as ReactPDFViewer } from "@react-pdf/renderer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { FileIcon, Loader2 } from "lucide-react";
-import { useResumes, useUpdateResume } from "../_hooks/use-resume";
+import { FileIcon, Loader2, Wand2 } from "lucide-react";
+import {
+  useResumes,
+  useUpdateResume,
+  useUpdateResumeFromJob,
+} from "../_hooks/use-resume";
 import { AboutMe } from "./AboutMe";
 import { ResumeTabs } from "@/app/resume/_components/ResumeTabs";
 import { JobApplicationSelector } from "@/app/resume/_components/JobApplicationSelector";
@@ -22,6 +26,8 @@ export const PDFViewer = () => {
   const { selectedResumeId } = useResumeStore();
   const queryClient = useQueryClient();
   const { mutate: updateResume, isPending: isUpdating } = useUpdateResume();
+  const { mutate: updateFromJob, isPending: isUpdatingFromJob } =
+    useUpdateResumeFromJob();
 
   const selectedResumeInfo = resumeInfos?.find(
     (r) => r.id === selectedResumeId
@@ -62,41 +68,62 @@ export const PDFViewer = () => {
       <div className="flex overflow-y-auto gap-4">
         <div className="flex flex-col gap-4 w-[300px] shrink-0">
           <ResumeSelector />
-          <div className="space-y-2">
-            <Label>Link to Job Application</Label>
-            <div className="overflow-hidden">
-              <JobApplicationSelector
-                selectedJobApplicationId={
-                  selectedResumeInfo?.jobApplicationId ?? null
-                }
-                onSelect={(jobApplicationId) => {
-                  if (selectedResumeId && selectedResumeInfo) {
-                    // Optimistically update the UI
-                    queryClient.setQueryData<SelectResumeInfo[]>(
-                      resumeKeys.lists(),
-                      (old) =>
-                        old?.map((resume) =>
-                          resume.id === selectedResumeId
-                            ? {
-                                ...resume,
-                                jobApplicationId,
-                              }
-                            : resume
-                        )
-                    );
-
-                    // Perform the actual update
-                    updateResume({
-                      id: selectedResumeId,
-                      data: {
-                        info: selectedResumeInfo.info,
-                        jobApplicationId,
-                      },
-                    });
+          <div className="flex gap-2">
+            {/* Combobox */}
+            <div className="overflow-x-hidden flex-1 space-y-2">
+              <Label>Link to Job Application</Label>
+              <div className="overflow-hidden">
+                <JobApplicationSelector
+                  selectedJobApplicationId={
+                    selectedResumeInfo?.jobApplicationId ?? null
                   }
-                }}
-              />
+                  onSelect={(jobApplicationId) => {
+                    if (selectedResumeId && selectedResumeInfo) {
+                      // Optimistically update the UI
+                      queryClient.setQueryData<SelectResumeInfo[]>(
+                        resumeKeys.lists(),
+                        (old) =>
+                          old?.map((resume) =>
+                            resume.id === selectedResumeId
+                              ? {
+                                  ...resume,
+                                  jobApplicationId,
+                                }
+                              : resume
+                          )
+                      );
+                      // Perform the actual update
+                      updateResume({
+                        id: selectedResumeId,
+                        data: {
+                          info: selectedResumeInfo.info,
+                          jobApplicationId,
+                        },
+                      });
+                    }
+                  }}
+                />
+              </div>
             </div>
+            {/* Update from job description */}
+            {selectedResumeInfo?.jobApplicationId && (
+              <Button
+                type="button"
+                variant="outline"
+                className="self-end place-self-end"
+                disabled={isUpdatingFromJob}
+                onClick={() =>
+                  selectedResumeInfo.id && updateFromJob(selectedResumeInfo.id)
+                }
+                data-testid="update-from-job-button"
+              >
+                {isUpdatingFromJob ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Wand2 className="w-4 h-4" />
+                )}
+              </Button>
+            )}
           </div>
           <ScrollArea className="flex-1">
             {selectedResumeInfo && (

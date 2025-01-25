@@ -124,3 +124,30 @@ export const useDeleteResume = () => {
     },
   });
 };
+
+export const useUpdateResumeFromJob = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) =>
+      fetch(`/api/resume/${id}/update-from-job`, {
+        method: "POST",
+      }).then((res) => {
+        if (!res.ok) throw new Error("Failed to update resume from job");
+        return res.json();
+      }),
+    onSuccess: (data) => {
+      queryClient.setQueryData<SelectResumeInfo[]>(resumeKeys.lists(), (old) =>
+        old?.map((resume) => (resume.id === data.id ? data : resume))
+      );
+      toast.success("Success", {
+        description: "Resume updated successfully based on job description",
+      });
+    },
+    onError: () => {
+      toast.error("Error", {
+        description: "Failed to update resume based on job description",
+      });
+    },
+  });
+};
