@@ -65,24 +65,26 @@ export const PDFViewer = () => {
       </div>
       {/* Form and actual resume */}
       <div className="flex overflow-y-auto gap-4">
-        <div className="flex flex-col gap-4 w-1/3">
+        <div className="flex flex-col gap-4 w-[300px] shrink-0">
           <ResumeSelector />
           <div className="space-y-2">
             <Label>Link to Job Application</Label>
-            <JobApplicationSelector
-              selectedJobApplicationId={
-                effectiveResumeInfo?.jobApplicationId ?? null
-              }
-              onSelect={(jobApplicationId) => {
-                if (selectedResumeId) {
-                  setTempValue(
-                    selectedResumeId,
-                    "jobApplicationId",
-                    jobApplicationId
-                  );
+            <div className="overflow-hidden">
+              <JobApplicationSelector
+                selectedJobApplicationId={
+                  effectiveResumeInfo?.jobApplicationId ?? null
                 }
-              }}
-            />
+                onSelect={(jobApplicationId) => {
+                  if (selectedResumeId) {
+                    setTempValue(
+                      selectedResumeId,
+                      "jobApplicationId",
+                      jobApplicationId
+                    );
+                  }
+                }}
+              />
+            </div>
           </div>
           <ScrollArea className="flex-1">
             {effectiveResumeInfo && (

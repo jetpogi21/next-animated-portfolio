@@ -9,8 +9,6 @@ import { EducationSection } from "./sections/EducationSection";
 import { SkillsSection } from "./sections/SkillsSection";
 import { WorkExperienceSection } from "./sections/WorkExperienceSection";
 import { SelectResumeInfo } from "@/db/schema";
-import { JobApplicationSelector } from "./JobApplicationSelector";
-import { Label } from "@/components/ui/Label";
 
 type ResumeFormProps = {
   resumeInfo: ResumeInfo;

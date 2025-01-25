@@ -52,9 +52,11 @@ export const JobApplicationSelector = ({
           disabled={isLoading}
           data-testid="job-application-selector"
         >
-          {selectedApplication
-            ? `${selectedApplication.companyName} - ${selectedApplication.jobTitle}`
-            : "Select job application..."}
+          <span className="overflow-hidden whitespace-nowrap text-ellipsis">
+            {selectedApplication
+              ? `${selectedApplication.companyName} - ${selectedApplication.jobTitle}`
+              : "Select job application..."}
+          </span>
           <ChevronsUpDown className="ml-2 w-4 h-4 opacity-50 shrink-0" />
         </Button>
       </PopoverTrigger>
