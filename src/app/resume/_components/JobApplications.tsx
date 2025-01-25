@@ -5,14 +5,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import {
   useJobApplications,
   useCreateJobApplication,
+  useUpdateJobApplication,
+  useDeleteJobApplication,
 } from "../_hooks/use-job-applications";
-import { Loader2, Plus } from "lucide-react";
-import { useState } from "react";
-import { JobApplicationForm } from "@/app/resume/_components/JobApplicationForm";
+import { Loader2, Plus, Pencil, Trash2 } from "lucide-react";
+import { JobApplicationDialog } from "./JobApplicationDialog";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 
 export const JobApplications = () => {
   const { data: jobApplications, isLoading } = useJobApplications();
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const { mutate: createJobApplication, isPending: isCreating } =
+    useCreateJobApplication();
+  const { mutate: updateJobApplication, isPending: isUpdating } =
+    useUpdateJobApplication();
+  const { mutate: deleteJobApplication, isPending: isDeleting } =
+    useDeleteJobApplication();
 
   if (isLoading) {
     return (
@@ -26,18 +33,21 @@ export const JobApplications = () => {
     <Card className="w-full h-full">
       <CardHeader className="flex flex-row justify-between items-center">
         <CardTitle>Job Applications</CardTitle>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setIsFormOpen(true)}
-        >
-          <Plus className="mr-2 w-4 h-4" /> Add Application
-        </Button>
+        <JobApplicationDialog
+          trigger={
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={isCreating}
+            >
+              <Plus className="mr-2 w-4 h-4" /> Add Application
+            </Button>
+          }
+          title="Add Job Application"
+          onSubmit={createJobApplication}
+        />
       </CardHeader>
       <CardContent>
-        {isFormOpen && (
-          <JobApplicationForm onClose={() => setIsFormOpen(false)} />
-        )}
         {jobApplications?.length === 0 ? (
           <p className="text-center text-muted-foreground">
             No job applications yet
@@ -45,12 +55,58 @@ export const JobApplications = () => {
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {jobApplications?.map((application) => (
-              <Card key={application.id}>
+              <Card
+                key={application.id}
+                data-testid={`job-application-${application.id}`}
+              >
                 <CardContent className="p-4">
-                  <h3 className="font-semibold">{application.companyName}</h3>
-                  <p className="text-muted-foreground">
-                    {application.jobTitle}
-                  </p>
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h3 className="font-semibold">
+                        {application.companyName}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {application.jobTitle}
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <JobApplicationDialog
+                        trigger={
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="w-8 h-8"
+                            disabled={isUpdating}
+                            data-testid={`edit-application-${application.id}`}
+                          >
+                            <Pencil className="w-4 h-4" />
+                          </Button>
+                        }
+                        title="Edit Job Application"
+                        defaultValues={application}
+                        onSubmit={(data) =>
+                          updateJobApplication({ id: application.id, data })
+                        }
+                      />
+                      <ConfirmDialog
+                        trigger={
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="w-8 h-8"
+                            disabled={isDeleting}
+                            data-testid={`delete-application-${application.id}`}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        }
+                        title="Delete Job Application"
+                        description="Are you sure you want to delete this job application? This action cannot be undone."
+                        onConfirm={() => deleteJobApplication(application.id)}
+                        confirmText="Delete"
+                      />
+                    </div>
+                  </div>
                   <p className="text-sm">
                     Applied on:{" "}
                     {application.dateApplied &&
