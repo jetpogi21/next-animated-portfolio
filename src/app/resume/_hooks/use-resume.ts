@@ -138,7 +138,16 @@ export const useUpdateResumeFromJob = () => {
       }),
     onSuccess: (data) => {
       queryClient.setQueryData<SelectResumeInfo[]>(resumeKeys.lists(), (old) =>
-        old?.map((resume) => (resume.id === data.id ? data : resume))
+        old?.map((resume) =>
+          resume.id === data.id
+            ? {
+                ...resume,
+                info: {
+                  ...data.info,
+                },
+              }
+            : resume
+        )
       );
       toast.success("Success", {
         description: "Resume updated successfully based on job description",
