@@ -13,49 +13,44 @@ import { AboutMe } from "./AboutMe";
 import { ResumeTabs } from "@/app/resume/_components/ResumeTabs";
 import { JobApplicationSelector } from "@/app/resume/_components/JobApplicationSelector";
 import { Label } from "@/components/ui/Label";
+import { useQueryClient } from "@tanstack/react-query";
+import { resumeKeys } from "../_hooks/use-resume";
+import { SelectResumeInfo } from "@/db/schema";
 
 export const PDFViewer = () => {
   const { data: resumeInfos } = useResumes();
-  const { selectedResumeId, getTempValue, setTempValue, clearAllTempChanges } =
-    useResumeStore();
+  const { selectedResumeId } = useResumeStore();
+  const queryClient = useQueryClient();
   const { mutate: updateResume, isPending: isUpdating } = useUpdateResume();
 
   const selectedResumeInfo = resumeInfos?.find(
     (r) => r.id === selectedResumeId
   );
 
-  // Get the temporary or actual values
-  const getEffectiveValue = (field: string, defaultValue: any) =>
-    selectedResumeId
-      ? getTempValue(selectedResumeId, field) ?? defaultValue
-      : defaultValue;
+  const handleSave = async (info: any, jobApplicationId: string | null) => {
+    if (!selectedResumeId || !selectedResumeInfo) return;
 
-  const effectiveResumeInfo = selectedResumeInfo && {
-    ...selectedResumeInfo,
-    title: getEffectiveValue("title", selectedResumeInfo.title),
-    jobApplicationId: getEffectiveValue(
-      "jobApplicationId",
-      selectedResumeInfo.jobApplicationId
-    ),
-  };
-
-  const handleSave = async (info: any) => {
-    if (!selectedResumeId) return;
-
-    const tempTitle = getTempValue(selectedResumeId, "title");
-    const tempJobApplicationId = getTempValue(
-      selectedResumeId,
-      "jobApplicationId"
+    // Optimistically update the UI
+    queryClient.setQueryData<SelectResumeInfo[]>(resumeKeys.lists(), (old) =>
+      old?.map((resume) =>
+        resume.id === selectedResumeId
+          ? {
+              ...resume,
+              info,
+              jobApplicationId,
+            }
+          : resume
+      )
     );
-    await updateResume({
+
+    // Perform the actual update
+    updateResume({
       id: selectedResumeId,
       data: {
         info,
-        ...(tempTitle && { title: tempTitle }),
-        jobApplicationId: tempJobApplicationId ?? null,
+        jobApplicationId,
       },
     });
-    clearAllTempChanges();
   };
 
   return (
@@ -72,30 +67,69 @@ export const PDFViewer = () => {
             <div className="overflow-hidden">
               <JobApplicationSelector
                 selectedJobApplicationId={
-                  effectiveResumeInfo?.jobApplicationId ?? null
+                  selectedResumeInfo?.jobApplicationId ?? null
                 }
                 onSelect={(jobApplicationId) => {
-                  if (selectedResumeId) {
-                    setTempValue(
-                      selectedResumeId,
-                      "jobApplicationId",
-                      jobApplicationId
+                  if (selectedResumeId && selectedResumeInfo) {
+                    // Optimistically update the UI
+                    queryClient.setQueryData<SelectResumeInfo[]>(
+                      resumeKeys.lists(),
+                      (old) =>
+                        old?.map((resume) =>
+                          resume.id === selectedResumeId
+                            ? {
+                                ...resume,
+                                jobApplicationId,
+                              }
+                            : resume
+                        )
                     );
+
+                    // Perform the actual update
+                    updateResume({
+                      id: selectedResumeId,
+                      data: {
+                        info: selectedResumeInfo.info,
+                        jobApplicationId,
+                      },
+                    });
                   }
                 }}
               />
             </div>
           </div>
           <ScrollArea className="flex-1">
-            {effectiveResumeInfo && (
+            {selectedResumeInfo && (
               <ResumeForm
-                resumeInfo={effectiveResumeInfo.info}
+                resumeInfo={selectedResumeInfo.info}
                 onSave={handleSave}
                 isLoading={isUpdating}
-                selectedResumeInfo={effectiveResumeInfo}
+                selectedResumeInfo={selectedResumeInfo}
                 onResumeNameChange={(title) => {
-                  if (!selectedResumeId) return;
-                  setTempValue(selectedResumeId, "title", title);
+                  if (selectedResumeId && selectedResumeInfo) {
+                    // Optimistically update the UI
+                    queryClient.setQueryData<SelectResumeInfo[]>(
+                      resumeKeys.lists(),
+                      (old) =>
+                        old?.map((resume) =>
+                          resume.id === selectedResumeId
+                            ? {
+                                ...resume,
+                                title,
+                              }
+                            : resume
+                        )
+                    );
+
+                    // Perform the actual update
+                    updateResume({
+                      id: selectedResumeId,
+                      data: {
+                        info: selectedResumeInfo.info,
+                        title,
+                      },
+                    });
+                  }
                 }}
               />
             )}
@@ -115,7 +149,7 @@ export const PDFViewer = () => {
             </Button>
           )}
         </div>
-        <ResumeTabs effectiveResumeInfo={effectiveResumeInfo} />
+        <ResumeTabs effectiveResumeInfo={selectedResumeInfo} />
       </div>
     </div>
   );

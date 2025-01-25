@@ -27,7 +27,11 @@ export const useUpdateResume = () => {
       data,
     }: {
       id: string;
-      data: { info: ResumeInfo; title?: string };
+      data: {
+        info: ResumeInfo;
+        title?: string;
+        jobApplicationId?: string | null;
+      };
     }) => resumeService.updateResume(id, data),
     onSuccess: (data) => {
       queryClient.setQueryData<SelectResumeInfo[]>(resumeKeys.lists(), (old) =>
