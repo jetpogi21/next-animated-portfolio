@@ -22,13 +22,14 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { info, title } = await request.json();
+    const { info, title, jobApplicationId } = await request.json();
 
     const [newResume] = await db
       .insert(resumeInfos)
       .values({
         info,
         title,
+        jobApplicationId,
       })
       .returning();
 

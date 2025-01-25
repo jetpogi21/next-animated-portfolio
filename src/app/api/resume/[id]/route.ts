@@ -8,11 +8,12 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { info, title } = await request.json();
+    const { info, title, jobApplicationId } = await request.json();
 
     const updateData = {
       ...(info && { info }),
       ...(title && { title }),
+      jobApplicationId,
     };
 
     const [updatedResume] = await db
@@ -37,7 +38,7 @@ export async function DELETE(
 ) {
   try {
     await db.delete(resumeInfos).where(eq(resumeInfos.id, params.id));
-    return NextResponse.json({ success: true });
+    return NextResponse.json(params.id);
   } catch (error) {
     console.error("Error deleting resume:", error);
     return NextResponse.json(

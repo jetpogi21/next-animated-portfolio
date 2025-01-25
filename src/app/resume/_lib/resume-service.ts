@@ -10,7 +10,7 @@ export const resumeService = {
 
   updateResume: async (
     id: string,
-    data: { info: ResumeInfo; title?: string }
+    data: { info: ResumeInfo; title?: string; jobApplicationId?: string | null }
   ): Promise<SelectResumeInfo> => {
     const response = await fetch(`/api/resume/${id}`, {
       method: "PUT",
@@ -24,6 +24,7 @@ export const resumeService = {
   createResume: async (data: {
     info: ResumeInfo;
     title: string;
+    jobApplicationId?: string;
   }): Promise<SelectResumeInfo> => {
     const response = await fetch("/api/resume", {
       method: "POST",

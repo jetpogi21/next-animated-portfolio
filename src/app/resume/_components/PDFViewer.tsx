@@ -11,6 +11,8 @@ import { FileIcon, Loader2 } from "lucide-react";
 import { useResumes, useUpdateResume } from "../_hooks/use-resume";
 import { AboutMe } from "./AboutMe";
 import { ResumeTabs } from "@/app/resume/_components/ResumeTabs";
+import { JobApplicationSelector } from "@/app/resume/_components/JobApplicationSelector";
+import { Label } from "@/components/ui/Label";
 
 export const PDFViewer = () => {
   const { data: resumeInfos } = useResumes();
@@ -31,18 +33,26 @@ export const PDFViewer = () => {
   const effectiveResumeInfo = selectedResumeInfo && {
     ...selectedResumeInfo,
     title: getEffectiveValue("title", selectedResumeInfo.title),
-    // Add more fields here as needed
+    jobApplicationId: getEffectiveValue(
+      "jobApplicationId",
+      selectedResumeInfo.jobApplicationId
+    ),
   };
 
   const handleSave = async (info: any) => {
     if (!selectedResumeId) return;
 
     const tempTitle = getTempValue(selectedResumeId, "title");
+    const tempJobApplicationId = getTempValue(
+      selectedResumeId,
+      "jobApplicationId"
+    );
     await updateResume({
       id: selectedResumeId,
       data: {
         info,
         ...(tempTitle && { title: tempTitle }),
+        jobApplicationId: tempJobApplicationId ?? null,
       },
     });
     clearAllTempChanges();
@@ -57,6 +67,23 @@ export const PDFViewer = () => {
       <div className="flex overflow-y-auto gap-4">
         <div className="flex flex-col gap-4 w-1/3">
           <ResumeSelector />
+          <div className="space-y-2">
+            <Label>Link to Job Application</Label>
+            <JobApplicationSelector
+              selectedJobApplicationId={
+                effectiveResumeInfo?.jobApplicationId ?? null
+              }
+              onSelect={(jobApplicationId) => {
+                if (selectedResumeId) {
+                  setTempValue(
+                    selectedResumeId,
+                    "jobApplicationId",
+                    jobApplicationId
+                  );
+                }
+              }}
+            />
+          </div>
           <ScrollArea className="flex-1">
             {effectiveResumeInfo && (
               <ResumeForm

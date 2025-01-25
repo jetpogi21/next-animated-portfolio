@@ -9,10 +9,12 @@ import { EducationSection } from "./sections/EducationSection";
 import { SkillsSection } from "./sections/SkillsSection";
 import { WorkExperienceSection } from "./sections/WorkExperienceSection";
 import { SelectResumeInfo } from "@/db/schema";
+import { JobApplicationSelector } from "./JobApplicationSelector";
+import { Label } from "@/components/ui/Label";
 
 type ResumeFormProps = {
   resumeInfo: ResumeInfo;
-  onSave: (updatedInfo: ResumeInfo) => void;
+  onSave: (updatedInfo: ResumeInfo, jobApplicationId: string | null) => void;
   isLoading?: boolean;
   selectedResumeInfo: SelectResumeInfo | null;
   onResumeNameChange: (title: string) => void;
@@ -29,7 +31,7 @@ export const ResumeForm = ({
     <Formik
       initialValues={resumeInfo}
       onSubmit={(values) => {
-        onSave(values);
+        onSave(values, selectedResumeInfo?.jobApplicationId ?? null);
       }}
       enableReinitialize
     >
@@ -38,11 +40,15 @@ export const ResumeForm = ({
           id="resume-form"
           className="space-y-4"
         >
-          <PersonalInfoSection
-            formik={formik}
-            selectedResumeInfo={selectedResumeInfo}
-            onResumeNameChange={onResumeNameChange}
-          />
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <PersonalInfoSection
+                formik={formik}
+                selectedResumeInfo={selectedResumeInfo}
+                onResumeNameChange={onResumeNameChange}
+              />
+            </div>
+          </div>
           <ContactInfoSection formik={formik} />
           <SummarySection formik={formik} />
           <EducationSection formik={formik} />
