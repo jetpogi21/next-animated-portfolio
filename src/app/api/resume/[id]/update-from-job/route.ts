@@ -161,8 +161,6 @@ export async function POST(
 
     const content = completion.choices[0].message.content;
 
-    console.log({ content });
-
     if (!content) {
       throw new Error("No content returned from DeepSeek API");
     }

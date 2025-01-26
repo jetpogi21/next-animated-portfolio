@@ -6,6 +6,8 @@ import { Card } from "@/components/ui/Card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SelectResumeInfo } from "@/db/schema";
 import { PDFViewer as ReactPDFViewer } from "@react-pdf/renderer";
+import { ResumeJsonEditor } from "./ResumeJsonEditor";
+import { Code2 } from "lucide-react";
 
 export const ResumeTabs = ({
   effectiveResumeInfo,
@@ -15,11 +17,18 @@ export const ResumeTabs = ({
   return (
     <Tabs
       defaultValue="resume"
-      className="flex flex-col gap-4 w-full [&_div]:mt-0"
+      className="flex flex-col gap-4 w-full [&_div]:mt-0 overflow-hidden"
     >
       <TabsList className="justify-start w-min">
         <TabsTrigger value="resume">Resume</TabsTrigger>
         <TabsTrigger value="job-applications">Job Applications</TabsTrigger>
+        <TabsTrigger
+          value="json-editor"
+          data-testid="json-editor-tab"
+        >
+          <Code2 className="mr-2 w-4 h-4" />
+          JSON Editor
+        </TabsTrigger>
       </TabsList>
       <TabsContent
         value="resume"
@@ -43,6 +52,12 @@ export const ResumeTabs = ({
         className="flex-1"
       >
         <JobApplications />
+      </TabsContent>
+      <TabsContent
+        value="json-editor"
+        className="flex-1"
+      >
+        <ResumeJsonEditor />
       </TabsContent>
     </Tabs>
   );
