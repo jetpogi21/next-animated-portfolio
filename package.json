@@ -10,7 +10,9 @@
     "combine-files": "npx tsx scripts/combineFiles.ts",
     "seed-resume": "npx tsx scripts/seed-resume.ts",
     "generate": "npx drizzle-kit generate",
-    "migrate": "npx drizzle-kit migrate"
+    "migrate": "npx drizzle-kit migrate",
+    "clone-repo": "tsx scripts/cloneRepo.ts",
+    "delete-clone": "tsx scripts/deleteClone.ts"
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
