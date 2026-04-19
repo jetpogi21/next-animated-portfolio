@@ -46,48 +46,31 @@ const JobTimeline = ({
   jobDescription,
   jobDate,
   jobCompany,
+  isLast = false,
 }: {
   jobTitle: string;
   jobDescription: string[];
   jobDate: string;
   jobCompany: string;
+  isLast?: boolean;
 }) => {
   return (
-    <div className="flex justify-between gap-4 even:flex-row-reverse">
-      <div className="flex-1 flex flex-col gap-2 border-l-2 border-[#d4956a] pl-4">
-        <div className="bg-primary text-primary-foreground p-3 font-semibold rounded-b-lg rounded-s-lg">
-          {jobTitle}
-        </div>
-
-        <div className="flex flex-col gap-2 relative text-sm italic pl-2">
+    <div className="flex gap-4">
+      <div className="flex flex-col items-center">
+        <div className="w-3 h-3 rounded-full bg-[#d4956a] mt-1 shrink-0" />
+        {!isLast && <div className="w-0.5 flex-1 bg-gray-600 mt-1" />}
+      </div>
+      <div className="flex flex-col gap-1 pb-8">
+        <span className="text-xs text-muted-foreground uppercase tracking-wide">
+          {jobDate} · {jobCompany}
+        </span>
+        <span className="text-base font-bold text-foreground">{jobTitle}</span>
+        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1 mt-1">
           {jobDescription.map((item, index) => (
-            <div
-              key={index}
-              className={cn("flex justify-center gap-2", {
-                "hidden lg:flex": index > 2,
-              })}
-            >
-              <div className="relative top-[3px] h-3 w-3 bg-foreground shrink-0"></div>
-              <span>{item}</span>
-            </div>
+            <li key={index}>{item}</li>
           ))}
-        </div>
-
-        <div className="text-[#d4956a] text-sm font-semibold">{jobDate}</div>
-
-        <div className="p-1 rounded bg-primary text-primary-foreground text-sm font-semibold w-fit">
-          {jobCompany}
-        </div>
+        </ul>
       </div>
-      {/* Center Line */}
-      <div className="flex justify-center px-8">
-        {/* LINE */}
-        <div className="w-1 h-full bg-gray-600 rounded relative">
-          {/* LINE CIRCLE */}
-          <div className="absolute w-5 h-5 rounded-full ring-4 ring-[#d4956a] bg-[#f8f3ed] -left-2"></div>
-        </div>
-      </div>
-      <div className="flex-1"></div>
     </div>
   );
 };
@@ -212,31 +195,25 @@ const Experience = () => {
     animate: inView ? { x: 0 } : {},
     transition: { delay: 0.2 },
   };
+
   return (
-    <div
-      className="flex"
-      id="experience-section"
-    >
-      <div
-        ref={ref}
-        className="flex flex-col gap-8 w-full"
-      >
+    <div className="flex" id="experience-section">
+      <div ref={ref} className="flex flex-col gap-8 w-full">
         <motion.h1 {...enterAnimationProps}>Experience</motion.h1>
-        <motion.div
-          className="flex flex-col "
-          {...enterAnimationProps}
-        >
-          {experienceList.map((experience) => {
-            return (
-              <JobTimeline
-                key={experience.jobCompany}
-                jobCompany={experience.jobCompany}
-                jobDate={experience.jobDate}
-                jobDescription={experience.jobDescription}
-                jobTitle={experience.jobTitle}
-              />
-            );
-          })}
+        <motion.div className="flex flex-col" {...enterAnimationProps}>
+          <p className="text-sm text-muted-foreground italic mb-6">
+            Professional roles I&apos;ve held
+          </p>
+          {experienceList.map((experience, index) => (
+            <JobTimeline
+              key={experience.jobCompany}
+              jobCompany={experience.jobCompany}
+              jobDate={experience.jobDate}
+              jobDescription={experience.jobDescription}
+              jobTitle={experience.jobTitle}
+              isLast={index === experienceList.length - 1}
+            />
+          ))}
         </motion.div>
         <div>
           <ScrollSvg elementID="last-section" />
