@@ -29,6 +29,7 @@ export const TransitionProvider = ({
               hidden: disableAnimation,
             }
           )}
+          initial={disableAnimation ? {} : { height: "100vh" }}
           animate={disableAnimation ? {} : { height: "0vh" }}
           exit={disableAnimation ? {} : { height: "140vh" }}
           transition={
@@ -56,6 +57,7 @@ export const TransitionProvider = ({
                   },
                 }
           }
+          exit={disableAnimation ? {} : { opacity: 0 }}
         >
           {pathName.substring(1) || "Home"}
         </motion.div>

@@ -120,6 +120,7 @@ export const ResponsiveMenuButton = ({
         />
         <Path
           d="M 2 9.423 L 20 9.423"
+          initial="closed"
           variants={{
             closed: { opacity: 1 },
             open: { opacity: 0 },
