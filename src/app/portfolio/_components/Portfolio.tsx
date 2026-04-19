@@ -187,7 +187,7 @@ export const Portfolio = () => {
                         {item.name}
                       </h1>
                       <div className="h-[400px] w-full flex items-center justify-center overflow-hidden rounded-lg">
-                        <LightboxDemo slides={item.images} />
+                        <LightboxDemo slides={item.images.map((src) => ({ src }))} />
                         {/* <div
                           className="rounded-lg peer cursor-pointer absolute inset-0 h-full w-full opacity-50 z-20 bg-slate-900 hover:opacity-0 transition-opacity duration-75" // Added hover effect
                         ></div>
