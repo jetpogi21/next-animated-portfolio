@@ -282,7 +282,7 @@ export const About = () => {
             <LastSection />
           </div>
           {/* SVG */}
-          <div className="hidden sm:flex w-1/3 lg:w-1/2 sticky top-0">
+          <div className="hidden sm:flex w-1/3 lg:w-1/2 self-start sticky top-0 h-screen">
             <Brain scrollYProgress={scrollYProgress} />
           </div>
         </div>
