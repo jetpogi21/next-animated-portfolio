@@ -275,26 +275,25 @@ const LastSection = () => {
 
 export const About = () => {
   const containerRef = useRef(null);
-
   const { scrollYProgress } = useScroll({ container: containerRef });
 
   return (
     <PageTransitionContainer margin="right">
-      {/* Main container */}
       <div
-        className="flex overflow-y-scroll h-full gap-10 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-[#d4956a] scrollbar-track-transparent scrollbar-thin"
+        className="flex overflow-y-scroll h-full gap-10 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-thumb-[#d4956a] scrollbar-track-transparent scrollbar-thin"
         ref={containerRef}
         style={{ backgroundColor: "var(--color-body-bg)" }}
       >
+        {/* Scroll progress bar */}
+        <motion.div
+          className="sticky top-0 left-0 h-0.5 bg-[#d4956a] z-10 w-full"
+          style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
+        />
         {/* Text container */}
         <div className="w-full sm:w-2/3 flex flex-col pr-8 sm:pr-0">
-          {/* Biography */}
           <Biography />
-          {/* Skill */}
           <Skills />
-          {/* Experience */}
           <Experience />
-          {/* Last Section */}
           <LastSection />
         </div>
         {/* SVG */}
