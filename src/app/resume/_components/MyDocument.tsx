@@ -13,7 +13,6 @@ import {
 import { resumeInfoProjectWorkflowAnalyst as resumeInfo } from "@/app/resume/_lib/resume-info";
 import { PDFDocumentProvider } from "@/app/resume/_providers/PDFDocumentProvider";
 import { Font, Document, Page, Image, View, Link } from "@react-pdf/renderer";
-import { relative } from "path";
 import { ComponentProps, ReactNode } from "react";
 
 /* Font.register({
