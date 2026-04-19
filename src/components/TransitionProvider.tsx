@@ -20,11 +20,11 @@ export const TransitionProvider = ({
     <AnimatePresence mode="wait">
       <div
         key={pathName}
-        className="h-screen w-screen bg-gradient-to-b dark:from-slate-950 dark:to-slate-900 from-slate-50 to-red-100"
+        className="w-screen min-h-screen bg-(--color-body-bg)"
       >
         <motion.div
           className={cn(
-            "h-screen w-screen fixed bg-slate-900 text-white text-4xl rounded-b-[100px] z-30 flex items-center justify-center",
+            "h-screen w-screen fixed bg-[#2d1f14] text-white text-4xl rounded-b-[100px] z-30 flex items-center justify-center",
             {
               hidden: disableAnimation,
             }
@@ -64,7 +64,7 @@ export const TransitionProvider = ({
 
         <motion.div
           className={cn(
-            "h-screen w-screen fixed bg-slate-900 text-white text-4xl rounded-t-[100px] z-20 flex items-center justify-center bottom-0",
+            "h-screen w-screen fixed bg-[#2d1f14] text-white text-4xl rounded-t-[100px] z-20 flex items-center justify-center bottom-0",
             {
               hidden: disableAnimation,
             }
