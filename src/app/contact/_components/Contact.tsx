@@ -2,7 +2,7 @@
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
 import { FormEventHandler, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { Loader2, GitFork, ExternalLink, Globe } from "lucide-react";
+import { Loader2, GitBranch, Briefcase, Globe } from "lucide-react";
 
 const getButtonCaption = (
   success: boolean,
@@ -225,7 +225,7 @@ export const Contact = () => {
                       fontFamily: "var(--font-karla)",
                     }}
                   >
-                    <GitFork className="size-3" /> GitHub
+                    <GitBranch className="size-3" /> GitHub
                   </a>
                   <a
                     href="https://linkedin.com"
@@ -238,7 +238,7 @@ export const Contact = () => {
                       fontFamily: "var(--font-karla)",
                     }}
                   >
-                    <ExternalLink className="size-3" /> LinkedIn
+                    <Briefcase className="size-3" /> LinkedIn
                   </a>
                   <a
                     href="https://freelancer.com"
