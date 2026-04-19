@@ -1,56 +1,210 @@
 "use client";
-import { PageTransitionContainer } from "@/components/PageTransitionContainer";
-import { cn, linkVariants } from "@/lib/utils";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 
-export const Home = () => {
-  const heading = "Data-driven Solutions Expert";
-  const description =
-    "Welcome to JET.dev, where financial expertise meets technical innovation.\nAs a certified public accountant and self-taught full-stack developer, I specialize in crafting dynamic, data-driven solutions that empower businesses to thrive in today's digital landscape.\nWith mastery in MS Office and Javascript,HTML and CSS, I transform raw data into actionable insights, driving strategic decision-making and maximizing efficiency.\nLet's unlock your data's potential together for unparalleled success.";
+const pillars = [
+  {
+    title: "Finance Systems",
+    body: "Accounting workflows, reporting dashboards, and data pipelines built on a decade of CPA practice.",
+    icon: "₱",
+  },
+  {
+    title: "Web Applications",
+    body: "Full-stack Next.js apps — from database schema to deployed product, end to end.",
+    icon: "⬡",
+  },
+  {
+    title: "Data Pipelines",
+    body: "SQL, PostgreSQL, Supabase — structured data that flows cleanly from source to insight.",
+    icon: "◈",
+  },
+];
+
+export default function Home() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+
   return (
-    <PageTransitionContainer>
-      <div className="h-full justify-around md:h-auto flex flex-col md:flex-row gap-8">
-        <div className="relative w-full h-1/2 md:h-[500px] lg:w-1/2">
-          <Image
-            className="z-0 object-contain"
-            src="/hero.png"
-            alt="hero"
-            fill
+    <div className="flex flex-col">
+      {/* Dark Hero */}
+      <section
+        ref={heroRef}
+        className="relative min-h-screen flex items-center overflow-hidden"
+        style={{ backgroundColor: "var(--color-hero-bg)" }}
+      >
+        {/* Photo — bleeds to right edge */}
+        <motion.div
+          style={{ y: imageY }}
+          className="absolute right-0 top-0 h-full w-1/2 hidden md:block"
+        >
+          <div
+            className="absolute inset-0 z-10"
+            style={{
+              background:
+                "linear-gradient(to right, var(--color-hero-bg) 0%, transparent 50%)",
+            }}
           />
-        </div>
-        <div className="flex flex-col w-full gap-8 lg:gap-8 lg:w-1/2 md:justify-around">
-          <h1 className="text-4xl font-extrabold md:text-5xl">{heading}</h1>
-          <p className="whitespace-pre-wrap">{description}</p>
-          <div className="flex gap-4 pb-16 md:pb-0">
+          <Image
+            src="/hero.png"
+            alt="Jonathan Pradas"
+            fill
+            className="object-cover object-top"
+            priority
+          />
+        </motion.div>
+
+        {/* Text content */}
+        <div className="relative z-20 px-8 md:px-16 lg:px-24 max-w-2xl">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-xs tracking-[4px] uppercase mb-4 font-medium"
+            style={{
+              fontFamily: "var(--font-karla)",
+              color: "var(--color-accent)",
+            }}
+          >
+            Full-Stack Developer · CPA
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] mb-6"
+            style={{
+              fontFamily: "var(--font-fraunces)",
+              color: "var(--color-text-on-dark)",
+            }}
+          >
+            I build systems that turn your data into{" "}
+            <span style={{ color: "var(--color-accent)" }}>decisions.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="text-base md:text-lg leading-relaxed mb-10"
+            style={{
+              fontFamily: "var(--font-karla)",
+              color: "var(--color-text-on-dark-muted)",
+            }}
+          >
+            CPA + full-stack developer with 10+ years building financial and web
+            systems for Filipino businesses.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap gap-4"
+          >
             <Link
               href="/portfolio"
-              className={cn(
-                "px-4 py-2 rounded-sm",
-                linkVariants({ variant: "active" })
-              )}
+              className="px-6 py-3 text-sm font-semibold tracking-wide uppercase transition-colors duration-200"
+              style={{
+                fontFamily: "var(--font-karla)",
+                backgroundColor: "var(--color-accent)",
+                color: "var(--color-hero-bg)",
+              }}
             >
-              View My Works
+              View Works →
             </Link>
             <Link
               href="/about"
-              className={cn(
-                "px-4 py-2 font-semibold rounded-sm border border-border"
-              )}
+              className="px-6 py-3 text-sm font-semibold tracking-wide uppercase border transition-colors duration-200"
+              style={{
+                fontFamily: "var(--font-karla)",
+                borderColor: "var(--color-accent)",
+                color: "var(--color-accent)",
+              }}
             >
               About Me
             </Link>
             <Link
               href="/contact"
-              className={cn(
-                "px-4 py-2 font-semibold rounded-sm border border-border"
-              )}
+              className="px-6 py-3 text-sm font-semibold tracking-wide uppercase transition-colors duration-200"
+              style={{
+                fontFamily: "var(--font-karla)",
+                color: "var(--color-text-on-dark-muted)",
+              }}
             >
               Contact Me
             </Link>
-          </div>
+          </motion.div>
         </div>
-      </div>
-    </PageTransitionContainer>
+      </section>
+
+      {/* Result Pillars */}
+      <section
+        className="py-24 px-8 md:px-16 lg:px-24"
+        style={{ backgroundColor: "var(--color-body-bg)" }}
+      >
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-xs tracking-[4px] uppercase font-medium mb-12"
+          style={{
+            fontFamily: "var(--font-karla)",
+            color: "var(--color-accent)",
+          }}
+        >
+          What I deliver
+        </motion.p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {pillars.map((pillar, i) => (
+            <motion.div
+              key={pillar.title}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+              className="p-8 border"
+              style={{
+                borderColor: "var(--color-border-light)",
+                backgroundColor: "var(--color-body-bg-alt)",
+              }}
+            >
+              <div
+                className="text-3xl mb-4"
+                style={{ color: "var(--color-accent)" }}
+              >
+                {pillar.icon}
+              </div>
+              <h3
+                className="text-xl font-bold mb-3"
+                style={{
+                  fontFamily: "var(--font-fraunces)",
+                  color: "var(--color-text-primary)",
+                }}
+              >
+                {pillar.title}
+              </h3>
+              <p
+                className="text-sm leading-relaxed"
+                style={{
+                  fontFamily: "var(--font-karla)",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                {pillar.body}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    </div>
   );
-};
+}
