@@ -45,7 +45,7 @@ const Logo = () => {
     >
       <span
         className="text-xl italic font-bold tracking-tight"
-        style={{ fontFamily: "var(--font-fraunces)", color: "var(--color-text-primary)" }}
+        style={{ fontFamily: "var(--font-fraunces)", color: "var(--color-text-on-dark)" }}
       >
         JET.dev
       </span>
@@ -215,7 +215,7 @@ const Socials = () => {
                 alt={social.title}
                 fill
                 className={cn("object-contain", {
-                  "dark:invert": social.title === "github",
+                  "invert dark:invert-0": social.title === "github",
                 })}
               />
             </div>

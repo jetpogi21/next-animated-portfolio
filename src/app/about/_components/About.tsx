@@ -118,7 +118,7 @@ const Skills = () => {
                 {group.skills.map((skill) => (
                   <div
                     key={skill}
-                    className="rounded-sm px-3 py-1 text-sm border border-(--color-accent) text-(--color-accent) hover:bg-[#2d1f14] hover:text-[#f8f3ed] hover:scale-[1.04] transition-all duration-200 cursor-default"
+                    className="rounded-sm px-3 py-1 text-sm border border-(--color-accent) text-(--color-accent) hover:bg-(--color-hero-bg) hover:text-(--color-text-on-dark) hover:scale-[1.04] transition-all duration-200 cursor-default"
                   >
                     {skill}
                   </div>
@@ -225,8 +225,8 @@ const LastSection = () => {
           className="flex flex-col gap-6 items-center text-center"
           {...enterAnimationProps}
         >
-          <h2 className="text-3xl font-bold text-foreground">What&apos;s next?</h2>
-          <p className="text-sm text-muted-foreground text-center max-w-xs">
+          <h2 className="text-3xl font-bold" style={{ color: "var(--color-text-on-dark)" }}>What&apos;s next?</h2>
+          <p className="text-sm text-center max-w-xs" style={{ color: "var(--color-text-on-dark-muted)" }}>
             Explore my work, download my resume, or reach out directly.
           </p>
           <div className="flex flex-col gap-3 w-48">
@@ -244,7 +244,8 @@ const LastSection = () => {
             </Link>
             <Link
               href="/contact"
-              className="px-6 py-3 rounded-sm text-base text-center border border-foreground/20 text-muted-foreground transition-opacity duration-200 hover:opacity-70"
+              className="px-6 py-3 rounded-sm text-base text-center border transition-opacity duration-200 hover:opacity-70"
+              style={{ borderColor: "var(--color-text-on-dark-muted)", color: "var(--color-text-on-dark-muted)" }}
             >
               Contact Me →
             </Link>

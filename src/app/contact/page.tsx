@@ -1,9 +1,5 @@
 import { Contact } from "@/app/contact/_components/Contact";
 
-type ContactPageProps = {};
-
-export const ContactPage = () => {
+export default function ContactPage() {
   return <Contact />;
-};
-
-export default ContactPage;
+}

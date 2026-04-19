@@ -17,7 +17,6 @@ type PortfolioType = {
   technologies: string[];
 };
 
-//local file link: C:\Users\User\Desktop\Upwork Files\Portfolio
 const portfolioItems: PortfolioType[] = [
   {
     name: "Backpack Battle Item Database",
@@ -108,7 +107,7 @@ const LastSlide = () => {
           "flex w-full p-20 h-full justify-center flex-col gap-4 items-center"
         )}
       >
-        <h1 className="text-6xl text-center" style={{ color: "#f8f3ed" }}>Do you have a project?</h1>
+        <h1 className="text-6xl text-center" style={{ color: "var(--color-text-on-dark)" }}>Do you have a project?</h1>
         <div className="relative">
           <motion.svg
             animate={{ rotate: 360 }}
@@ -126,7 +125,7 @@ const LastSlide = () => {
               <textPath
                 xlinkHref="#circlePath"
                 className="text-2xl font-semibold"
-                fill="#d4956a"
+                fill="var(--color-accent)"
               >
                 Do you need a Full-stack Web and VBA Developer?
               </textPath>
@@ -135,7 +134,7 @@ const LastSlide = () => {
           <Link
             href="/contact"
             className="w-48 h-48 md:w-48 md:h-48 absolute top-0 left-0 right-0 bottom-0 m-auto rounded-full flex items-center justify-center text-4xl text-center font-semibold"
-            style={{ backgroundColor: "#d4956a", color: "#2d1f14" }}
+            style={{ backgroundColor: "var(--color-accent)", color: "var(--color-text-primary)" }}
           >
             Hire Me
           </Link>

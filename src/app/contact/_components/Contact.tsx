@@ -144,7 +144,7 @@ export const Contact = () => {
   return (
     <PageTransitionContainer margin="none">
       <div
-        className="w-full"
+        className="w-full min-h-full flex items-center"
         style={{ backgroundColor: "var(--color-hero-bg-deep)" }}
       >
         <div className="max-w-4xl mx-auto px-6 py-16 flex flex-col sm:flex-row gap-12 items-center">

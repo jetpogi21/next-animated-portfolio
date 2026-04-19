@@ -24,7 +24,7 @@ export const TransitionProvider = ({
       >
         <motion.div
           className={cn(
-            "h-screen w-screen fixed bg-[#2d1f14] text-white text-4xl rounded-b-[100px] z-30 flex items-center justify-center",
+            "h-screen w-screen fixed bg-(--color-hero-bg) text-white text-4xl rounded-b-[100px] z-30 flex items-center justify-center",
             {
               hidden: disableAnimation,
             }
@@ -39,7 +39,7 @@ export const TransitionProvider = ({
 
         <motion.div
           className={cn(
-            "m-auto h-fit w-fit fixed flex items-center justify-center text-8xl z-30 text-[#f8f3ed] inset-0 capitalize cursor-default",
+            "m-auto h-fit w-fit fixed flex items-center justify-center text-8xl z-30 text-(--color-text-on-dark) inset-0 capitalize cursor-default",
             {
               hidden: disableAnimation,
             }
@@ -64,7 +64,7 @@ export const TransitionProvider = ({
 
         <motion.div
           className={cn(
-            "h-screen w-screen fixed bg-[#2d1f14] text-white text-4xl rounded-t-[100px] z-20 flex items-center justify-center bottom-0",
+            "h-screen w-screen fixed bg-(--color-hero-bg) text-white text-4xl rounded-t-[100px] z-20 flex items-center justify-center bottom-0",
             {
               hidden: disableAnimation,
             }
