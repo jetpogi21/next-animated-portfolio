@@ -40,3 +40,6 @@ my.diff
 
 # playwright mcp session artifacts
 .playwright-mcp/
+
+# superpowers brainstorm session artifacts
+.superpowers/
