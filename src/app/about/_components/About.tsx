@@ -2,7 +2,6 @@
 import Brain from "@/app/about/_components/Brain";
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
 import { ScrollSvg } from "@/components/ScrollSvg";
-import { cn } from "@/lib/utils";
 import { motion, useInView, useScroll } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
