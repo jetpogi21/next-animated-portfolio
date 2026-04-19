@@ -32,7 +32,13 @@ const padding = 20;
 const footerHeight = 15;
 const fontSize = 12;
 const fontFamily = "Montserrat";
-const color = "#685D5D";
+const ESPRESSO = "#2d1f14";
+const CREAM = "#f8f3ed";
+const CREAM_ALT = "#ede8e0";
+const TERRACOTTA = "#d4956a";
+const TEXT_SECONDARY = "#7a5c45";
+const BORDER_LIGHT = "#e8d5c0";
+const color = TEXT_SECONDARY;
 
 export const MyDocument = () => {
   const sideRatio = 30;
@@ -57,7 +63,7 @@ export const MyDocument = () => {
               style={{
                 width: `${sideRatio}%`,
                 height: "95%",
-                borderRight: `2px solid #E5E5E5`,
+                borderRight: `2px solid ${BORDER_LIGHT}`,
                 alignSelf: "center",
               }}
             >
@@ -89,7 +95,7 @@ export const MyDocument = () => {
               {/* Contact Info */}
               <Column
                 style={{
-                  backgroundColor: "#e5e5e5",
+                  backgroundColor: CREAM_ALT,
                   paddingVertical: 10,
                   paddingHorizontal: 10,
                   gap: 4,
@@ -170,7 +176,7 @@ export const MyDocument = () => {
                     fontSize: 9,
                     textAlign: "center",
                     gap: 4,
-                    color: "black",
+                    color: ESPRESSO,
                   }}
                 >
                   <Div>{resumeInfo.education.school}</Div>
@@ -204,7 +210,7 @@ export const MyDocument = () => {
               >
                 <Div
                   style={{
-                    color: "black",
+                    color: ESPRESSO,
                     textTransform: "uppercase",
                     fontWeight: "bold",
                   }}
@@ -306,7 +312,7 @@ const Header = (props: HeaderProps) => {
         textTransform: "uppercase",
         fontSize: 12,
         textAlign: "center",
-        color: "black",
+        color: TERRACOTTA,
         position: "relative",
         alignItems: "center",
         ...style,
@@ -315,7 +321,7 @@ const Header = (props: HeaderProps) => {
       <Div
         style={{
           zIndex: 1,
-          backgroundColor: "white",
+          backgroundColor: CREAM,
           width: leftAligned ? "auto" : "100%",
         }}
       >
@@ -361,7 +367,7 @@ const WorkExperience = (props: {
       <Column
         style={{
           fontSize: 11,
-          color: "black",
+          color: ESPRESSO,
         }}
       >
         <Div>{props.workExperience.companyName}</Div>
