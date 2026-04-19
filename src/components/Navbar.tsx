@@ -41,11 +41,13 @@ const Logo = () => {
   return (
     <Link
       href="/"
-      className="flex items-center justify-center h-8 text-sm font-bold rounded-sm dark:bg-slate-200 dark:text-slate-900 bg-slate-900 text-slate-200"
+      className="flex items-center justify-center"
     >
-      <span className="flex items-center justify-center w-10 ">JET</span>
-      <span className="flex self-stretch items-center justify-center w-10 m-0.5 bg-secondary rounded-r-sm dark:text-slate-100 text-slate-900">
-        .dev
+      <span
+        className="text-xl italic font-bold tracking-tight"
+        style={{ fontFamily: "var(--font-fraunces)", color: "var(--color-text-primary)" }}
+      >
+        JET.dev
       </span>
     </Link>
   );
@@ -85,7 +87,7 @@ const Path = (props: SVGMotionProps<SVGPathElement>) => (
   <motion.path
     fill="transparent"
     strokeWidth="3"
-    stroke="hsl(0, 0%, 18%)"
+    stroke="var(--color-text-primary)"
     strokeLinecap="round"
     {...props}
   />
@@ -176,7 +178,7 @@ const FullScreenMenu = ({ open }: { open: boolean }) => {
       variants={listVariants}
       initial="closed"
       animate={open ? "open" : "closed"}
-      className="fixed top-0 left-0 z-10 flex flex-col items-center justify-center w-screen h-screen text-center bg-secondary text-secondary-foreground dark:bg-slate-950 dark:text-slate-50 space-y-14"
+      className="fixed top-0 left-0 z-10 flex flex-col items-center justify-center w-screen h-screen text-center bg-[#f8f3ed] text-secondary-foreground dark:bg-[#1a110a] dark:text-slate-50 space-y-14"
     >
       {links.map((link) => {
         return (
