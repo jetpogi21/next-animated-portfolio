@@ -2,7 +2,7 @@
 import Brain from "@/app/about/_components/Brain";
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
 import { ScrollSvg } from "@/components/ScrollSvg";
-import { cn, linkVariants } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { motion, useInView, useScroll } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
@@ -55,7 +55,7 @@ const JobTimeline = ({
 }) => {
   return (
     <div className="flex justify-between gap-4 even:flex-row-reverse">
-      <div className="flex-1 flex flex-col gap-2">
+      <div className="flex-1 flex flex-col gap-2 border-l-2 border-[#d4956a] pl-4">
         <div className="bg-primary text-primary-foreground p-3 font-semibold rounded-b-lg rounded-s-lg">
           {jobTitle}
         </div>
@@ -74,7 +74,7 @@ const JobTimeline = ({
           ))}
         </div>
 
-        <div className="text-red-400 text-sm font-semibold">{jobDate}</div>
+        <div className="text-[#d4956a] text-sm font-semibold">{jobDate}</div>
 
         <div className="p-1 rounded bg-primary text-primary-foreground text-sm font-semibold w-fit">
           {jobCompany}
@@ -85,7 +85,7 @@ const JobTimeline = ({
         {/* LINE */}
         <div className="w-1 h-full bg-gray-600 rounded relative">
           {/* LINE CIRCLE */}
-          <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
+          <div className="absolute w-5 h-5 rounded-full ring-4 ring-[#d4956a] bg-[#f8f3ed] -left-2"></div>
         </div>
       </div>
       <div className="flex-1"></div>
@@ -138,7 +138,7 @@ const Skills = () => {
             return (
               <div
                 key={skill}
-                className="rounded  p-2 text-sm cursor-pointer bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground transition-all ease-in-out duration-75"
+                className="rounded-sm px-3 py-1 text-sm border border-[#d4956a] text-[#7a5c45] hover:bg-[#2d1f14] hover:text-[#f8f3ed] hover:scale-[1.04] transition-all duration-200 cursor-default"
               >
                 {skill}
               </div>
@@ -242,6 +242,7 @@ const LastSection = () => {
     <div
       className="flex min-h-[calc(100vh-6rem)] w-full items-center justify-center"
       id="last-section"
+      style={{ backgroundColor: "var(--color-hero-bg)" }}
     >
       <div
         ref={ref}
@@ -253,28 +254,20 @@ const LastSection = () => {
         >
           <Link
             href="/portfolio"
-            className={cn(
-              "px-4 py-2 rounded-sm text-3xl",
-              linkVariants({ variant: "active" })
-            )}
+            className="px-4 py-2 rounded-sm text-3xl font-semibold bg-[#d4956a] text-[#2d1f14]"
           >
             View My Works
           </Link>
           <Link
             href="/resume"
-            className={cn(
-              "px-4 py-2 rounded-sm text-3xl",
-              linkVariants({ variant: "active" })
-            )}
+            className="px-4 py-2 rounded-sm text-3xl font-semibold bg-[#d4956a] text-[#2d1f14]"
           >
             View My Resume
           </Link>
-          <div className="text-2xl">OR</div>
+          <div className="text-2xl" style={{ color: "var(--color-text-on-dark-muted)" }}>OR</div>
           <Link
             href="/contact"
-            className={cn(
-              "px-4 py-2 font-semibold rounded-sm border border-border text-3xl "
-            )}
+            className="px-4 py-2 font-semibold rounded-sm border border-[#d4956a] text-3xl bg-[#d4956a] text-[#2d1f14]"
           >
             Contact Me
           </Link>
@@ -295,6 +288,7 @@ export const About = () => {
       <div
         className="flex overflow-y-scroll h-full gap-10 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-slate-400 scrollbar-track-transparent scrollbar-thin"
         ref={containerRef}
+        style={{ backgroundColor: "var(--color-body-bg)" }}
       >
         {/* Text container */}
         <div className="w-full sm:w-2/3 flex flex-col pr-8 sm:pr-0">
