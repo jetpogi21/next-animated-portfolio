@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(npm run:*)",
+      "Bash(grep:*)",
+      "Bash(npm install:*)",
+      "Bash(npx playwright:*)"
+    ],
+    "defaultMode": "bypassPermissions"
+  }
+}
