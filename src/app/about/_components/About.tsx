@@ -217,9 +217,8 @@ const LastSection = () => {
 
   return (
     <div
-      className="flex min-h-[calc(100vh-6rem)] w-full items-center justify-center"
+      className="flex min-h-[calc(100vh-6rem)] w-full items-center justify-center bg-(--color-hero-bg)"
       id="last-section"
-      style={{ backgroundColor: "var(--color-hero-bg)" }}
     >
       <div ref={ref}>
         <motion.div
