@@ -123,7 +123,7 @@ const ContactForm = () => {
           name="user_name"
           id="user_name"
           placeholder="Your Name"
-          className="focus:ring-[#d4956a] focus:border-[#d4956a]"
+          className="focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
           style={{ backgroundColor: "var(--color-hero-bg-deep)", color: "var(--color-text-on-dark)", borderColor: "var(--color-border)" }}
         />
       </div>
@@ -135,7 +135,7 @@ const ContactForm = () => {
           name="user_email"
           id="user_email"
           placeholder="Your Email"
-          className="focus:ring-[#d4956a] focus:border-[#d4956a]"
+          className="focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
           style={{ backgroundColor: "var(--color-hero-bg-deep)", color: "var(--color-text-on-dark)", borderColor: "var(--color-border)" }}
         />
       </div>
@@ -147,7 +147,7 @@ const ContactForm = () => {
           name="message"
           id="message"
           placeholder="Your Message"
-          className="focus:ring-[#d4956a] focus:border-[#d4956a]"
+          className="focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
           style={{ backgroundColor: "var(--color-hero-bg-deep)", color: "var(--color-text-on-dark)", borderColor: "var(--color-border)" }}
         />
       </div>

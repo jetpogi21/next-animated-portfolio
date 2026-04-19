@@ -111,7 +111,7 @@ export default function Home() {
           >
             <Link
               href="/portfolio"
-              className="px-6 py-3 text-sm font-semibold tracking-wide uppercase transition-colors duration-200"
+              className="px-6 py-3 text-sm font-semibold tracking-wide uppercase transition-colors duration-200 hover:opacity-80"
               style={{
                 fontFamily: "var(--font-karla)",
                 backgroundColor: "var(--color-accent)",
@@ -122,7 +122,7 @@ export default function Home() {
             </Link>
             <Link
               href="/about"
-              className="px-6 py-3 text-sm font-semibold tracking-wide uppercase border transition-colors duration-200"
+              className="px-6 py-3 text-sm font-semibold tracking-wide uppercase border transition-colors duration-200 hover:opacity-80"
               style={{
                 fontFamily: "var(--font-karla)",
                 borderColor: "var(--color-accent)",
@@ -133,7 +133,7 @@ export default function Home() {
             </Link>
             <Link
               href="/contact"
-              className="px-6 py-3 text-sm font-semibold tracking-wide uppercase transition-colors duration-200"
+              className="px-6 py-3 text-sm font-semibold tracking-wide uppercase transition-colors duration-200 hover:opacity-70"
               style={{
                 fontFamily: "var(--font-karla)",
                 color: "var(--color-text-on-dark-muted)",

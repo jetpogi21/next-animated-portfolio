@@ -39,7 +39,7 @@ export const TransitionProvider = ({
 
         <motion.div
           className={cn(
-            "m-auto h-fit w-fit fixed flex items-center justify-center text-8xl z-30 text-white inset-0 capitalize cursor-default",
+            "m-auto h-fit w-fit fixed flex items-center justify-center text-8xl z-30 text-[#f8f3ed] inset-0 capitalize cursor-default",
             {
               hidden: disableAnimation,
             }

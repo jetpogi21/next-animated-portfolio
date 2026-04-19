@@ -286,7 +286,7 @@ export const About = () => {
     <PageTransitionContainer margin="right">
       {/* Main container */}
       <div
-        className="flex overflow-y-scroll h-full gap-10 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-slate-400 scrollbar-track-transparent scrollbar-thin"
+        className="flex overflow-y-scroll h-full gap-10 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-[#d4956a] scrollbar-track-transparent scrollbar-thin"
         ref={containerRef}
         style={{ backgroundColor: "var(--color-body-bg)" }}
       >
