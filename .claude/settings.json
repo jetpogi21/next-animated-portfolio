@@ -1,0 +1,65 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "[Console]::InputEncoding=[System.Text.Encoding]::UTF8; $data = $input | ConvertFrom-Json; $f = $data.tool_input.file_path; if ($f -match 'package-lock\\.json') { Write-Output '{\"continue\": false, \"stopReason\": \"Blocked: edit package.json and run npm install instead\"}'; exit 2 }",
+            "statusMessage": "Checking for protected files..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "[Console]::InputEncoding=[System.Text.Encoding]::UTF8; $data = $input | ConvertFrom-Json; $f = $data.tool_input.file_path; if ($f -match '\\.env') { Write-Output '{\"continue\": false, \"stopReason\": \"Blocked: .env files contain secrets and must not be edited by Claude\"}'; exit 2 }",
+            "statusMessage": "Checking for sensitive files..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "[Console]::InputEncoding=[System.Text.Encoding]::UTF8; $data = $input | ConvertFrom-Json; $f = $data.tool_input.file_path; if ($f -match '\\.(ts|tsx|js|jsx)$') { npx next lint --fix --file $f 2>$null }",
+            "statusMessage": "Running ESLint...",
+            "async": true
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "[Console]::InputEncoding=[System.Text.Encoding]::UTF8; $data = $input | ConvertFrom-Json; $f = $data.tool_input.file_path; if ($f -match 'globals\\.css|tailwind\\.config') { Write-Output '{\"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"Reminder: verify dark mode visually after this change\"}}' }",
+            "statusMessage": "Checking theme files..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "[Console]::InputEncoding=[System.Text.Encoding]::UTF8; $data = $input | ConvertFrom-Json; $f = $data.tool_input.file_path; if ($f -match '\\.(ts|tsx)$') { npx tsc --noEmit 2>&1 | Select-Object -First 20 | ForEach-Object { Write-Host $_ } }",
+            "statusMessage": "Type-checking...",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}
