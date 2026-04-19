@@ -3,6 +3,10 @@
     "allow": [
       "Edit(/.claude/skills/visual-review/**)",
       "Edit(/.claude/skills/start/**)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\ACER\\.claude\\commands",
+      "c:\\Users\\ACER\\Desktop\\web-development\\portfolio\\.claude\\skills\\start"
     ]
   }
 }
