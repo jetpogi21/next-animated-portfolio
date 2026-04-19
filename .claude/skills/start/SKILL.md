@@ -64,9 +64,16 @@ Once all ambiguity is resolved, write a brief spec **without asking permission**
 
 Save to the conversation (no file needed for small tasks). For larger features, save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`.
 
-### Step 4: Implement
+### Step 4: Implement — Fast
 
-Use existing skills and workflows. For complex features, invoke `superpowers:brainstorming` or `superpowers:subagent-driven-development` as appropriate.
+Speed matters. Use every parallelism tool available:
+
+- **Worktrees** — use `superpowers:using-git-worktrees` to isolate work from the current branch
+- **Parallel subagents** — use `superpowers:dispatching-parallel-agents` when tasks are independent (different files, no shared state). Dispatch them in a single message so they run concurrently.
+- **Subagent-driven development** — use `superpowers:subagent-driven-development` for multi-task plans; a fresh subagent per task keeps context clean and lets you move fast
+- **Never do sequentially what can be done in parallel** — if two tasks don't depend on each other, run them at the same time
+
+For complex features, invoke `superpowers:brainstorming` first to produce a spec, then `superpowers:writing-plans` for a plan, then execute with subagents.
 
 ### Step 5: Test to Verify
 
@@ -97,3 +104,5 @@ Only hand off early if genuinely blocked on something requiring user action (cre
 | "I know what 'better' means here" | You know what YOU think better means. The user may mean something entirely different. |
 | "I'll ask after I explore" | Explore THEN ask — before implementing. |
 | "It's obvious what to do" | What's obvious to you may be wrong. One question saves hours of rework. |
+| "Parallelism is overkill here" | If two tasks don't share state, run them at the same time. Always. |
+| "I'll set up the worktree later" | Set it up before writing a single line. Isolation is free; merge conflicts are not. |
