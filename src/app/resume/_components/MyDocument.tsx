@@ -75,7 +75,6 @@ export const MyDocument = () => {
                   alignItems: "center",
                 }}
               >
-                {/* @ts-ignore */}
                 <Image
                   style={{
                     height: 125,
