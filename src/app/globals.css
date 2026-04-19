@@ -20,6 +20,9 @@
   --color-text-on-dark-muted: #c4a882;
   --color-border: #d4b896;
   --color-border-light: #e8d5c0;
+  --color-card-surface: #ffffff;
+  /* Navbar header is always dark regardless of theme */
+  --color-navbar-text: #f8f3ed;
 
   /* shadcn/ui compatibility mappings */
   --background: var(--color-body-bg);
@@ -51,6 +54,7 @@
   --color-text-secondary: #c4a882;
   --color-border: #4a3020;
   --color-border-light: #3a2418;
+  --color-card-surface: #2d1f14;
 
   --background: var(--color-body-bg);
   --foreground: var(--color-text-primary);

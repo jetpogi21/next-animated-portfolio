@@ -4,6 +4,18 @@ import { FormEventHandler, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Loader2, GitBranch, Globe } from "lucide-react";
 
+if (process.env.NODE_ENV === "development") {
+  const required = [
+    "NEXT_PUBLIC_EMAILJS_KEY",
+    "NEXT_PUBLIC_EMAILJS_SERVICE_ID",
+    "NEXT_PUBLIC_EMAILJS_TEMPLATE_ID",
+  ];
+  const missing = required.filter((k) => !process.env[k as keyof typeof process.env]);
+  if (missing.length > 0) {
+    console.error("[Contact] Missing EmailJS env vars:", missing.join(", "));
+  }
+}
+
 const getButtonCaption = (
   success: boolean,
   error: boolean,
@@ -49,6 +61,7 @@ const ContactForm = () => {
       ref={form}
       className="flex flex-col gap-7"
     >
+      {/* Required by EmailJS template variable {{contact_number}} */}
       <input type="hidden" name="contact_number" value="1" />
 
       {/* Name */}
@@ -66,10 +79,10 @@ const ContactForm = () => {
           name="user_name"
           id="user_name"
           placeholder="Your full name"
-          className="bg-transparent border-b pb-2 text-sm outline-none placeholder:opacity-30 focus:border-b-[var(--color-accent)]"
+          className="bg-transparent border-b-2 pb-2 text-sm outline-none placeholder:opacity-40 focus:border-b-(--color-accent) transition-colors"
           style={{
             borderColor: "var(--color-border)",
-            color: "var(--color-text-on-dark)",
+            color: "var(--color-text-primary)",
             fontFamily: "var(--font-karla)",
           }}
         />
@@ -90,10 +103,10 @@ const ContactForm = () => {
           name="user_email"
           id="user_email"
           placeholder="you@example.com"
-          className="bg-transparent border-b pb-2 text-sm outline-none placeholder:opacity-30 focus:border-b-[var(--color-accent)]"
+          className="bg-transparent border-b-2 pb-2 text-sm outline-none placeholder:opacity-40 focus:border-b-(--color-accent) transition-colors"
           style={{
             borderColor: "var(--color-border)",
-            color: "var(--color-text-on-dark)",
+            color: "var(--color-text-primary)",
             fontFamily: "var(--font-karla)",
           }}
         />
@@ -114,10 +127,10 @@ const ContactForm = () => {
           name="message"
           id="message"
           placeholder="Your message..."
-          className="bg-transparent border-b pb-2 text-sm outline-none resize-none placeholder:opacity-30 focus:border-b-[var(--color-accent)]"
+          className="bg-transparent border-b-2 pb-2 text-sm outline-none resize-none placeholder:opacity-40 focus:border-b-(--color-accent) transition-colors"
           style={{
             borderColor: "var(--color-border)",
-            color: "var(--color-text-on-dark)",
+            color: "var(--color-text-primary)",
             fontFamily: "var(--font-karla)",
           }}
         />
@@ -130,7 +143,7 @@ const ContactForm = () => {
         className="self-end mt-1 px-5 py-2 rounded text-xs uppercase tracking-widest font-bold transition-opacity disabled:opacity-60"
         style={{
           backgroundColor: "var(--color-accent)",
-          color: "var(--color-hero-bg-deep)",
+          color: "var(--color-body-bg)",
           fontFamily: "var(--font-karla)",
         }}
       >
@@ -145,7 +158,7 @@ export const Contact = () => {
     <PageTransitionContainer margin="none">
       <div
         className="w-full min-h-full flex items-center"
-        style={{ backgroundColor: "var(--color-hero-bg-deep)" }}
+        style={{ backgroundColor: "var(--color-body-bg)" }}
       >
         <div className="max-w-4xl mx-auto px-6 py-16 flex flex-col sm:flex-row gap-12 items-center">
 
@@ -161,7 +174,7 @@ export const Contact = () => {
               <h1
                 className="text-4xl font-bold leading-tight mb-3"
                 style={{
-                  color: "var(--color-text-on-dark)",
+                  color: "var(--color-text-primary)",
                   fontFamily: "var(--font-fraunces)",
                 }}
               >
@@ -170,7 +183,7 @@ export const Contact = () => {
               <p
                 className="text-sm leading-relaxed"
                 style={{
-                  color: "var(--color-text-on-dark-muted)",
+                  color: "var(--color-text-secondary)",
                   fontFamily: "var(--font-karla)",
                 }}
               >
@@ -181,7 +194,7 @@ export const Contact = () => {
             {/* Divider + contact details */}
             <div
               className="flex flex-col gap-5 pt-5"
-              style={{ borderTop: "1px solid var(--color-hero-bg)" }}
+              style={{ borderTop: "1px solid var(--color-border-light)" }}
             >
               <div>
                 <p
@@ -193,7 +206,7 @@ export const Contact = () => {
                 <p
                   className="text-sm"
                   style={{
-                    color: "var(--color-text-on-dark)",
+                    color: "var(--color-text-primary)",
                     fontFamily: "var(--font-karla)",
                   }}
                 >
@@ -213,10 +226,10 @@ export const Contact = () => {
                     href="https://github.com/jetpogi21"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-(--color-accent) hover:text-(--color-accent)"
                     style={{
-                      borderColor: "var(--color-hero-bg)",
-                      color: "var(--color-text-on-dark-muted)",
+                      borderColor: "var(--color-border-light)",
+                      color: "var(--color-text-secondary)",
                       fontFamily: "var(--font-karla)",
                     }}
                   >
@@ -226,10 +239,10 @@ export const Contact = () => {
                     href="https://linkedin.com/in/jet-dev"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-(--color-accent) hover:text-(--color-accent)"
                     style={{
-                      borderColor: "var(--color-hero-bg)",
-                      color: "var(--color-text-on-dark-muted)",
+                      borderColor: "var(--color-border-light)",
+                      color: "var(--color-text-secondary)",
                       fontFamily: "var(--font-karla)",
                     }}
                   >
@@ -239,10 +252,10 @@ export const Contact = () => {
                     href="https://www.freelancer.com/u/jonathanpradas"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-(--color-accent) hover:text-(--color-accent)"
                     style={{
-                      borderColor: "var(--color-hero-bg)",
-                      color: "var(--color-text-on-dark-muted)",
+                      borderColor: "var(--color-border-light)",
+                      color: "var(--color-text-secondary)",
                       fontFamily: "var(--font-karla)",
                     }}
                   >
@@ -255,8 +268,11 @@ export const Contact = () => {
 
           {/* RIGHT — form card */}
           <div
-            className="flex-[1.1] rounded-xl p-7"
-            style={{ backgroundColor: "var(--color-hero-bg)" }}
+            className="flex-[1.1] rounded-xl p-7 border"
+            style={{
+              backgroundColor: "var(--color-card-surface)",
+              borderColor: "var(--color-border-light)",
+            }}
           >
             <ContactForm />
           </div>
