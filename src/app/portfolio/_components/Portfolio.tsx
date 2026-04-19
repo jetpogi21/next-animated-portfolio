@@ -17,8 +17,6 @@ type PortfolioType = {
   technologies: string[];
 };
 
-import { StaticImageData } from "next/image";
-
 //local file link: C:\Users\User\Desktop\Upwork Files\Portfolio
 const portfolioItems: PortfolioType[] = [
   {
