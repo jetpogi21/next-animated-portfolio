@@ -108,15 +108,15 @@ const Biography = () => {
       <p>{subcontent}</p>
       <div className="flex gap-8">
         <div className="flex flex-col">
-          <span className="text-2xl font-bold text-[#d4956a]">10+</span>
+          <span className="text-2xl font-bold text-[var(--color-accent)]">10+</span>
           <span className="text-xs text-muted-foreground">Years Experience</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-2xl font-bold text-[#d4956a]">CPA</span>
+          <span className="text-2xl font-bold text-[var(--color-accent)]">CPA</span>
           <span className="text-xs text-muted-foreground">Certified</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-2xl font-bold text-[#d4956a]">50+</span>
+          <span className="text-2xl font-bold text-[var(--color-accent)]">50+</span>
           <span className="text-xs text-muted-foreground">Projects</span>
         </div>
       </div>
