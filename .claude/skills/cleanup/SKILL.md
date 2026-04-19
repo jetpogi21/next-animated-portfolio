@@ -57,7 +57,21 @@ description: One line — what it does and when to use it.
 ...content...
 ```
 
-### 4. Git hygiene
+### 4. Proactive improvement suggestion
+
+Based on files read this session (including context files not directly modified), identify **one specific improvement** worth doing next. This should be something concrete and actionable — not vague advice.
+
+Criteria for a good suggestion:
+- A real gap spotted while reading related files (e.g. missing error handling, inconsistent pattern, accessibility issue, performance opportunity)
+- Something the user hasn't already addressed this session
+- Specific enough to act on immediately next session (name the file, the component, the pattern)
+
+Format the suggestion as:
+> **Suggested next:** [one sentence what + why, with a file/component reference]
+
+Present it at the end of the report, after the git summary.
+
+### 5. Git hygiene
 
 Run these in parallel:
 ```bash
@@ -74,10 +88,10 @@ Then:
   - Unsure? → ask the user before acting
 - **Push**: after all commits are clean, run `git push` to push the branch to remote.
 
-### 5. Report back
+### 6. Report back
 
 Tell the user:
 - What was saved to memory (briefly)
 - What skills were created or updated (if any)
 - What git actions were taken (commits, push)
-- Anything worth noting before the next session
+- The proactive improvement suggestion (from step 4)
