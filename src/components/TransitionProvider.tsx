@@ -1,85 +1,22 @@
 "use client";
-import { Navbar } from "@/components/Navbar";
-import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import { AppShell } from "@/components/AppShell";
+import { PageTransitionOverlay } from "@/components/PageTransitionOverlay";
+import { AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
-type TransitionProviderProps = {
-  children: ReactNode;
-  disableAnimation?: boolean;
-};
-
-export const TransitionProvider = ({
-  children,
-  disableAnimation,
-}: TransitionProviderProps) => {
+export const TransitionProvider = ({ children }: { children: ReactNode }) => {
   const pathName = usePathname();
+  const prefersReduced =
+    typeof window !== "undefined"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      : false;
 
   return (
     <AnimatePresence mode="wait">
-      <div
-        key={pathName}
-        className="w-screen flex flex-col h-screen bg-(--color-body-bg)"
-      >
-        <motion.div
-          className={cn(
-            "h-screen w-screen fixed bg-(--color-hero-bg) text-white text-4xl rounded-b-[100px] z-30 flex items-center justify-center",
-            {
-              hidden: disableAnimation,
-            }
-          )}
-          initial={disableAnimation ? {} : { height: "100vh" }}
-          animate={disableAnimation ? {} : { height: "0vh" }}
-          exit={disableAnimation ? {} : { height: "140vh" }}
-          transition={
-            disableAnimation ? {} : { duration: 0.5, ease: "easeOut" }
-          }
-        />
-
-        <motion.div
-          className={cn(
-            "m-auto h-fit w-fit fixed flex items-center justify-center text-8xl z-30 text-(--color-text-on-dark) inset-0 capitalize cursor-default",
-            {
-              hidden: disableAnimation,
-            }
-          )}
-          initial={disableAnimation ? {} : { opacity: 0 }}
-          animate={
-            disableAnimation
-              ? {}
-              : {
-                  opacity: 1,
-                  zIndex: 30,
-                  transition: { delay: 0, duration: 0.5 },
-                  transitionEnd: {
-                    display: "none",
-                  },
-                }
-          }
-          exit={disableAnimation ? {} : { opacity: 0 }}
-        >
-          {pathName.substring(1) || "Home"}
-        </motion.div>
-
-        <motion.div
-          className={cn(
-            "h-screen w-screen fixed bg-(--color-hero-bg) text-white text-4xl rounded-t-[100px] z-20 flex items-center justify-center bottom-0",
-            {
-              hidden: disableAnimation,
-            }
-          )}
-          initial={disableAnimation ? {} : { height: "140vh" }}
-          animate={
-            disableAnimation
-              ? {}
-              : { height: "0vh", transition: { delay: 0.5, duration: 0.5 } }
-          }
-        />
-        <div className="flex items-center py-5" style={{ backgroundColor: "var(--color-hero-bg)" }}>
-          <Navbar />
-        </div>
-        <div className="flex-1 overflow-y-auto">{children}</div>
+      <div key={pathName}>
+        <PageTransitionOverlay disabled={prefersReduced} />
+        <AppShell>{children}</AppShell>
       </div>
     </AnimatePresence>
   );

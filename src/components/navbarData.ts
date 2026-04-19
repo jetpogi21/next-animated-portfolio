@@ -11,11 +11,19 @@ export const socials = [
     src: "/freelancer-icon.png",
     title: "freelancer",
     url: "https://www.freelancer.com/u/jonathanpradas",
+    needsInvert: false,
   },
   {
     src: "/facebook.png",
     title: "facebook",
     url: "https://www.facebook.com/jetpogi21",
+    needsInvert: false,
   },
-  { src: "/github.png", title: "github", url: "https://github.com/jetpogi21" },
+  {
+    src: "/github.png",
+    title: "github",
+    url: "https://github.com/jetpogi21",
+    // GitHub icon is black; navbar is always dark, so invert to white
+    needsInvert: true,
+  },
 ];

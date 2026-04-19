@@ -24,7 +24,7 @@ const Logo = () => {
     >
       <span
         className="text-xl italic font-bold tracking-tight"
-        style={{ fontFamily: "var(--font-fraunces)", color: "var(--color-text-on-dark)" }}
+        style={{ fontFamily: "var(--font-fraunces)", color: "var(--color-navbar-text)" }}
       >
         JET.dev
       </span>
@@ -39,8 +39,10 @@ const ModeToggle = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
+          className="border border-white/20 hover:bg-white/10 hover:border-white/40 hover:text-(--color-text-on-dark)"
+          style={{ color: "var(--color-navbar-text)" }}
         >
           <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -78,7 +80,7 @@ const Socials = () => {
                 alt={social.title}
                 fill
                 className={cn("object-contain", {
-                  "invert dark:invert-0": social.title === "github",
+                  "invert": social.needsInvert,
                 })}
               />
             </div>
@@ -111,9 +113,6 @@ const HeaderMenu = () => {
           );
         })}
       </div>
-      <div className="gap-4 pr-8 lg:flex md:hidden">
-        <Socials />
-      </div>
     </div>
   );
 };
@@ -144,7 +143,7 @@ export const Navbar = () => {
         <div className="flex-1 hidden md:block">
           <HeaderMenu />
         </div>
-        <div className="flex gap-4 ml-auto mr-2 lg:hidden">
+        <div className="hidden md:flex gap-4 ml-auto mr-2 pr-8">
           <Socials />
         </div>
       </div>
