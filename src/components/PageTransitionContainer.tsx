@@ -31,6 +31,7 @@ export const PageTransitionContainer = ({
           "mr-0 max-w-[95%] lg:ml-[calc((100vw-1024px)/2)] lg:max-w-[calc(1024px+((100vw-1024px)/2))] h-full":
             margin === "right",
           "max-w-full lg:mx-0 lg:max-w-full h-full": margin === "none",
+          "h-full": margin === "both",
         }
       )}
       {...animationProps}
