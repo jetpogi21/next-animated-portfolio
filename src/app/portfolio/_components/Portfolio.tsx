@@ -13,27 +13,9 @@ type PortfolioType = {
   name: string;
   description: string;
   url: string;
-  images: StaticImageData[];
+  images: string[];
   technologies: string[];
 };
-
-import bb1 from "/public/Backpack Battles/image-1.png";
-import bb2 from "/public/Backpack Battles/image-2.png";
-import bb3 from "/public/Backpack Battles/image-3.png";
-import bb4 from "/public/Backpack Battles/image-4.png";
-
-import md1 from "/public/Marvel Duel/image-1.png";
-import md2 from "/public/Marvel Duel/image-2.png";
-import md3 from "/public/Marvel Duel/image-3.png";
-
-import sd1 from "/public/Sales Database Web/image-1.png";
-import sd2 from "/public/Sales Database Web/image-2.png";
-import sd3 from "/public/Sales Database Web/image-3.png";
-import sd4 from "/public/Sales Database Web/image-4.png";
-
-import s1 from "/public/Sales Database/image-1.png";
-import s2 from "/public/Sales Database/image-2.png";
-import s3 from "/public/Sales Database/image-3.png";
 
 import { StaticImageData } from "next/image";
 
@@ -43,7 +25,12 @@ const portfolioItems: PortfolioType[] = [
     name: "Backpack Battle Item Database",
     description:
       "A web application for viewing available backpack battle items.",
-    images: [bb1, bb2, bb3, bb4],
+    images: [
+      "/Backpack Battles/image-1.png",
+      "/Backpack Battles/image-2.png",
+      "/Backpack Battles/image-3.png",
+      "/Backpack Battles/image-4.png",
+    ],
     technologies: [
       "Next.js",
       "React",
@@ -59,7 +46,11 @@ const portfolioItems: PortfolioType[] = [
   {
     name: "Marvel Duel Card Database",
     description: "A web application for viewing available marvel duel cards.",
-    images: [md1, md2, md3],
+    images: [
+      "/Marvel Duel/image-1.png",
+      "/Marvel Duel/image-2.png",
+      "/Marvel Duel/image-3.png",
+    ],
     technologies: [
       "Next.js",
       "React",
@@ -76,7 +67,12 @@ const portfolioItems: PortfolioType[] = [
     name: "Sales Database",
     description:
       "A web application for viewing sales analytics. It also allows for creation, retrieval, update and deletion of various sales data.",
-    images: [sd1, sd2, sd3, sd4],
+    images: [
+      "/Sales Database Web/image-1.png",
+      "/Sales Database Web/image-2.png",
+      "/Sales Database Web/image-3.png",
+      "/Sales Database Web/image-4.png",
+    ],
     technologies: [
       "Next.js",
       "React",
@@ -93,7 +89,11 @@ const portfolioItems: PortfolioType[] = [
     name: "MS Access-based Sales Database",
     description:
       "A desktop application made with MS Access that tracks various Sales data important to the business.",
-    images: [s1, s2, s3],
+    images: [
+      "/Sales Database/image-1.png",
+      "/Sales Database/image-2.png",
+      "/Sales Database/image-3.png",
+    ],
     technologies: ["MS Access", "VBA", "Excel"],
     url: "/",
   },
