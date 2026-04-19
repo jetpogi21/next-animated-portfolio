@@ -26,20 +26,19 @@ const Signature = () => {
   );
 };
 
-const skills = [
-  "Javascript",
-  "Typescript",
-  "MySQL",
-  "PostrgreSQL",
-  "MS Excel",
-  "MS Access",
-  "Visual Basic",
-  "HTML",
-  "CSS",
-  "Tailwind",
-  "React",
-  "Next.js",
-  "SQL",
+const skillGroups = [
+  {
+    label: "Languages",
+    skills: ["JavaScript", "TypeScript", "SQL", "Visual Basic"],
+  },
+  {
+    label: "Frontend",
+    skills: ["React", "Next.js", "Tailwind", "HTML", "CSS"],
+  },
+  {
+    label: "Database & Tools",
+    skills: ["MySQL", "PostgreSQL", "MS Excel", "MS Access"],
+  },
 ];
 
 const JobTimeline = ({
@@ -136,30 +135,32 @@ const Skills = () => {
     animate: inView ? { x: 0 } : {},
     transition: { delay: 0.2 },
   };
+
   return (
     <div
       className="flex min-h-[calc(100vh-6rem)] items-center"
       id="skills-section"
     >
-      <div
-        ref={ref}
-        className="flex flex-col gap-8"
-      >
-        <motion.h1 {...enterAnimationProps}>skills</motion.h1>
-        <motion.div
-          className="flex flex-wrap gap-2"
-          {...enterAnimationProps}
-        >
-          {skills.map((skill) => {
-            return (
-              <div
-                key={skill}
-                className="rounded-sm px-3 py-1 text-sm border border-[#d4956a] text-[#7a5c45] hover:bg-[#2d1f14] hover:text-[#f8f3ed] hover:scale-[1.04] transition-all duration-200 cursor-default"
-              >
-                {skill}
+      <div ref={ref} className="flex flex-col gap-8">
+        <motion.h1 {...enterAnimationProps}>Skills</motion.h1>
+        <motion.div className="flex flex-col gap-6" {...enterAnimationProps}>
+          {skillGroups.map((group) => (
+            <div key={group.label} className="flex flex-col gap-2">
+              <span className="text-xs text-muted-foreground uppercase tracking-widest">
+                {group.label}
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <div
+                    key={skill}
+                    className="rounded-sm px-3 py-1 text-sm border border-[#d4956a] text-[#d4956a] hover:bg-[#2d1f14] hover:text-[#f8f3ed] hover:scale-[1.04] transition-all duration-200 cursor-default"
+                  >
+                    {skill}
+                  </div>
+                ))}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </motion.div>
         <div>
           <ScrollSvg elementID="experience-section" />
