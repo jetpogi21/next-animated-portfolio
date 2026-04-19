@@ -1,186 +1,272 @@
 "use client";
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
-import { motion, useScroll } from "framer-motion";
 import { FormEventHandler, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { Input } from "@/components/ui/Input";
-import { Textarea } from "@/components/ui/Textarea";
-import { Button } from "@/components/ui/Button";
-import { Label } from "@/components/ui/Label";
-import { Card, CardContent, CardHeader } from "@/components/ui/Card";
-import { Loader2 } from "lucide-react";
-
-type ContactProps = {};
-
-const Greetings = () => {
-  const text = "Hello World!";
-  return (
-    <div className="flex items-center justify-center text-6xl flex-1" style={{ color: "var(--color-accent)" }}>
-      <div>
-        {text.split("").map((letter, index) => (
-          <motion.span
-            key={index}
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 0 }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: index * 0.1,
-            }}
-          >
-            {letter}
-          </motion.span>
-        ))}
-        😊
-      </div>
-    </div>
-  );
-};
+import { Loader2, GitFork, ExternalLink, Globe } from "lucide-react";
 
 const getButtonCaption = (
   success: boolean,
   error: boolean,
   loading: boolean
 ) => {
-  if (loading) {
-    return <Loader2 className="size-4" />;
-  }
-  if (error) {
-    return "something went wrong!";
-  }
-  return success ? "message sent" : "send";
+  if (loading) return <Loader2 className="size-4 animate-spin" />;
+  if (error) return "something went wrong!";
+  return success ? "message sent" : "send message →";
 };
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-  const form = useRef(null);
+  const form = useRef<HTMLFormElement>(null);
 
   const buttonCaption = getButtonCaption(success, error, loading);
 
   const sendEmail: FormEventHandler = async (e) => {
     e.preventDefault();
-    console.log("form is current");
-
     if (!form.current) return;
-
-    setLoading(true); // Start loading
-
+    setLoading(true);
     try {
       const publicKey = process.env.NEXT_PUBLIC_EMAILJS_KEY;
-      if (!publicKey) {
-        throw new Error("EmailJS public key is missing");
-      }
+      if (!publicKey) throw new Error("EmailJS public key is missing");
       const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-      if (!serviceID) {
-        throw new Error("EmailJS service ID is missing");
-      }
+      if (!serviceID) throw new Error("EmailJS service ID is missing");
       const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-      if (!templateID) {
-        throw new Error("EmailJS template ID is missing");
-      }
+      if (!templateID) throw new Error("EmailJS template ID is missing");
       emailjs
-        .sendForm(serviceID, templateID, form.current, {
-          publicKey,
-        })
-        .then(() => {
-          setSuccess(true);
-        })
-        .catch((error) => {
-          console.error("Failed to send email:", error);
+        .sendForm(serviceID, templateID, form.current, { publicKey })
+        .then(() => setSuccess(true))
+        .catch((err) => {
+          console.error("Failed to send email:", err);
           setError(true);
         });
-    } catch (error) {
-      console.error("Error in sending email:", error);
+    } catch (err) {
+      console.error("Error sending email:", err);
       setError(true);
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
-
-  //contact_number hidden
-  //user_name text
-  //user_email text
-  //message textarea
 
   return (
     <form
       onSubmit={sendEmail}
       ref={form}
-      className="flex-1 rounded-xl text-xl flex flex-col gap-8 justify-center"
+      className="flex flex-col gap-7"
     >
-      <input
-        type="hidden"
-        name="contact_number"
-        value="1"
-      />
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="user_name" style={{ color: "var(--color-text-on-dark-muted)", fontFamily: "var(--font-karla)" }}>Your Name</Label>
-        <Input
+      <input type="hidden" name="contact_number" value="1" />
+
+      {/* Name */}
+      <div className="flex flex-col gap-1">
+        <label
+          htmlFor="user_name"
+          className="text-[0.6rem] uppercase tracking-widest"
+          style={{ color: "var(--color-accent)" }}
+        >
+          Name
+        </label>
+        <input
           required
           type="text"
           name="user_name"
           id="user_name"
-          placeholder="Your Name"
-          className="focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-          style={{ backgroundColor: "var(--color-hero-bg-deep)", color: "var(--color-text-on-dark)", borderColor: "var(--color-border)" }}
+          placeholder="Your full name"
+          className="bg-transparent border-b pb-2 text-sm outline-none placeholder:opacity-30 focus:border-b-[var(--color-accent)]"
+          style={{
+            borderColor: "var(--color-border)",
+            color: "var(--color-text-on-dark)",
+            fontFamily: "var(--font-karla)",
+          }}
         />
       </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="user_email" style={{ color: "var(--color-text-on-dark-muted)", fontFamily: "var(--font-karla)" }}>Your Email</Label>
-        <Input
+
+      {/* Email */}
+      <div className="flex flex-col gap-1">
+        <label
+          htmlFor="user_email"
+          className="text-[0.6rem] uppercase tracking-widest"
+          style={{ color: "var(--color-accent)" }}
+        >
+          Email
+        </label>
+        <input
           required
-          type="text"
+          type="email"
           name="user_email"
           id="user_email"
-          placeholder="Your Email"
-          className="focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-          style={{ backgroundColor: "var(--color-hero-bg-deep)", color: "var(--color-text-on-dark)", borderColor: "var(--color-border)" }}
+          placeholder="you@example.com"
+          className="bg-transparent border-b pb-2 text-sm outline-none placeholder:opacity-30 focus:border-b-[var(--color-accent)]"
+          style={{
+            borderColor: "var(--color-border)",
+            color: "var(--color-text-on-dark)",
+            fontFamily: "var(--font-karla)",
+          }}
         />
       </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="message" style={{ color: "var(--color-text-on-dark-muted)", fontFamily: "var(--font-karla)" }}>Your Message</Label>
-        <Textarea
+
+      {/* Message */}
+      <div className="flex flex-col gap-1">
+        <label
+          htmlFor="message"
+          className="text-[0.6rem] uppercase tracking-widest"
+          style={{ color: "var(--color-accent)" }}
+        >
+          Message
+        </label>
+        <textarea
           required
-          rows={6}
+          rows={5}
           name="message"
           id="message"
-          placeholder="Your Message"
-          className="focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-          style={{ backgroundColor: "var(--color-hero-bg-deep)", color: "var(--color-text-on-dark)", borderColor: "var(--color-border)" }}
+          placeholder="Your message..."
+          className="bg-transparent border-b pb-2 text-sm outline-none resize-none placeholder:opacity-30 focus:border-b-[var(--color-accent)]"
+          style={{
+            borderColor: "var(--color-border)",
+            color: "var(--color-text-on-dark)",
+            fontFamily: "var(--font-karla)",
+          }}
         />
       </div>
-      <Button
+
+      {/* Submit */}
+      <button
         type="submit"
-        className="capitalize"
-        style={{ backgroundColor: "var(--color-accent)", color: "var(--color-hero-bg)" }}
+        disabled={loading || success}
+        className="self-end mt-1 px-5 py-2 rounded text-xs uppercase tracking-widest font-bold transition-opacity disabled:opacity-60"
+        style={{
+          backgroundColor: "var(--color-accent)",
+          color: "var(--color-hero-bg-deep)",
+          fontFamily: "var(--font-karla)",
+        }}
       >
         {buttonCaption}
-      </Button>
+      </button>
     </form>
   );
 };
 
 export const Contact = () => {
-  const containerRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({ container: containerRef });
-
   return (
     <PageTransitionContainer>
-      {/* Main container */}
       <div
-        className="flex w-full justify-center gap-2 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-[var(--color-accent)] scrollbar-track-transparent scrollbar-thin pb-8"
-        ref={containerRef}
-        style={{ backgroundColor: "var(--color-body-bg)" }}
+        className="min-h-screen w-full"
+        style={{ backgroundColor: "var(--color-hero-bg-deep)" }}
       >
-        <Card className="w-full sm:max-w-md mx-auto" style={{ backgroundColor: "var(--color-hero-bg)" }}>
-          <CardHeader className="text-3xl mb-4" style={{ color: "var(--color-text-on-dark)" }}>Contact Me</CardHeader>
-          <CardContent>
+        <div className="max-w-4xl mx-auto px-6 pt-28 pb-16 flex flex-col sm:flex-row gap-12">
+
+          {/* LEFT — info panel */}
+          <div className="flex-1 flex flex-col gap-6">
+            <div>
+              <p
+                className="text-[0.6rem] uppercase tracking-widest mb-3"
+                style={{ color: "var(--color-accent)" }}
+              >
+                Get in touch
+              </p>
+              <h1
+                className="text-4xl font-bold leading-tight mb-3"
+                style={{
+                  color: "var(--color-text-on-dark)",
+                  fontFamily: "var(--font-fraunces)",
+                }}
+              >
+                Let&apos;s work<br />together.
+              </h1>
+              <p
+                className="text-sm leading-relaxed"
+                style={{
+                  color: "var(--color-text-on-dark-muted)",
+                  fontFamily: "var(--font-karla)",
+                }}
+              >
+                Open to freelance projects, consulting engagements, and full-time roles. I&apos;ll get back to you within 24 hours.
+              </p>
+            </div>
+
+            {/* Divider + contact details */}
+            <div
+              className="flex flex-col gap-5 pt-5"
+              style={{ borderTop: "1px solid var(--color-hero-bg)" }}
+            >
+              <div>
+                <p
+                  className="text-[0.6rem] uppercase tracking-widest mb-1"
+                  style={{ color: "var(--color-accent)" }}
+                >
+                  Email
+                </p>
+                <p
+                  className="text-sm"
+                  style={{
+                    color: "var(--color-text-on-dark)",
+                    fontFamily: "var(--font-karla)",
+                  }}
+                >
+                  jet_pradas@yahoo.com
+                </p>
+              </div>
+
+              <div>
+                <p
+                  className="text-[0.6rem] uppercase tracking-widest mb-2"
+                  style={{ color: "var(--color-accent)" }}
+                >
+                  Find me on
+                </p>
+                <div className="flex gap-2 flex-wrap">
+                  <a
+                    href="https://github.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                    style={{
+                      borderColor: "var(--color-hero-bg)",
+                      color: "var(--color-text-on-dark-muted)",
+                      fontFamily: "var(--font-karla)",
+                    }}
+                  >
+                    <GitFork className="size-3" /> GitHub
+                  </a>
+                  <a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                    style={{
+                      borderColor: "var(--color-hero-bg)",
+                      color: "var(--color-text-on-dark-muted)",
+                      fontFamily: "var(--font-karla)",
+                    }}
+                  >
+                    <ExternalLink className="size-3" /> LinkedIn
+                  </a>
+                  <a
+                    href="https://freelancer.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                    style={{
+                      borderColor: "var(--color-hero-bg)",
+                      color: "var(--color-text-on-dark-muted)",
+                      fontFamily: "var(--font-karla)",
+                    }}
+                  >
+                    <Globe className="size-3" /> Freelancer
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT — form card */}
+          <div
+            className="flex-[1.1] rounded-xl p-7"
+            style={{ backgroundColor: "var(--color-hero-bg)" }}
+          >
             <ContactForm />
-          </CardContent>
-        </Card>
+          </div>
+
+        </div>
       </div>
     </PageTransitionContainer>
   );
