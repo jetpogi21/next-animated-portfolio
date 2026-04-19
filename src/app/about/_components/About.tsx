@@ -99,13 +99,29 @@ const Biography = () => {
   const subcontent =
     "I am deeply passionate about leveraging technology to solve complex problems and optimize business operations. Whether it's designing intuitive user interfaces, optimizing database performance, or developing custom macros, I thrive on the challenge of turning ideas into reality and delivering tangible results that exceed expectations.";
   return (
-    <div className="flex flex-col gap-12 justify-center min-h-[calc(100vh-6rem)]">
+    <div className="flex flex-col gap-8 justify-center min-h-[calc(100vh-6rem)]">
       <h1>About me</h1>
+      <p className="text-3xl font-bold text-foreground leading-tight">
+        Full-Stack Developer &amp; Certified CPA
+      </p>
       <p>{content}</p>
-      <span className="italic">{subcontent}</span>
+      <p>{subcontent}</p>
+      <div className="flex gap-8">
+        <div className="flex flex-col">
+          <span className="text-2xl font-bold text-[#d4956a]">10+</span>
+          <span className="text-xs text-muted-foreground">Years Experience</span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-2xl font-bold text-[#d4956a]">CPA</span>
+          <span className="text-xs text-muted-foreground">Certified</span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-2xl font-bold text-[#d4956a]">50+</span>
+          <span className="text-xs text-muted-foreground">Projects</span>
+        </div>
+      </div>
       <div className="flex justify-between">
         <ScrollSvg elementID="skills-section" />
-        {/* <Signature /> */}
       </div>
     </div>
   );
