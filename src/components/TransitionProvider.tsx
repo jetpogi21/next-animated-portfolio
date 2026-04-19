@@ -20,7 +20,7 @@ export const TransitionProvider = ({
     <AnimatePresence mode="wait">
       <div
         key={pathName}
-        className="w-screen min-h-screen bg-(--color-body-bg)"
+        className="w-screen flex flex-col h-screen bg-(--color-body-bg)"
       >
         <motion.div
           className={cn(
@@ -76,10 +76,10 @@ export const TransitionProvider = ({
               : { height: "0vh", transition: { delay: 0.5, duration: 0.5 } }
           }
         />
-        <div className="h-[--header-h]">
+        <div className="flex items-center py-5" style={{ backgroundColor: "var(--color-hero-bg)" }}>
           <Navbar />
         </div>
-        <div className="overflow-y-hidden">{children}</div>
+        <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
     </AnimatePresence>
   );

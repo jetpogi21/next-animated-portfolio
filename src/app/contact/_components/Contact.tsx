@@ -144,10 +144,10 @@ export const Contact = () => {
   return (
     <PageTransitionContainer margin="none">
       <div
-        className="min-h-screen w-full overflow-y-auto"
+        className="w-full"
         style={{ backgroundColor: "var(--color-hero-bg-deep)" }}
       >
-        <div className="max-w-4xl mx-auto px-6 pt-28 pb-16 flex flex-col sm:flex-row gap-12">
+        <div className="max-w-4xl mx-auto px-6 py-16 flex flex-col sm:flex-row gap-12 items-center">
 
           {/* LEFT — info panel */}
           <div className="flex-1 flex flex-col gap-6">
