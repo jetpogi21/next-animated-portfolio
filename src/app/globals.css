@@ -37,6 +37,8 @@
   --accent: var(--color-accent);
   --accent-foreground: var(--color-text-on-dark);
   --destructive: #c0392b;
+  --destructive-foreground: #f8f3ed;
+  --ring-offset-background: var(--color-body-bg);
   --border: var(--color-border-light);
   --input: var(--color-border-light);
   --ring: var(--color-accent);
@@ -65,13 +67,15 @@
   --accent: var(--color-accent);
   --accent-foreground: var(--color-hero-bg);
   --destructive: #e74c3c;
+  --destructive-foreground: #f8f3ed;
+  --ring-offset-background: var(--color-body-bg);
   --border: var(--color-border);
   --input: var(--color-border);
   --ring: var(--color-accent);
 }
 
 * {
-  border-color: var(--color-border-light);
+  border-color: var(--border);
 }
 
 body {
