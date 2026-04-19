@@ -15,7 +15,7 @@ type ContactProps = {};
 const Greetings = () => {
   const text = "Hello World!";
   return (
-    <div className="flex items-center justify-center text-6xl flex-1">
+    <div className="flex items-center justify-center text-6xl flex-1" style={{ color: "var(--color-accent)" }}>
       <div>
         {text.split("").map((letter, index) => (
           <motion.span
@@ -116,38 +116,45 @@ const ContactForm = () => {
         value="1"
       />
       <div className="flex flex-col gap-2">
-        <Label htmlFor="user_name">Your Name</Label>
+        <Label htmlFor="user_name" style={{ color: "var(--color-text-on-dark-muted)", fontFamily: "var(--font-karla)" }}>Your Name</Label>
         <Input
           required
           type="text"
           name="user_name"
           id="user_name"
           placeholder="Your Name"
+          className="focus:ring-[#d4956a] focus:border-[#d4956a]"
+          style={{ backgroundColor: "var(--color-hero-bg-deep)", color: "var(--color-text-on-dark)", borderColor: "var(--color-border)" }}
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="user_email">Your Email</Label>
+        <Label htmlFor="user_email" style={{ color: "var(--color-text-on-dark-muted)", fontFamily: "var(--font-karla)" }}>Your Email</Label>
         <Input
           required
           type="text"
           name="user_email"
           id="user_email"
           placeholder="Your Email"
+          className="focus:ring-[#d4956a] focus:border-[#d4956a]"
+          style={{ backgroundColor: "var(--color-hero-bg-deep)", color: "var(--color-text-on-dark)", borderColor: "var(--color-border)" }}
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="message">Your Message</Label>
+        <Label htmlFor="message" style={{ color: "var(--color-text-on-dark-muted)", fontFamily: "var(--font-karla)" }}>Your Message</Label>
         <Textarea
           required
           rows={6}
           name="message"
           id="message"
           placeholder="Your Message"
+          className="focus:ring-[#d4956a] focus:border-[#d4956a]"
+          style={{ backgroundColor: "var(--color-hero-bg-deep)", color: "var(--color-text-on-dark)", borderColor: "var(--color-border)" }}
         />
       </div>
       <Button
         type="submit"
         className="capitalize"
+        style={{ backgroundColor: "var(--color-accent)", color: "var(--color-hero-bg)" }}
       >
         {buttonCaption}
       </Button>
@@ -166,9 +173,10 @@ export const Contact = () => {
       <div
         className="flex w-full justify-center gap-2 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-slate-400 scrollbar-track-transparent scrollbar-thin pb-8"
         ref={containerRef}
+        style={{ backgroundColor: "var(--color-body-bg)" }}
       >
-        <Card className="bg-background w-full sm:max-w-md mx-auto">
-          <CardHeader className="text-3xl mb-4">Contact Me</CardHeader>
+        <Card className="w-full sm:max-w-md mx-auto" style={{ backgroundColor: "var(--color-hero-bg)" }}>
+          <CardHeader className="text-3xl mb-4" style={{ color: "var(--color-text-on-dark)" }}>Contact Me</CardHeader>
           <CardContent>
             <ContactForm />
           </CardContent>
