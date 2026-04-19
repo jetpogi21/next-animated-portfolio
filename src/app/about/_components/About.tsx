@@ -221,7 +221,7 @@ const Experience = () => {
         ref={ref}
         className="flex flex-col gap-8 w-full"
       >
-        <motion.h1 {...enterAnimationProps}>experience</motion.h1>
+        <motion.h1 {...enterAnimationProps}>Experience</motion.h1>
         <motion.div
           className="flex flex-col "
           {...enterAnimationProps}
