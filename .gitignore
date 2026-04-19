@@ -46,3 +46,6 @@ my.diff
 
 # git worktrees
 .worktrees/
+
+# screenshot artifacts
+*.png
