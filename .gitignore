@@ -49,3 +49,4 @@ my.diff
 
 # screenshot artifacts
 *.png
+.claude/worktrees/
