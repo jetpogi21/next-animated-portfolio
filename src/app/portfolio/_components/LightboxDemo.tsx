@@ -54,6 +54,11 @@ export const LightboxDemo = ({ slides }: LightboxDemoProps) => {
         //@ts-ignore
         render={{ slide: NextJsImage, thumbnail: NextJsImage }}
         plugins={[Thumbnails]}
+        styles={{
+          container: { backgroundColor: "rgba(26, 17, 10, 0.95)" },
+          navigationPrev: { color: "#d4956a" },
+          navigationNext: { color: "#d4956a" },
+        }}
       />
     </>
   );

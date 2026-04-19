@@ -99,13 +99,16 @@ const portfolioItems: PortfolioType[] = [
 
 const LastSlide = () => {
   return (
-    <div className="min-h-[calc(100vh-6rem)] flex items-center justify-center w-screen ">
+    <div
+      className="min-h-[calc(100vh-6rem)] flex items-center justify-center w-screen "
+      style={{ backgroundColor: "var(--color-hero-bg)" }}
+    >
       <div
         className={cn(
           "flex w-full p-20 h-full justify-center flex-col gap-4 items-center"
         )}
       >
-        <h1 className="text-6xl text-center">Do you have a project?</h1>
+        <h1 className="text-6xl text-center" style={{ color: "#f8f3ed" }}>Do you have a project?</h1>
         <div className="relative">
           <motion.svg
             animate={{ rotate: 360 }}
@@ -119,10 +122,11 @@ const LastSlide = () => {
                 d="M 250, 250 m -100, 0 a 100,100 0 0,1 200,0 a 100,100 0 0,1 -200,0 " // Adjusted path to match the new viewBox size
               />
             </defs>
-            <text className="fill-foreground">
+            <text>
               <textPath
                 xlinkHref="#circlePath"
                 className="text-2xl font-semibold"
+                fill="#d4956a"
               >
                 Do you need a Full-stack Web and VBA Developer?
               </textPath>
@@ -130,7 +134,8 @@ const LastSlide = () => {
           </motion.svg>
           <Link
             href="/contact"
-            className="w-48 h-48 md:w-48 md:h-48 absolute top-0 left-0 right-0 bottom-0 m-auto bg-primary text-primary-foreground rounded-full flex items-center justify-center text-4xl text-center font-semibold"
+            className="w-48 h-48 md:w-48 md:h-48 absolute top-0 left-0 right-0 bottom-0 m-auto rounded-full flex items-center justify-center text-4xl text-center font-semibold"
+            style={{ backgroundColor: "#d4956a", color: "#2d1f14" }}
           >
             Hire Me
           </Link>
@@ -151,6 +156,7 @@ export const Portfolio = () => {
       {/* Main container */}
       <div
         className="h-full w-screen relative"
+        style={{ backgroundColor: "var(--color-body-bg)" }}
         /* style={{ height: pageHeight }} */
       >
         {/* <LightboxDemo /> */}
@@ -175,6 +181,7 @@ export const Portfolio = () => {
                 return (
                   <div
                     className="min-h-[calc(100vh-6rem)] flex items-center justufy-center w-screen"
+                    style={{ backgroundColor: "var(--color-body-bg-alt)" }}
                     key={item.name}
                   >
                     <div
@@ -183,7 +190,10 @@ export const Portfolio = () => {
                         containerVariants()
                       )}
                     >
-                      <h1 className="font-semibold text-5xl text-center">
+                      <h1
+                        className="font-semibold text-5xl text-center"
+                        style={{ fontFamily: "var(--font-fraunces)", color: "var(--color-text-primary)" }}
+                      >
                         {item.name}
                       </h1>
                       <div className="h-[400px] w-full flex items-center justify-center overflow-hidden rounded-lg">
@@ -206,6 +216,17 @@ export const Portfolio = () => {
                         </div> */}
                       </div>
                       <p>{item.description}</p>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {item.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-1 text-xs font-medium border rounded-sm"
+                            style={{ borderColor: "var(--color-accent)", color: "var(--color-accent)", fontFamily: "var(--font-karla)" }}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 );
