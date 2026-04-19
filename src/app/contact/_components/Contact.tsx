@@ -2,7 +2,7 @@
 import { PageTransitionContainer } from "@/components/PageTransitionContainer";
 import { FormEventHandler, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { Loader2, GitBranch, Briefcase, Globe } from "lucide-react";
+import { Loader2, GitBranch, Globe } from "lucide-react";
 
 const getButtonCaption = (
   success: boolean,
@@ -33,13 +33,8 @@ const ContactForm = () => {
       if (!serviceID) throw new Error("EmailJS service ID is missing");
       const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
       if (!templateID) throw new Error("EmailJS template ID is missing");
-      emailjs
-        .sendForm(serviceID, templateID, form.current, { publicKey })
-        .then(() => setSuccess(true))
-        .catch((err) => {
-          console.error("Failed to send email:", err);
-          setError(true);
-        });
+      await emailjs.sendForm(serviceID, templateID, form.current, { publicKey });
+      setSuccess(true);
     } catch (err) {
       console.error("Error sending email:", err);
       setError(true);
@@ -147,9 +142,9 @@ const ContactForm = () => {
 
 export const Contact = () => {
   return (
-    <PageTransitionContainer>
+    <PageTransitionContainer margin="none">
       <div
-        className="min-h-screen w-full"
+        className="min-h-screen w-full overflow-y-auto"
         style={{ backgroundColor: "var(--color-hero-bg-deep)" }}
       >
         <div className="max-w-4xl mx-auto px-6 pt-28 pb-16 flex flex-col sm:flex-row gap-12">
@@ -215,7 +210,7 @@ export const Contact = () => {
                 </p>
                 <div className="flex gap-2 flex-wrap">
                   <a
-                    href="https://github.com"
+                    href="https://github.com/jetpogi21"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
@@ -228,7 +223,7 @@ export const Contact = () => {
                     <GitBranch className="size-3" /> GitHub
                   </a>
                   <a
-                    href="https://linkedin.com"
+                    href="https://linkedin.com/in/jet-dev"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
@@ -238,10 +233,10 @@ export const Contact = () => {
                       fontFamily: "var(--font-karla)",
                     }}
                   >
-                    <Briefcase className="size-3" /> LinkedIn
+                    <Globe className="size-3" /> LinkedIn
                   </a>
                   <a
-                    href="https://freelancer.com"
+                    href="https://www.freelancer.com/u/jonathanpradas"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded border transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
