@@ -43,3 +43,6 @@ my.diff
 
 # superpowers brainstorm session artifacts
 .superpowers/
+
+# git worktrees
+.worktrees/
