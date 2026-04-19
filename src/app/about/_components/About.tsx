@@ -250,19 +250,19 @@ const LastSection = () => {
           <div className="flex flex-col gap-3 w-48">
             <Link
               href="/portfolio"
-              className="px-6 py-3 rounded-sm text-base font-bold text-center bg-[#d4956a] text-[#2d1f14]"
+              className="px-6 py-3 rounded-sm text-base font-bold text-center bg-[#d4956a] text-[#2d1f14] transition-opacity duration-200 hover:opacity-80"
             >
               View My Works →
             </Link>
             <Link
               href="/resume"
-              className="px-6 py-3 rounded-sm text-base text-center border border-[#d4956a] text-[#d4956a]"
+              className="px-6 py-3 rounded-sm text-base text-center border border-[#d4956a] text-[#d4956a] transition-opacity duration-200 hover:opacity-80"
             >
               View My Resume →
             </Link>
             <Link
               href="/contact"
-              className="px-6 py-3 rounded-sm text-base text-center border border-gray-600 text-muted-foreground"
+              className="px-6 py-3 rounded-sm text-base text-center border border-foreground/20 text-muted-foreground transition-opacity duration-200 hover:opacity-70"
             >
               Contact Me →
             </Link>
