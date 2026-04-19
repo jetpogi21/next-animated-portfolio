@@ -1,35 +1,37 @@
-import { Inter as FontSans } from "next/font/google";
+import type { Metadata } from "next";
+import { Fraunces, Karla } from "next/font/google";
 import "./globals.css";
-import { ReactNode } from "react";
-import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { TransitionProvider } from "@/components/TransitionProvider";
 
-const fontSans = FontSans({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-fraunces",
+  weight: ["300", "700", "900"],
+  display: "swap",
 });
 
-export const metadata = {
-  title: "Jet Dev Portfolio App",
+const karla = Karla({
+  subsets: ["latin"],
+  variable: "--font-karla",
+  weight: ["400", "500", "700"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "Jonathan Pradas — Full-Stack Developer & CPA",
   description:
-    "A dynamic and interactive portfolio website designed to showcase a developer's projects, skills, and achievements in a visually engaging and professional manner.",
+    "I build systems that turn your data into decisions. CPA + full-stack developer with 10+ years building financial and web systems.",
 };
 
-type RootLayoutProps = { children: ReactNode };
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
-      <body
-        className={cn(
-          "font-sans bg-background antialiased min-h-screen",
-          fontSans.variable
-        )}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${fraunces.variable} ${karla.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
