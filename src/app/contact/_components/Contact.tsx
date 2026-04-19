@@ -171,7 +171,7 @@ export const Contact = () => {
     <PageTransitionContainer>
       {/* Main container */}
       <div
-        className="flex w-full justify-center gap-2 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-slate-400 scrollbar-track-transparent scrollbar-thin pb-8"
+        className="flex w-full justify-center gap-2 scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm  scrollbar-thumb-[var(--color-accent)] scrollbar-track-transparent scrollbar-thin pb-8"
         ref={containerRef}
         style={{ backgroundColor: "var(--color-body-bg)" }}
       >
