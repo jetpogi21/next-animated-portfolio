@@ -231,39 +231,42 @@ const LastSection = () => {
     animate: inView ? { x: 0 } : {},
     transition: { delay: 0.2 },
   };
+
   return (
     <div
       className="flex min-h-[calc(100vh-6rem)] w-full items-center justify-center"
       id="last-section"
       style={{ backgroundColor: "var(--color-hero-bg)" }}
     >
-      <div
-        ref={ref}
-        className="flex flex-row gap-8 items-center"
-      >
+      <div ref={ref}>
         <motion.div
-          className="flex flex-col gap-8 items-center"
+          className="flex flex-col gap-6 items-center text-center"
           {...enterAnimationProps}
         >
-          <Link
-            href="/portfolio"
-            className="px-4 py-2 rounded-sm text-3xl font-semibold bg-[#d4956a] text-[#2d1f14]"
-          >
-            View My Works
-          </Link>
-          <Link
-            href="/resume"
-            className="px-4 py-2 rounded-sm text-3xl font-semibold bg-[#d4956a] text-[#2d1f14]"
-          >
-            View My Resume
-          </Link>
-          <div className="text-2xl" style={{ color: "var(--color-text-on-dark-muted)" }}>OR</div>
-          <Link
-            href="/contact"
-            className="px-4 py-2 font-semibold rounded-sm border border-[#d4956a] text-3xl bg-[#d4956a] text-[#2d1f14]"
-          >
-            Contact Me
-          </Link>
+          <h2 className="text-3xl font-bold text-foreground">What&apos;s next?</h2>
+          <p className="text-sm text-muted-foreground max-w-xs">
+            Explore my work, download my resume, or reach out directly.
+          </p>
+          <div className="flex flex-col gap-3 w-48">
+            <Link
+              href="/portfolio"
+              className="px-6 py-3 rounded-sm text-base font-bold text-center bg-[#d4956a] text-[#2d1f14]"
+            >
+              View My Works →
+            </Link>
+            <Link
+              href="/resume"
+              className="px-6 py-3 rounded-sm text-base text-center border border-[#d4956a] text-[#d4956a]"
+            >
+              View My Resume →
+            </Link>
+            <Link
+              href="/contact"
+              className="px-6 py-3 rounded-sm text-base text-center border border-gray-600 text-muted-foreground"
+            >
+              Contact Me →
+            </Link>
+          </div>
         </motion.div>
       </div>
     </div>
