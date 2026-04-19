@@ -8,10 +8,10 @@ Resolve every ambiguity so the work that follows is scoped correctly. **Do not w
 
 Before asking the user anything, do a **short, targeted investigation**:
 
-1. **Orient** — If scope is unclear, read **`CLAUDE.md`** (scripts, **`src/`** layout).
-2. **Locate** — Use **grep**, **semantic search**, or the user’s screenshot/route/strings to find owning files under **`src/app/`**, **`src/components/`**, **`src/lib/`**.
+1. **Orient** — If scope is unclear, read the repo’s usual agent/onboarding docs if they exist (**`AGENTS.md`**, **`README.md`**, **`CONTRIBUTING.md`**, **`CLAUDE.md`**, etc.): scripts, source layout, and conventions.
+2. **Locate** — Use **grep**, **semantic search**, or the user’s screenshot/route/strings to find the owning implementation (packages, services, routes, UI — wherever this codebase keeps that layer).
 3. **Read** — Open the **few files that actually implement** the feature (often 2–6 files): UI, data layer, and any existing tests touching the same flow.
-4. **Note facts** — Summarize what you found: routes, types, save paths, tables/columns already involved, and what is **not** yet clear from the code.
+4. **Note facts** — Summarize what you found: entrypoints, types, persistence or API boundaries, and what is **not** yet clear from the code.
 
 **Allowed in this phase:** read/search tools, listing directories, reading MCP tool schemas for later use. **Not allowed yet:** implementing the requested change (application code, schema migrations, new tests).
 
@@ -41,7 +41,7 @@ Skip boilerplate questions that Phase 1 already answered (e.g. which app, which 
 
 **Data**
 
-- When a **new** column or table might be needed: confirm naming, nullable vs required, and whether to sync with live Supabase (see project schema skills) before editing migrations.
+- When a **new** column, table, or persistence shape might be needed: confirm naming, nullable vs required, and whether to **verify against the real schema or database** (per project docs, introspection tools, or MCP) before editing migrations or ORM models.
 
 **Edge cases**
 
