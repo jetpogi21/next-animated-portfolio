@@ -39,7 +39,7 @@ const JobTimeline = ({
   return (
     <div className="flex gap-4">
       <div className="flex flex-col items-center">
-        <div className="w-3 h-3 rounded-full bg-[#d4956a] mt-1 shrink-0" />
+        <div className="w-3 h-3 rounded-full bg-(--color-accent) mt-1 shrink-0" />
         {!isLast && <div className="w-0.5 flex-1 bg-gray-600 mt-1" />}
       </div>
       <div className="flex flex-col gap-1 pb-8">
@@ -72,15 +72,15 @@ const Biography = () => {
       <p>{subcontent}</p>
       <div className="flex gap-8">
         <div className="flex flex-col">
-          <span className="text-2xl font-bold text-[var(--color-accent)]">10+</span>
+          <span className="text-2xl font-bold text-(--color-accent)">10+</span>
           <span className="text-xs text-muted-foreground">Years Experience</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-2xl font-bold text-[var(--color-accent)]">CPA</span>
+          <span className="text-2xl font-bold text-(--color-accent)">CPA</span>
           <span className="text-xs text-muted-foreground">Certified</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-2xl font-bold text-[var(--color-accent)]">50+</span>
+          <span className="text-2xl font-bold text-(--color-accent)">50+</span>
           <span className="text-xs text-muted-foreground">Projects</span>
         </div>
       </div>
@@ -118,7 +118,7 @@ const Skills = () => {
                 {group.skills.map((skill) => (
                   <div
                     key={skill}
-                    className="rounded-sm px-3 py-1 text-sm border border-[#d4956a] text-[#d4956a] hover:bg-[#2d1f14] hover:text-[#f8f3ed] hover:scale-[1.04] transition-all duration-200 cursor-default"
+                    className="rounded-sm px-3 py-1 text-sm border border-(--color-accent) text-(--color-accent) hover:bg-[#2d1f14] hover:text-[#f8f3ed] hover:scale-[1.04] transition-all duration-200 cursor-default"
                   >
                     {skill}
                   </div>
@@ -233,13 +233,13 @@ const LastSection = () => {
           <div className="flex flex-col gap-3 w-48">
             <Link
               href="/portfolio"
-              className="px-6 py-3 rounded-sm text-base font-bold text-center bg-[#d4956a] text-[#2d1f14] transition-opacity duration-200 hover:opacity-80"
+              className="px-6 py-3 rounded-sm text-base font-bold text-center bg-(--color-accent) text-[#2d1f14] transition-opacity duration-200 hover:opacity-80"
             >
               View My Works →
             </Link>
             <Link
               href="/resume"
-              className="px-6 py-3 rounded-sm text-base text-center border border-[#d4956a] text-[#d4956a] transition-opacity duration-200 hover:opacity-80"
+              className="px-6 py-3 rounded-sm text-base text-center border border-(--color-accent) text-(--color-accent) transition-opacity duration-200 hover:opacity-80"
             >
               View My Resume →
             </Link>
@@ -263,13 +263,13 @@ export const About = () => {
   return (
     <PageTransitionContainer margin="right">
       <div
-        className="flex flex-col overflow-y-scroll h-full scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-thumb-[#d4956a] scrollbar-track-transparent scrollbar-thin"
+        className="flex flex-col overflow-y-scroll h-full scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-thumb-(--color-accent) scrollbar-track-transparent scrollbar-thin"
         ref={containerRef}
         style={{ backgroundColor: "var(--color-body-bg)" }}
       >
         {/* Scroll progress bar */}
         <motion.div
-          className="sticky top-0 left-0 h-0.5 bg-[#d4956a] z-10 w-full origin-left shrink-0"
+          className="sticky top-0 left-0 h-0.5 bg-(--color-accent) z-10 w-full origin-left shrink-0"
           style={{ scaleX: scrollYProgress }}
         />
         {/* Columns */}
