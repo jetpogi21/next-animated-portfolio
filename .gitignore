@@ -53,3 +53,35 @@ credentials.local
 # screenshot artifacts
 *.png
 .claude/worktrees/
+
+# telegram / portal scraping workspace (not part of the portfolio — contains secrets & scraped data)
+__pycache__/
+*.session
+_winfix.py
+telegram_reader.py
+telegram_richard.py
+telegram_read_richard.py
+telegram_media_reader.py
+download_contract.py
+pdf_to_images.py
+portal_investigation.py
+scan_richard.py
+telegram_media/
+telegram_media_richard/
+.telegram_media/
+.tg-media-richard/
+.tmp_richard_media/
+.richard-media/
+_richard_media/
+_richard_media2/
+richard_media/
+richard_msgs/
+richard_photos/
+portal_html_files/
+richard_all_messages.txt
+richard_portal_messages.txt
+richard_messages.txt
+richard_debug.txt
+
+# generated work log (/time-track)
+TIME-TRACKING.md
